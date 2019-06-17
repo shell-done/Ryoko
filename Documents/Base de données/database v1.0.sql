@@ -1,3 +1,7 @@
+drop database if exists Ryoko;
+create database Ryoko;
+use Ryoko;
+
 drop table if exists BOOKING;
 
 drop table if exists COUNTRY;
@@ -73,3 +77,7 @@ alter table BOOKING add constraint FK_OF foreign key (ID_TRAVEL)
 
 alter table TRAVEL add constraint FK_IS_IN foreign key (ID_COUNTRY)
       references COUNTRY (ID_COUNTRY) on delete restrict on update restrict;
+
+drop user if exists 'Ryoko';
+create user 'Ryoko'@'localhost' IDENTIFIED BY '#grp11@Ryoko!';
+grant all privileges ON Ryoko.* TO 'Ryoko'@'localhost';
