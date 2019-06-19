@@ -16,7 +16,7 @@ drop table if exists User;
 /*------------------------------------------------------------*/
 CREATE TABLE Country(
 	iso_code Varchar (3) NOT NULL,
-    name     Varchar (3) NOT NULL,
+    name     Varchar (64) NOT NULL,
 	
 	primary key(iso_code)
 )ENGINE=InnoDB;

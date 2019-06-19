@@ -76,8 +76,30 @@
           </td>
         </tr>
       </table>
+
+      <h2>Nos meilleurs destinations</h2>
+      <div class="best-dest-list">
+        <div class="best-dest">
+          <img src="img/thumbs/turquie.jpg" />
+          <h4>Istanbul</h4>
+          <span>2 mois</span>
+        </div>
+
+        <div class="best-dest">
+          <img src="img/thumbs/france.jpg" />
+          <h4>Paris</h4>
+          <span>3 jours</span>
+        </div>
+
+        <div class="best-dest">
+          <img src="img/thumbs/maldives.jpg" />
+          <h4>Maldives</h4>
+          <span>2 semaines</span>
+        </div>
+      </div>
     </div>
 
+    <?php require_once("php/parts/footer.html"); ?>
   </body>
 
   <!-- Load scripts -->
