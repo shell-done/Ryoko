@@ -10,6 +10,7 @@ function dbConnect(){
         //error_log('Connection error: '.$exception->getMessage());
         return false;
     }
+    
     return $db;
 }
 ?>

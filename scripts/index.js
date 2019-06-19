@@ -8,6 +8,10 @@ $(document).ready(function(){
 
   $("#search-price").on("input", function () {
     var value = $(this).val();
+
+    if(value == 5000)
+      value = "> 5000";
+
     $("#search-price-value").text(value + " €");
   });
 });

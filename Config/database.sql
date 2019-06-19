@@ -17,7 +17,7 @@ drop table if exists User;
 CREATE TABLE Country(
 	iso_code Varchar (3) NOT NULL,
     name     Varchar (64) NOT NULL,
-	
+
 	primary key(iso_code)
 )ENGINE=InnoDB;
 
@@ -36,7 +36,7 @@ CREATE TABLE User(
     zip_code   Varchar (16) NOT NULL,
     birth_date Date NOT NULL,
     country    Varchar (3) NOT NULL,
-	
+
 	primary key(email)
 )ENGINE=InnoDB;
 
@@ -52,8 +52,8 @@ CREATE TABLE Travel(
     duration      Int NOT NULL,
     cost          Float NOT NULL,
     img_directory Varchar (128) NOT NULL,
-    country       Varchar (3) NOT NULL,
-	
+    country_code  Varchar (3) NOT NULL,
+
 	primary key(id_travel)
 )ENGINE=InnoDB;
 
@@ -68,20 +68,20 @@ CREATE TABLE Booking (
     return_date       Date NOT NULL,
     total_cost        Float NOT NULL,
     validation_status Varchar (8) NOT NULL,
-	
+
 	primary key(id_travel, user_email)
 )ENGINE=InnoDB;
 
 
 ALTER TABLE User ADD CONSTRAINT FK_USER_COUNTRY FOREIGN KEY User(country)
 	REFERENCES Country(iso_code) ON DELETE RESTRICT ON UPDATE CASCADE;
-	
-ALTER TABLE Travel ADD CONSTRAINT FK_TRAVEL_COUNTRY FOREIGN KEY Travel(country)
+
+ALTER TABLE Travel ADD CONSTRAINT FK_TRAVEL_COUNTRY FOREIGN KEY Travel(country_code)
 	REFERENCES Country(iso_code) ON DELETE CASCADE ON UPDATE CASCADE;
-	
+
 ALTER TABLE Booking ADD CONSTRAINT FK_BOOKING_TRAVEL FOREIGN KEY Booking(id_travel)
 	REFERENCES Travel(id_travel) ON DELETE CASCADE ON UPDATE CASCADE;
-	
+
 ALTER TABLE Booking ADD CONSTRAINT FK_BOOKING_USER FOREIGN KEY Booking(user_email)
 	REFERENCES User(email) ON DELETE CASCADE ON UPDATE CASCADE;
 
