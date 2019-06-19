@@ -2,80 +2,89 @@ drop database if exists Ryoko;
 create database Ryoko;
 use Ryoko;
 
-drop table if exists BOOKING;
+drop table if exists Booking;
 
-drop table if exists COUNTRY;
+drop table if exists Country;
 
-drop table if exists TRAVEL;
+drop table if exists Travel;
 
-drop table if exists USER;
+drop table if exists User;
 
-/*==============================================================*/
-/* Table : BOOKING                                              */
-/*==============================================================*/
-create table BOOKING
-(
-   ID_BOOKING           int not null auto_increment,
-   ID_TRAVEL            int not null,
-   ID_USER              int not null,
-   DEPARTURE_DATE       date not null,
-   ARRIVAL_DATE         date not null,
-   TOTAL_COST           decimal not null,
-   VALIDATION           varchar(8) not null,
-   primary key (ID_BOOKING)
-);
 
-/*==============================================================*/
-/* Table : COUNTRY                                              */
-/*==============================================================*/
-create table COUNTRY
-(
-   ID_COUNTRY           int not null auto_increment,
-   ISO_CODE             char(2) not null,
-   NAME                 varchar(64) not null,
-   primary key (ID_COUNTRY)
-);
+/*------------------------------------------------------------*/
+/* Table: Country
+/*------------------------------------------------------------*/
+CREATE TABLE Country(
+	iso_code Varchar (3) NOT NULL,
+    name     Varchar (3) NOT NULL,
+	
+	primary key(iso_code)
+)ENGINE=InnoDB;
 
-/*==============================================================*/
-/* Table : TRAVEL                                               */
-/*==============================================================*/
-create table TRAVEL
-(
-   ID_TRAVEL            int not null auto_increment,
-   ID_COUNTRY           int not null,
-   TITLE                char(64) not null,
-   DESCRIPTION          text not null,
-   DURATION             int not null,
-   COST                 decimal not null,
-   primary key (ID_TRAVEL)
-);
 
-/*==============================================================*/
-/* Table : USER                                                 */
-/*==============================================================*/
-create table USER
-(
-   ID_USER              int not null auto_increment,
-   PASSWORD             char(64) not null,
-   NAME                 varchar(64) not null,
-   FIRST_NAME           varchar(64) not null,
-   EMAIL                varchar(64) not null,
-   PHONE                varchar(10) not null,
-   COUNTRY              char(64) not null,
-   CITY                 char(64) not null,
-   POSTAL_CODE          char(16) not null,
-   BIRTH_DATE           date not null,
-   primary key (ID_USER)
-);
+/*------------------------------------------------------------*/
+/* Table: User
+/*------------------------------------------------------------*/
 
-alter table BOOKING add constraint FK_BOOK foreign key (ID_USER)
-      references USER (ID_USER) on delete restrict on update restrict;
+CREATE TABLE User(
+	email      Varchar (128) NOT NULL,
+    password   Varchar (64) NOT NULL,
+    name       Varchar (64) NOT NULL,
+    first_name Varchar (64) NOT NULL,
+    phone      Varchar (10) NOT NULL,
+    city       Varchar (64) NOT NULL,
+    zip_code   Varchar (16) NOT NULL,
+    birth_date Date NOT NULL,
+    country    Varchar (3) NOT NULL,
+	
+	primary key(email)
+)ENGINE=InnoDB;
 
-alter table BOOKING add constraint FK_OF foreign key (ID_TRAVEL)
-      references TRAVEL (ID_TRAVEL) on delete restrict on update restrict;
 
-alter table TRAVEL add constraint FK_IS_IN foreign key (ID_COUNTRY)
-      references COUNTRY (ID_COUNTRY) on delete restrict on update restrict;
+/*------------------------------------------------------------*/
+/* Table: Travel
+/*------------------------------------------------------------*/
+
+CREATE TABLE Travel(
+	id_travel     Int NOT NULL AUTO_INCREMENT,
+    title         Varchar (64) NOT NULL,
+    description   Text NOT NULL,
+    duration      Int NOT NULL,
+    cost          Float NOT NULL,
+    img_directory Varchar (128) NOT NULL,
+    main_img_path Varchar (128) NOT NULL,
+    country       Varchar (3) NOT NULL,
+	
+	primary key(id_travel)
+)ENGINE=InnoDB;
+
+
+/*------------------------------------------------------------*/
+/* Table: Booking
+/*------------------------------------------------------------*/
+CREATE TABLE Booking (
+	id_travel         Int NOT NULL,
+    user_email        Varchar (128) NOT NULL,
+    departure_date    Date NOT NULL,
+    return_date       Date NOT NULL,
+    total_cost        Float NOT NULL,
+    validation_status Varchar (8) NOT NULL,
+	
+	primary key(id_travel, user_email)
+)ENGINE=InnoDB;
+
+
+ALTER TABLE User ADD CONSTRAINT FK_USER_COUNTRY FOREIGN KEY User(country)
+	REFERENCES Country(iso_code) ON DELETE RESTRICT ON UPDATE CASCADE;
+	
+ALTER TABLE Travel ADD CONSTRAINT FK_TRAVEL_COUNTRY FOREIGN KEY Travel(country)
+	REFERENCES Country(iso_code) ON DELETE CASCADE ON UPDATE CASCADE;
+	
+ALTER TABLE Booking ADD CONSTRAINT FK_BOOKING_TRAVEL FOREIGN KEY Booking(id_travel)
+	REFERENCES Travel(id_travel) ON DELETE CASCADE ON UPDATE CASCADE;
+	
+ALTER TABLE Booking ADD CONSTRAINT FK_BOOKING_USER FOREIGN KEY Booking(user_email)
+	REFERENCES User(email) ON DELETE CASCADE ON UPDATE CASCADE;
 
 drop user if exists 'Ryoko'@'localhost';
 create user 'Ryoko'@'localhost' IDENTIFIED BY '#grp11@Ryoko!';
