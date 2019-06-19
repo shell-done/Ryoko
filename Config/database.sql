@@ -52,7 +52,6 @@ CREATE TABLE Travel(
     duration      Int NOT NULL,
     cost          Float NOT NULL,
     img_directory Varchar (128) NOT NULL,
-    main_img_path Varchar (128) NOT NULL,
     country       Varchar (3) NOT NULL,
 	
 	primary key(id_travel)
