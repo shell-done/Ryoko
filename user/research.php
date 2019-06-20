@@ -36,7 +36,7 @@
                 foedere pacis aeternae .
               </p>
               <span class="travel-price">Prix : 500 €</span>
-              <span class="travel-about">En savoir plus...</span>
+              <span class="travel-about" data-toggle="modal" data-target="#travel-modal">En savoir plus...</span>
             </div>
           </div>
 
@@ -53,7 +53,7 @@
                 foedere pacis aeternae .
               </p>
               <span class="travel-price">Prix : 500 €</span>
-              <span class="travel-about">En savoir plus...</span>
+              <span class="travel-about" data-toggle="modal" data-target="#travel-modal">En savoir plus...</span>
             </div>
           </div>
 
@@ -70,14 +70,16 @@
                 foedere pacis aeternae .
               </p>
               <span class="travel-price">Prix : 500 €</span>
-              <span class="travel-about">En savoir plus...</span>
+              <span class="travel-about" data-toggle="modal" data-target="#travel-modal">En savoir plus...</span>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <?php require_once("parts/footer.html"); ?>
+    <?php require("parts/travel-popup.html") ?>
+
+    <?php require("parts/footer.html"); ?>
   </body>
 
   <!-- Load scripts -->

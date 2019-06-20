@@ -47,6 +47,11 @@
   font-size: 20px;
   text-align: right;
   display: inline-block;
+  cursor: pointer;
+}
+
+.travel-about:hover {
+  text-decoration: underline;
 }
 
 .travel-date {
@@ -96,4 +101,92 @@
 
 .travel-status-waiting {
   color: #F9BF39;
+}
+
+#travel-modal .modal-title {
+  width: 100%;
+  text-align: center;
+}
+
+#travel-modal .close {
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 3em;
+  padding: 0;
+  margin-right: 15px;
+}
+
+#travel-modal .close[disabled] {
+  color: transparent;
+}
+
+#travel-modal-img {
+  display: block;
+  margin: 10px auto 30px auto;
+  width: 70%;
+}
+
+.travel-modal-thumbs {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  margin: 0 15px;
+  margin-bottom: 30px;
+  overflow-x: auto;
+}
+
+.travel-modal-thumbs img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  margin: 5px 15px;
+  border: 1px solid #04ADBF;
+}
+
+.travel-modal-description {
+  width: 100%;
+  height: 150px;
+  overflow-y: auto;
+  padding-right: 40px;
+}
+
+.travel-modal-info {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  padding-right: 40px;
+  font-size:20px;
+}
+
+.travel-modal-info h4 {
+  margin: 0;
+}
+
+.travel-modal-info div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.travel-modal-info input {
+  border: 0px solid #04ADBF;
+}
+
+.tmi {
+  margin-top: 10px;
+}
+
+.travel-modal-info button {
+  background-color: #F9BF39;
+  border: 3px solid #F9BF39;
+  color: white;
+  border-radius: 2px;
+  cursor: pointer;
+
+  margin: 30px 0 auto 0;
+}
+
+.travel-modal-info button:hover {
+  border: 3px solid #F7B933;
 }
