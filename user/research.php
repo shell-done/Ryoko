@@ -3,7 +3,7 @@
 ?>
 
 <html>
-  <?php generateHead(["research", "user-navbar", "user-research", "footer"]);?>
+  <?php generateHead(["research", "user-navbar", "user-research", "travel", "footer"]);?>
 
   <body>
     <?php require("parts/navbar.html"); ?>
@@ -35,6 +35,7 @@
                 victura dum erunt homines Roma, ut augeretur sublimibus incrementis,
                 foedere pacis aeternae .
               </p>
+              <span class="travel-price">Prix : 500 €</span>
               <span class="travel-about">En savoir plus...</span>
             </div>
           </div>
@@ -51,6 +52,7 @@
                 victura dum erunt homines Roma, ut augeretur sublimibus incrementis,
                 foedere pacis aeternae .
               </p>
+              <span class="travel-price">Prix : 500 €</span>
               <span class="travel-about">En savoir plus...</span>
             </div>
           </div>
@@ -67,6 +69,7 @@
                 victura dum erunt homines Roma, ut augeretur sublimibus incrementis,
                 foedere pacis aeternae .
               </p>
+              <span class="travel-price">Prix : 500 €</span>
               <span class="travel-about">En savoir plus...</span>
             </div>
           </div>

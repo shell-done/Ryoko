@@ -7,7 +7,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .results-box {
-  margin: 75px auto 50px auto;
+  margin: 80px auto 50px auto;
   padding: 10px;
   border: 4px solid #F9BF39;
   background-color: white;
@@ -30,49 +30,4 @@ h1, h2, h3, h4, h5, h6 {
 
 .results-header li {
   display: inline;
-}
-
-.travel {
-  width: 85%;
-  margin-left: auto;
-  margin-right: auto;
-
-  margin-top: 50px;
-  margin-bottom: 50px;
-}
-
-.travel img {
-  width: 100%;
-}
-
-.travel-header {
-  display: inline-block;
-  max-width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.travel-header h3 {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-.travel-duration {
-  font-size: 15px;
-  color: gray;
-}
-
-.travel-description {
-  height: 90px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.travel-about {
-  width: 100%;
-  color: #F9BF39;
-  font-size: 20px;
-  text-align: right;
-  display: inline-block;
 }
