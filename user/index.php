@@ -3,7 +3,7 @@
 ?>
 
 <html>
-  <?php generateHead(["index", "user-navbar", "user-research"]);?>
+  <?php generateHead(["index", "user-navbar", "user-research", "footer"]);?>
 
   <body>
     <?php require("parts/navbar.html"); ?>
