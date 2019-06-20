@@ -1,0 +1,99 @@
+.research-bar {
+  position: absolute;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+
+  width: 100%;
+  height: 18%;
+
+  bottom: 0;
+  margin: 0;
+  padding: 0 50px;
+
+  color: #4E4E4E;
+  font-size: 30px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.form-elements {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+
+  height: 80%;
+  width: 12vw;
+}
+
+.form-elements input, .form-elements select {
+  font-size: 20px;
+  border: 2px solid #04ADBF;
+}
+
+.slider-box {
+  height: 30px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.slider-box span {
+  font-size: 15px;
+  width: 30%;
+}
+
+.form-elements input[type="range"] {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 65%;
+  height: 5px;
+  background: #888;
+  border: none;
+  border-radius: 3px;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.form-elements input[type="range"]:hover {
+  opacity: 1.0;
+}
+
+.form-elements input[type="range"]:focus {
+  outline: none;
+}
+
+.form-elements input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #04ADBF;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.form-elements input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #04ADBF;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.form-elements button {
+  background-color: #F9BF39;
+  border: 3px solid #F9BF39;
+  color: white;
+  border-radius: 2px;
+  cursor: pointer;
+
+  margin: auto 0;
+}
+
+.form-elements button:hover {
+  border: 3px solid #F7B933;
+}
