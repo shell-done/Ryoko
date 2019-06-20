@@ -2,8 +2,7 @@
 require_once("php/classes/Country.php");
 function dbAddCountry($db, $country){
     try{
-        $request = 'INSERT INTO Country(iso_code, name)
-        VALUES (:iso_code, :name) ';
+        $request = 'INSERT INTO Country(iso_code, name) VALUES (:iso_code, :name) ';
         $statement = $db->prepare($request);
         $statement->bindParam(':iso_code', $country->getIso_code(), PDO::PARAM_STR, 3);
         $statement->bindParam(':name', $country->getName(), PDO::PARAM_STR, 64);

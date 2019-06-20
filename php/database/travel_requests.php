@@ -47,11 +47,11 @@ function dbUpdateTravel($db, $travel){
 }
 
 //Fonction pour supprimer tout les voyages disponibles
-function dbDeleteTravel($db, $id_travel){
+function dbDeleteTravel($db, $travel){
     try{
         $request = 'DELETE FROM Travel WHERE id_travel = :id_travel';
         $statement = $db->prepare($request);
-        $statement->bindParam(':id_travel', $id_travel, PDO::PARAM_INT);
+        $statement->bindParam(':id_travel', $travel->getId(), PDO::PARAM_INT);
         $statement->execute();
     } catch (PDOException $exception){
         error_log('Request error: '.$exception->getMessage());
@@ -66,7 +66,7 @@ function dbGetAllTravels($db){
     $results = array();
 
     try{
-        $request = 'SELECT id_travel, title, description, duration, cost, img_directory, c.name AS country FROM Travel t, Country c WHERE iso_code = country_code';
+        $request = 'SELECT id_travel, title, description, duration, cost, img_directory, c.name AS country FROM Travel , Country c WHERE c.iso_code = country_code';
         $statement = $db->prepare($request);
         $statement->execute();
 

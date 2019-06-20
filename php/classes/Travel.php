@@ -9,8 +9,8 @@ class Travel {
   private $img_directory;
   private $country;
 
-  function __contruct($id="", $title="", $description="", $duration="", $cost="", $img_directory="", $country="") {
-    $this->id_travel = $id;
+  function __contruct($id_travel="", $title="", $description="", $duration="", $cost="", $img_directory="", $country="") {
+    $this->id_travel = $id_travel;
     $this->title = $title;
     $this->description = $description;
     $this->duration = $duration;
@@ -19,8 +19,8 @@ class Travel {
     $this->country = $country;
   }
 
-  public function getId() {return $this->id;}
-  public function setId($id) {$this->id_travel = $id;}
+  public function getId() {return $this->id_travel;}
+  public function setId($id) {$this->id_travel = $id_travel;}
 
   public function getTitle() {return $this->title;}
   public function setTitle($title) {$this->title = $title;}
