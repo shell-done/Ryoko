@@ -2,10 +2,11 @@
 require_once("php/classes/Travel.php");
 
 //Fonction pour ajouter tout les voyages disponibles
+
 function dbAddTravel($db, $travel){
     try{
-        $request = 'INSERT INTO Travel(title, description, duration, cost, img_directory, country)
-        VALUES (:title, :description, :duration, :cost, :img_directory, :country)';
+        $request = 'INSERT INTO Travel(title, description, duration, cost, img_directory, country_code)
+        VALUES (:title, :description, :duration, :cost, :img_directory, (SELECT c.iso_code FROM Country c WHERE c.name = :country) ) ';
         $statement = $db->prepare($request);
         $statement->bindParam(':title', $travel->getTitle(), PDO::PARAM_STR, 64);
         $statement->bindParam(':description', $travel->getDescription(), PDO::PARAM_STR);
@@ -25,8 +26,9 @@ function dbAddTravel($db, $travel){
 //Fonction pour modifier tout les voyages disponibles
 function dbUpdateTravel($db, $travel){
     try{
-        $request = 'UPDATE Travel SET title = :title, description = :description, duration = :duration, cost = :cost, img_directory = :img_directory, country = :country
-        WHERE id_travel = :id_travel';
+        $request = 'UPDATE Travel, Country c SET title = :title, description = :description, duration = :duration, cost = :cost, img_directory = :img_directory, country_code = c.iso_code
+        WHERE id_travel = :id_travel AND c.name = :country';
+
         $statement = $db->prepare($request);
         $statement->bindParam(':title', $travel->getTitle(), PDO::PARAM_STR, 64);
         $statement->bindParam(':description', $travel->getDescription(), PDO::PARAM_STR);
@@ -47,7 +49,7 @@ function dbUpdateTravel($db, $travel){
 //Fonction pour supprimer tout les voyages disponibles
 function dbDeleteTravel($db, $id_travel){
     try{
-        $request = 'DELETE * FROM Travel WHERE id_travel = :id_travel';
+        $request = 'DELETE FROM Travel WHERE id_travel = :id_travel';
         $statement = $db->prepare($request);
         $statement->bindParam(':id_travel', $id_travel, PDO::PARAM_INT);
         $statement->execute();
@@ -64,7 +66,7 @@ function dbGetAllTravels($db){
     $results = array();
 
     try{
-        $request = 'SELECT *, name AS country FROM Travel, Country WHERE iso_code = country_code';
+        $request = 'SELECT id_travel, title, description, duration, cost, img_directory, c.name AS country FROM Travel t, Country c WHERE iso_code = country_code';
         $statement = $db->prepare($request);
         $statement->execute();
 
@@ -85,9 +87,9 @@ function dbGetAllTravels($db){
 }
 
 //Fonction pour afficher la recherche de voyages dans le barillo
-function dbGetTravels($db, $country, $durationMin, $durationMax, $maxCost) {
+function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCost) {
     try{
-        $request = "SELECT *, c.name AS country FROM Travel t, Country c";
+        $request = "SELECT title, description, duration, cost, img_directory  c.name AS country FROM Travel t, Country c";
 
         $criteria = array("c.iso_code = t.country_code");
 
@@ -115,3 +117,30 @@ function dbGetTravels($db, $country, $durationMin, $durationMax, $maxCost) {
 
     return $result;
 }
+
+//Afiicher le voyage sélectionner
+function dbGetTravel($db, $id_travel){
+    $results = array();
+
+    try{
+        $request = 'SELECT id_travel, title, description, duration, cost, img_directory, c.name AS country FROM Travel t, Country c WHERE iso_code = country_code AND id_travel = :id_travel';
+        $statement = $db->prepare($request);
+        $statement->bindParam(':id_travel', $id_travel, PDO::PARAM_INT);
+        $statement->execute();
+
+        $obj = $statement->fetchObject("Travel");
+        while($obj) {
+          array_push($results, $obj);
+          $obj = $statement->fetchObject("Travel");
+        }
+
+        $result = $statement->fetchAll(PDO::FETCH_CLASS, "Travel");
+    }
+    catch (PDOException $exception){
+        error_log('Request error: ' . $exception->getMessage());
+        return false;
+    }
+
+    return $results;
+}
+?>
