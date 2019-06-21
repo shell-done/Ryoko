@@ -19,6 +19,7 @@ $(document).ready(function(){
   $("#search-button").unbind('click').click(startResearch);
 
   ajaxRequest("GET", "ajax/request.php/countries/", setCountries);
+  ajaxRequest("GET", "ajax/request.php/travels", travelsAvailable, "country=ALL" + "&duration=ALL" + "&departure=" + $("#search-departure").val() + "&price=5000");
 });
 
 function setCountries(ajaxResponse) {
@@ -65,5 +66,31 @@ function startResearch(event) {
 }
 
 function travelsAvailable(ajaxResponse) {
-  console.log(ajaxResponse);
+  var travels = JSON.parse(ajaxResponse);
+
+  console.log(travels);
+  $(".travels-container").html("");
+
+  for(let i=0; i<travels.length; i++) {
+    let thumbnail = "img/default_thumb.png";
+    if(travels[i].img_list.length != 0)
+      thumbnail = travels[i].img_list[0];
+
+    let text =  `<div class="travel row">
+                  <div class="col-md-4"><img src="` + thumbnail + `" /></div>
+                  <div class="col-md-8">
+                    <span class="travel-header">
+                      <h3>` + travels[i].title + ` (` + travels[i].country + `)</h3>
+                      <span class="travel-duration">Durée: ` + travels[i].duration + ` jours</span>
+                    </span>
+                    <p class="travel-description">
+                      ` + travels[i].description + `
+                    </p>
+                    <span class="travel-price">Prix : ` + travels[i].cost + ` €</span>
+                    <span id="travel-` + travels[i].id_travel + `" class="travel-about" data-toggle="modal" data-target="#travel-modal">En savoir plus...</span>
+                  </div>
+                </div>`;
+
+    $(".travels-container").append(text);
+  }
 }

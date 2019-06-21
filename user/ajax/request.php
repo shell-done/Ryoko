@@ -59,6 +59,17 @@ else if($requestRessource == "travels") {
     }
 
     $data = dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $price);
+
+    for($i=0; $i<count($data); $i++) {
+      $path = "/var/www/html/" . $data[$i]->getImgDirectory();
+      $fileList = array();
+      foreach(glob($path . '*.{jpg,JPG,jpeg,JPEG,png,PNG}', GLOB_BRACE) as $file){
+          array_push($fileList, $data[$i]->getImgDirectory() . basename($file));
+      }
+
+      $data[$i]->setImgPathList($fileList);
+    }
+
     response("200 OK", objectsArrayToJSON($data));
   }
 }

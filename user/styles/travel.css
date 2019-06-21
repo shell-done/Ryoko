@@ -9,6 +9,8 @@
 
 .travel img {
   width: 100%;
+  border: 1px solid #04ADBF;
+  border-radius: 5px;
 }
 
 .travel-header {

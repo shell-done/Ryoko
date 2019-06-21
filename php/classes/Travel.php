@@ -7,6 +7,7 @@ class Travel {
   private $duration;
   private $cost;
   private $img_directory;
+  private $img_list;
   private $country;
 
   function __contruct($id_travel="", $title="", $description="", $duration="", $cost="", $img_directory="", $country="") {
@@ -39,6 +40,9 @@ class Travel {
 
   public function getCountry() {return $this->country;}
   public function setCountry($country) {$this->country = $country;}
+
+  public function getImgPathList() {return $this->img_list;}
+  public function setImgPathList($img_list) {$this->img_list = $img_list;}
 
   public function toArray() {
     return get_object_vars($this);

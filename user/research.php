@@ -22,7 +22,7 @@
           </ul>
         </div>
 
-        <div class="container">
+        <div class="container travels-container">
           <div id="id-travel-1" class="travel row">
             <div class="col-md-4"><img src="img/default_thumb.png" /></div>
             <div class="col-md-8">
