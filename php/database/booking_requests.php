@@ -2,7 +2,7 @@
 require_once("php/classes/Booking.php");
 
 function dbAddUserBooking($db, $booking) {
-    $request = 'INSERT INTO booking( id_travel, user_email, departure_date, return_date, total_cost) 
+    $request = 'INSERT INTO booking( id_travel, user_email, departure_date, return_date, total_cost)
                 VALUES (:id_travel, :email, :departure_date, :departure_date, :return_date, :total_cost)';
 
         $statement = $db->prepare($request);
@@ -16,7 +16,7 @@ function dbAddUserBooking($db, $booking) {
         error_log('Request error: '.$exception->getMessage());
         return false;
       }
-  
+
       return true;
 }
 
@@ -83,4 +83,3 @@ function dbValidationBooking($db, $booking, $travel, $validation_status) {
     }
     return $result;
 }
-

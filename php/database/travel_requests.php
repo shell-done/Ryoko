@@ -1,8 +1,8 @@
 <?php
-require_once("php/classes/Travel.php");
+$serverRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
+require_once("$serverRoot/php/classes/Travel.php");
 
 //Fonction pour ajouter tout les voyages disponibles
-
 function dbAddTravel($db, $travel){
     try{
         $request = 'INSERT INTO Travel(title, description, duration, cost, img_directory, country_code)
@@ -89,19 +89,19 @@ function dbGetAllTravels($db){
 //Fonction pour afficher la recherche de voyages dans le barillo
 function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCost) {
     try{
-        $request = "SELECT title, description, duration, cost, img_directory  c.name AS country FROM Travel t, Country c";
+        $request = "SELECT id_travel, title, description, duration, cost, img_directory, c.name AS country FROM Travel t, Country c";
 
         $criteria = array("c.iso_code = t.country_code");
 
-        if($country != false) array_push($criteria, "c.name = :country");
-        if($durationMin != false) array_push($criteria, "duration BETWEEN (:durationMin AND :durationMax)");
+        if($country != false) array_push($criteria, "c.iso_code = :country");
+        if($durationMin !== false) array_push($criteria, "duration BETWEEN :durationMin AND :durationMax");
         if($maxCost != false) array_push($criteria, "cost <= :cost");
 
         $request .= " WHERE " . implode(" AND ", $criteria);
 
         $statement = $db->prepare($request);
         if($country != false) $statement->bindParam(':country', $country, PDO::PARAM_STR);
-        if($durationMin != false) {
+        if($durationMin !== false) {
           $statement->bindParam(':durationMin', $durationMin, PDO::PARAM_INT);
           $statement->bindParam(':durationMax', $durationMax, PDO::PARAM_INT);
         }

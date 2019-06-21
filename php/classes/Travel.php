@@ -39,4 +39,8 @@ class Travel {
 
   public function getCountry() {return $this->country;}
   public function setCountry($country) {$this->country = $country;}
+
+  public function toArray() {
+    return get_object_vars($this);
+  }
 }

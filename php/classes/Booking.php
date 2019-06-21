@@ -1,6 +1,5 @@
 <?php
-require_once("php/classes/Travel.php");
-require_once("php/classes/User.php");
+
 class Booking {
     private $id_travel;
     private $email;

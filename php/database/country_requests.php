@@ -1,5 +1,7 @@
 <?php
-require_once("php/classes/Country.php");
+$serverRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
+require_once("$serverRoot/php/classes/Country.php");
+
 function dbAddCountry($db, $country){
     try{
         $request = 'INSERT INTO Country(iso_code, name) VALUES (:iso_code, :name) ';
