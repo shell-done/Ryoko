@@ -1,0 +1,56 @@
+.navbar {
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.nav-item {
+  color:red!important;
+  font-size: 2em;
+}
+
+/* Code récupéré à l'adresse : https://stackoverflow.com/questions/16392952/css-to-make-bootstrap-navbar-transparent */
+.navbar.transparent.navbar-inverse .navbar-inner {
+   border-width: 0px;
+   background-color: white;
+
+}
+/* ----- */
+
+.research-bar{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+
+  width: auto;
+  height: auto;
+
+  bottom: 0;
+  margin: 0;
+  padding: 25 50px;
+
+  color: #4E4E4E;
+  font-size: 30px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+.research-bar #box1,.research-bar #box2,.research-bar #box3{
+  padding-left: 10%;
+  height: 100%;
+  width: 33%;
+  align-content: center;
+}
+.research-bar h2{
+  width: 100%;
+  color:red;
+  padding-left: 10%;
+}
+#box3 .form-elements button{
+  font-size: 20px;
+  background-color: red;
+  color : white;
+  border: none;
+  width: 20vw;
+  margin-top: 50px;
+}

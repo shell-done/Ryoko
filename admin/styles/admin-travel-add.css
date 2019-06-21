@@ -1,0 +1,64 @@
+.navbar.navbar-inverse.navbar-expand-lg{
+  background-color: white;
+}
+.add-travel-bar {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  
+    width: auto;
+    height: auto;
+  
+    bottom: 0;
+    margin: 0;
+    padding: 25 50px;
+  
+    color: #4E4E4E;
+    font-size: 30px;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  #box1,#box2{
+    padding-left: 10%;
+    height: 100%;
+    width: 50%;
+    align-content: center;
+  }
+  .add-travel-bar h2{
+    width: 100%;
+    color:red;
+    padding-left: 10%;
+  }
+  .form-elements {
+    
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    margin-top: 20px;
+  }
+  .form-elements input{
+    font-size: 20px;
+    border: 2px solid red;
+    width: 100%;
+  }
+  .form-elements textarea{
+    font-size: 20px;
+    border: 2px solid red;
+    width: 100%;
+    height: 10vw;
+    resize: none;
+  }
+.form-elements select {
+    font-size: 20px;
+    border: 2px solid red;
+    width: 20vw;
+  }
+#box2 .form-elements button{
+  font-size: 20px;
+  background-color: red;
+  color : white;
+  border: none;
+  width: 20vw;
+  margin-top: 100px;
+  }

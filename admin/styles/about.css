@@ -1,0 +1,17 @@
+body {
+  background-color: #F4F4F4;
+}
+
+.about {
+  margin: 80px auto;
+}
+
+.about h2 {
+  color: #04ADBF;
+  margin-bottom: 40px;
+}
+
+.about p {
+  width: 100%;
+  color: #707070;
+}
