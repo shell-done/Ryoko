@@ -61,31 +61,6 @@ function dbDeleteTravel($db, $travel){
     return true;
 }
 
-//Fonction pour afficher tout les voyages disponibles
-function dbGetAllTravels($db){
-    $results = array();
-
-    try{
-        $request = 'SELECT id_travel, title, description, duration, cost, img_directory, c.name AS country FROM Travel , Country c WHERE c.iso_code = country_code';
-        $statement = $db->prepare($request);
-        $statement->execute();
-
-        $obj = $statement->fetchObject("Travel");
-        while($obj) {
-          array_push($results, $obj);
-          $obj = $statement->fetchObject("Travel");
-        }
-
-        $result = $statement->fetchAll(PDO::FETCH_CLASS, "Travel");
-    }
-    catch (PDOException $exception){
-        error_log('Request error: ' . $exception->getMessage());
-        return false;
-    }
-
-    return $results;
-}
-
 //Fonction pour afficher la recherche de voyages dans le barillo
 function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCost) {
     try{
@@ -120,27 +95,21 @@ function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCos
 
 //Afiicher le voyage sélectionner
 function dbGetTravel($db, $id_travel){
-    $results = array();
+    $result = false;
 
     try{
-        $request = 'SELECT id_travel, title, description, duration, cost, img_directory, c.name AS country FROM Travel t, Country c WHERE iso_code = country_code AND id_travel = :id_travel';
+        $request = 'SELECT id_travel, title, description, duration, cost, img_directory, c.name AS country FROM Travel t, Country c WHERE id_travel = :id_travel AND c.iso_code = t.country_code';
         $statement = $db->prepare($request);
         $statement->bindParam(':id_travel', $id_travel, PDO::PARAM_INT);
         $statement->execute();
 
-        $obj = $statement->fetchObject("Travel");
-        while($obj) {
-          array_push($results, $obj);
-          $obj = $statement->fetchObject("Travel");
-        }
-
-        $result = $statement->fetchAll(PDO::FETCH_CLASS, "Travel");
+        $result = $statement->fetchObject("Travel");
     }
     catch (PDOException $exception){
         error_log('Request error: ' . $exception->getMessage());
         return false;
     }
 
-    return $results;
+    return $result;
 }
 ?>

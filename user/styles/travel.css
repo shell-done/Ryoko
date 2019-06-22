@@ -2,9 +2,21 @@
   width: 85%;
   margin-left: auto;
   margin-right: auto;
+  transition: 0.2s;
 
-  margin-top: 50px;
-  margin-bottom: 50px;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  border: 1px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.travel:hover {
+  background-color: rgb(245, 245, 245);
+  box-shadow: 2px 2px rgba(100, 100, 100, 0.5);
 }
 
 .travel img {
@@ -126,15 +138,18 @@
   display: block;
   margin: 10px auto 30px auto;
   width: 70%;
+  border: 2px solid #04ADBF;
 }
 
 .travel-modal-thumbs {
   display: flex;
-  flex-wrap: nowrap;
-  width: 100%;
-  margin: 0 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 85%;
+  margin: 0 auto;
+  max-height: 160px;
   margin-bottom: 30px;
-  overflow-x: auto;
+  overflow-y: auto;
 }
 
 .travel-modal-thumbs img {
@@ -143,6 +158,7 @@
   object-fit: cover;
   margin: 5px 15px;
   border: 1px solid #04ADBF;
+  cursor: pointer;
 }
 
 .travel-modal-description {
