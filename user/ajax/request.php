@@ -29,6 +29,7 @@ $serverRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
 require("$serverRoot/php/database/database.php");
 require("$serverRoot/php/database/country_requests.php");
 require("$serverRoot/php/database/travel_requests.php");
+require("$serverRoot/php/database/user_requests.php");
 
 $requestType = $_SERVER['REQUEST_METHOD'];
 $request = substr($_SERVER['PATH_INFO'], 1);
@@ -91,6 +92,13 @@ else if($requestRessource == "travels") {
 
       response("200 OK", objectToJSON($data));
     }
+  }
+}
+
+else if($requestRessource == "user") {
+  if($requestID) {
+    $data = dbGetUser($db, $requestID);
+    response("200 OK", objectToJSON($data));
   }
 }
 

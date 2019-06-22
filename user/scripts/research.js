@@ -1,100 +1,44 @@
-function toInputDate(date) {
-  let year = date.getFullYear();
-  let month = (date.getMonth()+1).toString().padStart(2, '0');
-  let day = date.getDate().toString().padStart(2, '0');
+var startResearchOnLoad = true;
 
-  return year + "-" + month + "-" + day;
-}
-
-$(document).ready(function(){
-  var date = new Date();
-
-  $("#search-departure").val(toInputDate(date));
-  $("#search-departure").attr("min", toInputDate(date));
-
-  $("#search-price").on("input", function () {
-    var value = $(this).val();
-
-    if(value != 5000)
-      value += " €";
-    else
-      value = "Tous";
-
-    $("#search-price-value").text(value);
-  });
+$(document).ready(function() {
+  ajaxRequest("GET", "ajax/request.php/user/" + userID, showUser);
 
   $("#search-button").unbind('click').click(startResearch);
 
-  ajaxRequest("GET", "ajax/request.php/countries/", setCountries);
+  initResearchBanner();
 });
-
-function setResearchParam() {
-  /* Source : https://stackoverflow.com/questions/12049620/how-to-get-get-variables-value-in-javascript */
-  var $_GET = [];
-  window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(a, name, value){$_GET[name] = value;});
-  /* ------------------------ */
-
-  $("#search-country").val($_GET["country"] ? $_GET["country"] : "ALL");
-  $("#search-duration").val($_GET["duration"] ? $_GET["duration"] : "ALL");
-
-  if($_GET["departure"])
-    $("#search-departure").val($_GET["departure"]);
-
-  $("#search-price").val($_GET["price"] ? $_GET["price"] : 5000);
-  $("#search-price").trigger("input");
-
-  $("#search-button").trigger("click");
-}
-
-function setCountries(ajaxResponse) {
-  var countries = JSON.parse(ajaxResponse);
-  var text = "";
-
-  text += "<option value='ALL'>Tous</option>";
-  for(var i=0; i<countries.length; i++)
-    text += "<option value='" + countries[i].iso_code + "'>" + countries[i].name + "</option>";
-
-  $("#search-country").html(text);
-
-  setResearchParam();
-}
 
 function startResearch(event) {
   event.preventDefault();
 
-  var country = $("#search-country option:selected").text();
-  var countryCode = $("#search-country").val();
+  let params = getResearchParameters();
 
-  var duration = $("#search-duration option:selected").text();
-  var durationDays = $("#search-duration").val();
+  let date = new Date(params.departure);
+  let year = date.getFullYear();
+  let month = (date.getMonth()+1).toString().padStart(2, '0');
+  let day = date.getDate().toString().padStart(2, '0');
+  let departureFormated = day + "/" + month + "/" + year;
 
-  var departure = $("#search-departure").val();
-  var price = $("#search-price").val();
-
-  var date = new Date(departure);
-  var year = date.getFullYear();
-  var month = (date.getMonth()+1).toString().padStart(2, '0');
-  var day = date.getDate().toString().padStart(2, '0');
-  var departureFormated = day + "/" + month + "/" + year;
-
-  var text = "<h2>Votre recherche</h2>" +
+  let text = "<h2>Votre recherche</h2>" +
              "<ul>" +
-                "<li>Pays : " + country +"</li>" +
-                "<li>Durée : " + duration + "</li>" +
+                "<li>Pays : " + params.country +"</li>" +
+                "<li>Durée : " + params.duration + "</li>" +
                 "<li>Départ : " + departureFormated + "</li>" +
-                "<li>Prix max. : " + price + " €</li>" +
+                "<li>Prix max. : " + params.price + " €</li>" +
               "</ul>";
 
   $(".results-header").html(text);
 
   ajaxRequest("GET", "ajax/request.php/travels", travelsAvailable,
-              "country=" + countryCode + "&duration=" + durationDays + "&departure=" + departure + "&price=" + price);
+              'country=' + params.countryCode +
+              '&duration=' + params.durationInDays +
+              '&departure=' + params.departure +
+              '&price=' + params.price);
 }
 
 function travelsAvailable(ajaxResponse) {
   var travels = JSON.parse(ajaxResponse);
 
-  console.log(travels);
   $(".travels-container").html("");
 
   for(let i=0; i<travels.length; i++) {
@@ -128,15 +72,13 @@ function showTravelModal(id) {
 function editTravelModal(ajaxResponse) {
   var travel = JSON.parse(ajaxResponse);
 
-  console.log(travel);
-
   $(".modal-title").text(travel.title);
   $(".travel-modal-description").text(travel.description);
   $(".tmi-country").text(travel.country);
   $(".tmi-duration").text(travel.duration + " jours");
   $(".tmi-cost").text(travel.cost + " €");
 
-  $(".tmi-departure").attr("min", toInputDate(new Date()));
+  $(".tmi-departure").attr("min", getInputDate(new Date()));
 
   let departure = $("#search-departure").val();
   $(".tmi-departure").val(departure);
@@ -147,7 +89,7 @@ function editTravelModal(ajaxResponse) {
     let returnDate = new Date(departure);
     returnDate.setDate(returnDate.getDate() + parseInt(travel.duration));
 
-    $(".tmi-return").val(toInputDate(returnDate));
+    $(".tmi-return").val(getInputDate(returnDate));
   });
   $(".tmi-departure").trigger("change");
 

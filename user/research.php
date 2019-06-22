@@ -1,4 +1,5 @@
 <?php
+  require_once("../php/processing/log_user.php");
   require_once("../php/parts/head.php");
 ?>
 
@@ -83,5 +84,10 @@
   </body>
 
   <!-- Load scripts -->
+  <?php
+    $user = unserialize($_SESSION["user"]);
+    echo "<script>var userID='" . $user->getEmail() . "'</script>";
+  ?>
+  <script src="scripts/utilities.js" defer></script>
   <script src="scripts/research.js" defer></script>
 </html>
