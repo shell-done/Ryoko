@@ -2,78 +2,86 @@
 
 
 <html>
-  <?php generateHead(["index", "admin-navbar", "admin-travel-add", "footer"]);?>
+  <?php generateHead(["index-admin", "admin-navbar", "admin-travel-add", "navbar"]);?>
 
   <body>
     <?php require("parts/navbar_admin.html"); ?>
-
+    <?php require("parts/navbar.html"); ?>
     <?php require("parts/add-travel-banner.html"); ?>
     
     <?php require("parts/research-banner-admin.html"); ?>
 
-    <div class="container">
-      <div class="results-box">
-        <div class="results-header">
-          <h2>Votre recherche</h2>
-          <ul>
-            <li>Pays : Grèce</li>
-            <li>Durée : Toutes</li>
-            <li>Départ : 20/96/2019</li>
-            <li>Prix max. : 300 €</li>
-          </ul>
-        </div>
-
-        <div class="container">
-          <div id="id-travel-1" class="travel row">
-            <div class="col-md-4"><img src="img/default_thumb.png" /></div>
-            <div class="col-md-8">
-              <span class="travel-header">
-                <h3>Cancún (Mexique)</h3>
-                <span class="travel-duration">Durée: 5 jours</span>
-              </span>
-              <p class="travel-description">
-                Tempore quo primis auspiciis in mundanum fulgorem surgeret
-                victura dum erunt homines Roma, ut augeretur sublimibus incrementis,
-                foedere pacis aeternae .
-              </p>
-              <span class="travel-price">Prix : 500 €</span>
-              <span class="travel-about" data-toggle="modal" data-target="#travel-modal">En savoir plus...</span>
-            </div>
+    <div id="contenu">
+      <div class="container">
+        <div class="results-box">
+          <div class="results-header">
+            <h2>Votre recherche</h2>
+            <ul>
+              <li>Pays : Grèce</li>
+              <li>Durée : Toutes</li>
+            </ul>
           </div>
 
-          <div id="id-travel-2" class="travel row">
-            <div class="col-md-4"><img src="img/default_thumb.png" /></div>
-            <div class="col-md-8">
-              <span class="travel-header">
-                <h3>Week-end à Paris (France)</h3>
-                <span class="travel-duration">Durée: 2 jours</span>
-              </span>
-              <p class="travel-description">
-                Tempore quo primis auspiciis in mundanum fulgorem surgeret
-                victura dum erunt homines Roma, ut augeretur sublimibus incrementis,
-                foedere pacis aeternae .
-              </p>
-              <span class="travel-price">Prix : 500 €</span>
-              <span class="travel-about" data-toggle="modal" data-target="#travel-modal">En savoir plus...</span>
+          <div class="container">
+            <div id="id-travel-1" class="travel row">
+              <div class="col-md-4"><img src="img/default_thumb.png" /></div>
+              <div class="col-md-8">
+                <span class="travel-header">
+                  <h3>Cancún (Mexique)</h3>
+                  <span class="travel-duration">Durée: 5 jours</span>
+                </span>
+                <p class="travel-description">
+                  Tempore quo primis auspiciis in mundanum fulgorem surgeret
+                  victura dum erunt homines Roma, ut augeretur sublimibus incrementis,
+                  foedere pacis aeternae .
+                </p>
+                <span class="travel-price">Prix : 500 €</span>
+                <span class="travel-about" data-toggle="modal" data-target="#travel-modal">Modifier/Supprimer</span>
+              </div>
             </div>
-          </div>
 
-          <div id="id-travel-3" class="travel row">
-            <div class="col-md-4"><img src="img/default_thumb.png" /></div>
-            <div class="col-md-8">
-              <span class="travel-header">
-                <h3>Istanbul (Turquie)</h3>
-                <span class="travel-duration">Durée: 2 semaines</span>
-              </span>
-              <p class="travel-description">
-                Tempore quo primis auspiciis in mundanum fulgorem surgeret
-                victura dum erunt homines Roma, ut augeretur sublimibus incrementis,
-                foedere pacis aeternae .
-              </p>
-              <span class="travel-price">Prix : 500 €</span>
-              <span class="travel-about" data-toggle="modal" data-target="#travel-modal">En savoir plus...</span>
+            <div id="id-travel-2" class="travel row">
+              <div class="col-md-4"><img src="img/default_thumb.png" /></div>
+              <div class="col-md-8">
+                <span class="travel-header">
+                  <h3>Week-end à Paris (France)</h3>
+                  <span class="travel-duration">Durée: 2 jours</span>
+                </span>
+                <p class="travel-description">
+                  Tempore quo primis auspiciis in mundanum fulgorem surgeret
+                  victura dum erunt homines Roma, ut augeretur sublimibus incrementis,
+                  foedere pacis aeternae .
+                </p>
+                <span class="travel-price">Prix : 500 €</span>
+                <span class="travel-about" data-toggle="modal" data-target="#travel-modal">Modifier/Supprimer</span>
+              </div>
+            </div>
+
+            <div id="id-travel-3" class="travel row">
+              <div class="col-md-4"><img src="img/default_thumb.png" /></div>
+              <div class="col-md-8">
+                <span class="travel-header">
+                  <h3>Istanbul (Turquie)</h3>
+                  <span class="travel-duration">Durée: 2 semaines</span>
+                </span>
+                <p class="travel-description">
+                  Tempore quo primis auspiciis in mundanum fulgorem surgeret
+                  victura dum erunt homines Roma, ut augeretur sublimibus incrementis,
+                  foedere pacis aeternae .
+                </p>
+                <span class="travel-price">Prix : 500 €</span>
+                <span class="travel-about" data-toggle="modal" data-target="#travel-modal">Modifier/Supprimer</span>
+              </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
+    <?php require("parts/travel-popup.html") ?>
+
+  </body>
+  <footer>
+    Projet Web CIR 2 - ISEN Yncréa Ouest | Tous droits réservés
+  </footer>
+  <!-- Load scripts -->
+  <script src="scripts/research.js" defer></script>
+</html>

@@ -35,11 +35,20 @@
   font-size: 30px;
   background-color: rgba(255, 255, 255, 0.8);
 }
-.research-bar #box1,.research-bar #box2,.research-bar #box3{
-  padding-left: 10%;
+.research-bar #box1{
+  padding: 10px 0 10px 10%;
   height: 100%;
-  width: 33%;
-  align-content: center;
+  width: 35%;
+}
+.research-bar #box2{
+  padding: 10px 0 10px 15%;
+  height: 100%;
+  width: 40%;
+}
+.research-bar #box3{
+  padding-left: 20px;
+  height: 100%;
+  width: 25%;
 }
 .research-bar h2{
   width: 100%;
@@ -51,6 +60,11 @@
   background-color: red;
   color : white;
   border: none;
-  width: 20vw;
-  margin-top: 50px;
+  width: 10vw;
+}
+.research-bar .form-inline select {
+  font-size: 20px;
+  border: 2px solid red;
+  width: 50%;
+  margin-left:15px;
 }

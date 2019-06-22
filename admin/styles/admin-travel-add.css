@@ -19,9 +19,16 @@
     font-size: 30px;
     background-color: rgba(255, 255, 255, 0.8);
   }
-  #box1,#box2{
+  .add-travel-bar #box1{
     padding-left: 10%;
-    height: 100%;
+    height: 350px;
+    width: 50%;
+    align-content: center;
+  }
+  .add-travel-bar #box2{
+    padding-left: 5%;
+    padding-right: 10%;
+    height: 350px;
     width: 50%;
     align-content: center;
   }
@@ -30,35 +37,58 @@
     color:red;
     padding-left: 10%;
   }
-  .form-elements {
+  .add-travel-bar .form-elements {
     
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
     margin-top: 20px;
   }
-  .form-elements input{
+  .add-travel-bar .form-elements input{
     font-size: 20px;
     border: 2px solid red;
     width: 100%;
   }
-  .form-elements textarea{
+  
+  .add-travel-bar .form-elements textarea{
     font-size: 20px;
     border: 2px solid red;
     width: 100%;
-    height: 10vw;
+    height: 150px;
     resize: none;
   }
-.form-elements select {
+  .add-travel-bar .form-inline{
+    display: flex;
+    margin-top:68px;
+  }
+  .add-travel-bar .form-inline input[type="number"]{
     font-size: 20px;
     border: 2px solid red;
-    width: 20vw;
+    width: 330px;
+    margin-left:15px;
   }
-#box2 .form-elements button{
+  .add-travel-bar .form-inline select {
+    font-size: 20px;
+    border: 2px solid red;
+    width: 75%;
+    margin-left:15px;
+  }
+
+  .add-travel-bar #box2 .form-elements{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-left: 375px;
+    bottom:0;
+    position: absolute;
+    margin-bottom: 50px;
+  }
+  .add-travel-bar #box2 .form-elements button{
+  float: right;
   font-size: 20px;
   background-color: red;
   color : white;
   border: none;
-  width: 20vw;
-  margin-top: 100px;
+  width: 10vw;
   }

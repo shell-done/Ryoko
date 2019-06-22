@@ -12,7 +12,7 @@
             </div>
         </div>
         <div id="box2">
-            <div class="form-elements">
+            <div class="form-inline">
                 <label for="Add-country">Pays :</label>
                 <select id="Add-country">
                     <option name="France">France</option>
@@ -26,18 +26,9 @@
                     <option name="Brésil">Brésil</option>
                 </select>
             </div>   
-            <div class="form-elements">
-                <label for="add-duration">Durée :</label>
-                <select id="add-duration">
-                    <option name="1d"> 1 jour </option>
-                    <option name="2d"> 2 jours </option>
-                    <option name="3w"> 5 jours </option>
-                    <option name="1w"> 1 semaines </option>
-                    <option name="3w"> 3 semaines </option>
-                    <option name="1m"> 1 mois </option>
-                    <option name="3m"> 3 mois </option>
-                    <option name="6m"> 6 mois </option>
-                </select>
+            <div class="form-inline">
+                <label for="add-duration">Durée(en jours) :</label>
+                <input type="number" id="add-duration" min="1" max = "183">
             </div>
             <div class="form-elements">
                     <button type="submit" id="search-button">Ajouter</button>
