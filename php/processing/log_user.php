@@ -7,9 +7,9 @@
   require("../php/database/user_requests.php");
   session_start();
 
-  if(!isset($_SESSION["user"])) {
+  if(!isset($_SESSION["user"]) || 1) {
     $db = dbConnect();
-    $user = dbGetUser($db, DEFAULT_USER_EMAIL, DEFAULT_USER_PWD);
+    $user = dbStartUserSession($db, DEFAULT_USER_EMAIL, DEFAULT_USER_PWD);
 
     if($user == false)
       $_SESSION["user"] = false;

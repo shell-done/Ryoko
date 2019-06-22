@@ -1,4 +1,5 @@
 <?php
+  require_once("../php/processing/log_user.php");
   require_once("../php/parts/head.php");
 ?>
 
@@ -19,24 +20,24 @@
           </div>
           <div class="user-info-list col-md-9 align-self-center">
             <div class="row">
-              <span class="col-md-6"><h4>Nom :</h4> <span class="user-info">THOMAS</span></span>
-              <span class="col-md-6"><h4>Prénom :</h4> <span class="user-info">Alexandre</span></span>
+              <span class="col-md-6"><h4>Nom :</h4> <span class="user-info ui-name">THOMAS</span></span>
+              <span class="col-md-6"><h4>Prénom :</h4> <span class="user-info ui-first-name">Alexandre</span></span>
             </div>
             <div class="row">
-              <span class="col-md-12"><h4>Date de naissance :</h4> <span class="user-info">20/09/1999</span></span>
+              <span class="col-md-12"><h4>Date de naissance :</h4> <span class="user-info ui-birthdate">20/09/1999</span></span>
             </div>
             <div class="row">
-              <span class="col-md-12"><h4>Adresse :</h4> <span class="user-info">20 Rue Cuirassé de Bretagne</span></span>
+              <span class="col-md-12"><h4>Adresse :</h4> <span class="user-info ui-street">20 Rue Cuirassé de Bretagne</span></span>
             </div>
             <div class="row">
-              <span class="col-md-6"><h4>Ville :</h4> <span class="user-info">Brest</span></span>
-              <span class="col-md-6"><h4>Code postal :</h4> <span class="user-info">29200</span></span>
+              <span class="col-md-6"><h4>Ville :</h4> <span class="user-info ui-city">Brest</span></span>
+              <span class="col-md-6"><h4>Code postal :</h4> <span class="user-info ui-zipcode">29200</span></span>
             </div>
             <div class="row">
-              <span class="col-md-12"><h4>Téléphone :</h4> <span class="user-info">07.87.83.45.12</span></span>
+              <span class="col-md-12"><h4>Téléphone :</h4> <span class="user-info ui-phone">07.87.83.45.12</span></span>
             </div>
             <div class="row">
-              <span class="col-md-12"><h4>Adresse mail :</h4> <span class="user-info">user.name@webmail.com</span></span>
+              <span class="col-md-12"><h4>Adresse mail :</h4> <span class="user-info ui-email">user.name@webmail.com</span></span>
             </div>
 
             <div class="row">
@@ -109,8 +110,10 @@
           </div>
         </div>
 
-
       </div>
     </div>
   </body>
+
+  <?php require("../php/parts/user_session_token.php"); ?>
+  <script src="scripts/utilities.js" defer></script>
 </html>

@@ -57,10 +57,7 @@
   </body>
 
   <!-- Load scripts -->
-  <?php
-    $user = unserialize($_SESSION["user"]);
-    echo "<script>var userID='" . $user->getEmail() . "'</script>";
-  ?>
+  <?php require("../php/parts/user_session_token.php"); ?>
   <script src="scripts/utilities.js" defer></script>
   <script src="scripts/index.js" defer></script>
 </html>

@@ -1,3 +1,5 @@
+ajaxRequest("GET", "ajax/request.php/user/" + userToken, showUser);
+
 function getInputDate(date) {
   let year = date.getFullYear();
   let month = (date.getMonth()+1).toString().padStart(2, '0');
@@ -72,7 +74,13 @@ function setResearchParameters() {
 function showUser(ajaxResponse) {
   var user = JSON.parse(ajaxResponse);
 
-  console.log(user);
-
   $("#navbar-user").text(user.first_name + " " + user.name);
+  $(".ui-name").text(user.name);
+  $(".ui-first-name").text(user.first_name);
+  $(".ui-birthdate").text(user.birth_date);
+  $(".ui-street").text(user.street);
+  $(".ui-city").text(user.city);
+  $(".ui-zip-code").text(user.zip_code);
+  $(".ui-phone").text(user.phone);
+  $(".ui-email").text(user.email);
 }

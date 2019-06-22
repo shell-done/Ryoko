@@ -1,8 +1,6 @@
 var startResearchOnLoad = false;
 
 $(document).ready(function(){
-  ajaxRequest("GET", "ajax/request.php/user/" + userID, showUser);
-
   initResearchBanner();
 
   $("#search-button").unbind("click").click(function(event) {

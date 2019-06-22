@@ -1,8 +1,6 @@
 var startResearchOnLoad = true;
 
 $(document).ready(function() {
-  ajaxRequest("GET", "ajax/request.php/user/" + userID, showUser);
-
   $("#search-button").unbind('click').click(startResearch);
 
   initResearchBanner();
@@ -24,7 +22,7 @@ function startResearch(event) {
                 "<li>Pays : " + params.country +"</li>" +
                 "<li>Durée : " + params.duration + "</li>" +
                 "<li>Départ : " + departureFormated + "</li>" +
-                "<li>Prix max. : " + params.price + " €</li>" +
+                "<li>Prix max. : " + (params.price == 5000 ? "Tous" : params.price + " €") + "</li>" +
               "</ul>";
 
   $(".results-header").html(text);

@@ -1,4 +1,5 @@
 <?php
+  require_once("../php/processing/log_user.php");
   require_once("../php/parts/head.php");
 ?>
 
@@ -34,4 +35,7 @@
 
     <?php require("parts/footer.html"); ?>
   </body>
+
+  <?php require("../php/parts/user_session_token.php"); ?>
+  <script src="scripts/utilities.js" defer></script>
 </html>
