@@ -18,15 +18,14 @@ function ajaxRequest(type, request, callback, data = null) {
         break;
 
       default:
-        //httpErrors(xhr.status)
-        ;
+        showAjaxErrors(xhr.status);
     }
   }
 
   xhr.send(data);
 }
 
-function httpErrors(errorNumber) {
+function showAjaxErrors(errorNumber) {
   var HTTP_STATUS_CODES = {
     '400' : 'Bad Request',
     '401' : 'Unauthorized',
@@ -54,5 +53,13 @@ function httpErrors(errorNumber) {
     '505' : 'HTTP Version Not Supported'
   };
 
-  dispError("Connection error : " + errorNumber + "(" + HTTP_STATUS_CODES[errorNumber] + ")");
+  showInfo(
+    "Erreur lors de la requête au serveur",
+    `<b>Code d'état HTTP : ` + errorNumber + ` - ` + HTTP_STATUS_CODES[errorNumber] + `</b><br /><br />
+     <p>
+        Une erreur est survenue lors d'une requête au serveur. <br />
+        Merci de réessayer dans quelques minutes. <br />
+        Si l'erreur persiste, veuillez contacter l'administrateur du site.
+     </p>`,
+    true);
 }

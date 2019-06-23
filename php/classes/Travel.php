@@ -9,17 +9,10 @@ class Travel {
   private $img_directory;
   private $img_list;
   private $country;
-  private $validation_status;
 
-  function __contruct($id_travel="", $title="", $description="", $duration="", $cost="", $img_directory="", $country="") {
-    $this->id_travel = $id_travel;
-    $this->title = $title;
-    $this->description = $description;
-    $this->duration = $duration;
-    $this->cost = $cost;
-    $this->img_directory = $img_directory;
-    $this->country = $country;
-  }
+  private $validation_status;
+  private $departure_date;
+  private $return_date;
 
   public function getId() {return $this->id_travel;}
   public function setId($id) {$this->id_travel = $id_travel;}
@@ -47,6 +40,12 @@ class Travel {
 
   public function getValidationStatus() {return $this->validation_status;}
   public function setValidationStatus($status) {$this->validation_status = $status;}
+
+  public function getDeparture() {return $this->departure;}
+  public function setDeparture($departure_date) {$this->departure = $departure_date;}
+
+  public function getReturn() {return $this->return;}
+  public function setReturn($return_date) {$this->return = $return_date;}
 
   public function toArray() {
     return get_object_vars($this);

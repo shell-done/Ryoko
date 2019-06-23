@@ -53,6 +53,7 @@
       </div>
     </div>
 
+    <?php require("parts/info-popup.html"); ?>
     <?php require_once("parts/footer.html"); ?>
   </body>
 

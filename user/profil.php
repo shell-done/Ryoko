@@ -111,6 +111,9 @@
         </div>
 
       </div>
+
+      <?php require("parts/info-popup.html"); ?>
+      <?php require("parts/footer.html"); ?>
     </div>
   </body>
 

@@ -78,6 +78,7 @@
       </div>
     </div>
 
+    <?php require("parts/info-popup.html"); ?>
     <?php require("parts/travel-popup.html") ?>
 
     <?php require("parts/footer.html"); ?>

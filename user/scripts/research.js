@@ -5,11 +5,14 @@ $(document).ready(function() {
   $("#book-button").unbind('click').click(function(event) {
     event.preventDefault();
 
+    let travelID = $(this).attr("class").slice(7);
+    let travelTitle = $("#travel-modal .modal-title").text();
+
     var data = "userToken=" + userToken +
-               "&travelId=" + $(this).attr("class").slice(7) +
+               "&travelId=" + travelID +
                "&departureDate=" + $(".tmi-departure").val();
 
-    ajaxRequest("POST", "ajax/request.php/booking/", function(e) {console.log(e)}, data);
+    ajaxRequest("POST", "ajax/request.php/booking/", function(e) {showBookingMessage(travelTitle)}, data);
   });
 
   initResearchBanner();
@@ -78,9 +81,8 @@ function showTravelModal(id) {
 
 function editTravelModal(ajaxResponse) {
   var travel = JSON.parse(ajaxResponse);
-  console.log(travel);
 
-  $(".modal-title").text(travel.title);
+  $("#travel-modal .modal-title").text(travel.title);
   $(".travel-modal-description").text(travel.description);
   $(".tmi-country").text(travel.country);
   $(".tmi-duration").text(travel.duration + " jours");
@@ -124,4 +126,17 @@ function editTravelModal(ajaxResponse) {
   }
 
   $("#travel-modal").modal("show");
+}
+
+function showBookingMessage(travelTitle) {
+  showInfo(
+    "Demande de réservation enregistrée",
+    `<b>Votre demande réservation pour le voyage "` + travelTitle + `" a bien été prise en compte. </b>
+     <br /><br />
+     Celle-ci doit encore être validée par l'un de nos administrateur. <br />
+     Pour connaitre la liste ainsi que l'état de vos demandes, rendez-vous sur votre page de profil accessible depuis la barre de navigation.
+     <br /><br />
+
+     Merci de votre confiance, <br />
+     L'équipe Ryokō.`);
 }

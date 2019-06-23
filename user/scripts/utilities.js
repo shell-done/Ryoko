@@ -8,6 +8,19 @@ function getInputDate(date) {
   return year + "-" + month + "-" + day;
 }
 
+function showInfo(title, content, isError = false) {
+  $(".modal:not(#info-modal)").modal("hide");
+
+  if(isError)
+    $("#info-modal .modal-title").css("color", "#E60000");
+  else
+    $("#info-modal .modal-title").removeAttr("style");
+
+  $("#info-modal .modal-title").html(title);
+  $("#info-modal .modal-body").html(content);
+  $("#info-modal").modal("show");
+}
+
 function showCountries(ajaxResponse) {
   var countries = JSON.parse(ajaxResponse);
   var text = "";

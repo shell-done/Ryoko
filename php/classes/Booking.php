@@ -30,4 +30,7 @@ class Booking {
     public function getValidation(){return $this->validation;}
     public function setValidation($validation) {$this->validation = $validation;}
 
+    public function toArray() {
+      return get_object_vars($this);
+    }
 }
