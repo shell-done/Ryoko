@@ -31,3 +31,12 @@ h1, h2, h3, h4, h5, h6 {
 .results-header li {
   display: inline;
 }
+
+.results-box .no-travels {
+  display: inline-block;
+  margin: 50px auto;
+  width: 100%;
+  text-align: center;
+  color: gray;
+  font-size: 20px;
+}

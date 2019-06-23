@@ -4,7 +4,7 @@
 ?>
 
 <html>
-  <?php generateHead(["user-navbar", "user-banner", "profil", "travel", "footer"]);?>
+  <?php generateHead(["user-navbar", "user-banner", "profile", "travel", "footer"]);?>
 
   <body>
     <?php require("parts/navbar.html"); ?>

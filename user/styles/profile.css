@@ -46,3 +46,9 @@ h1, h2, h3, h4, h5, h6 {
 .user-disconnect:hover {
   border: 3px solid #F7B933;
 }
+
+.user-disconnect:disabled {
+  background-color: #F7CB6C;
+  border: 3px solid #F7CB6C;
+  cursor: default;
+}

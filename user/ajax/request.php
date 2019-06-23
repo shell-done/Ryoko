@@ -117,6 +117,11 @@ else if($requestRessource == "booking") {
     if($res)
       response("201 Created");
   }
+  else if($requestType == "GET") {
+    if($requestID) {
+      
+    }
+  }
 }
 
 response("400 Bad Request");

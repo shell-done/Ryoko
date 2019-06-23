@@ -51,6 +51,12 @@ function travelsAvailable(ajaxResponse) {
 
   $(".travels-container").html("");
 
+  if(travels.length == 0) {
+    let text = "<p class='no-travels'>Nous n'avons trouvé aucun voyage correspondant à vos critères :(</p>";
+    $(".travels-container").append(text);
+    return;
+  }
+
   for(let i=0; i<travels.length; i++) {
     let thumbnail = "img/default_thumb.png";
     if(travels[i].img_list.length != 0)
