@@ -30,6 +30,7 @@ require("$serverRoot/php/database/database.php");
 require("$serverRoot/php/database/country_requests.php");
 require("$serverRoot/php/database/travel_requests.php");
 require("$serverRoot/php/database/user_requests.php");
+require("$serverRoot/php/database/booking_requests.php");
 
 $requestType = $_SERVER['REQUEST_METHOD'];
 $request = substr($_SERVER['PATH_INFO'], 1);
@@ -90,6 +91,9 @@ else if($requestRessource == "travels") {
 
       $data->setImgPathList($fileList);
 
+      $status = dbGetValidationStatus($db, $_GET["userToken"], $requestID);
+      $data->setValidationStatus($status);
+
       response("200 OK", objectToJSON($data));
     }
   }
@@ -99,6 +103,19 @@ else if($requestRessource == "user") {
   if($requestID) {
     $data = dbGetUser($db, $requestID);
     response("200 OK", objectToJSON($data));
+  }
+}
+
+else if($requestRessource == "booking") {
+  if($requestType == "POST") {
+    $booking = new Booking();
+    $booking->setToken($_POST["userToken"]);
+    $booking->setId($_POST["travelId"]);
+    $booking->setDeparture($_POST["departureDate"]);
+
+    $res = dbAddUserBooking($db, $booking);
+    if($res)
+      response("201 Created");
   }
 }
 

@@ -1,10 +1,14 @@
 function ajaxRequest(type, request, callback, data = null) {
   var xhr = new XMLHttpRequest();
 
-  if (type == 'GET' && data != null)
+  if(type == 'GET' && data != null) {
     request += '?' + data;
+    data = null;
+  }
   xhr.open(type, request, true);
-  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+  if(data)
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
   xhr.onload = function() {
     switch(xhr.status) {

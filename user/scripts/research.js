@@ -2,6 +2,15 @@ var startResearchOnLoad = true;
 
 $(document).ready(function() {
   $("#search-button").unbind('click').click(startResearch);
+  $("#book-button").unbind('click').click(function(event) {
+    event.preventDefault();
+
+    var data = "userToken=" + userToken +
+               "&travelId=" + $(this).attr("class").slice(7) +
+               "&departureDate=" + $(".tmi-departure").val();
+
+    ajaxRequest("POST", "ajax/request.php/booking/", function(e) {console.log(e)}, data);
+  });
 
   initResearchBanner();
 });
@@ -64,11 +73,12 @@ function travelsAvailable(ajaxResponse) {
 }
 
 function showTravelModal(id) {
-  ajaxRequest("GET", "ajax/request.php/travels/" + id, editTravelModal);
+  ajaxRequest("GET", "ajax/request.php/travels/" + id, editTravelModal, "userToken=" + userToken);
 }
 
 function editTravelModal(ajaxResponse) {
   var travel = JSON.parse(ajaxResponse);
+  console.log(travel);
 
   $(".modal-title").text(travel.title);
   $(".travel-modal-description").text(travel.description);
@@ -104,6 +114,14 @@ function editTravelModal(ajaxResponse) {
   $(".travel-modal-thumbs img").unbind("click").click(function() {
     $("#travel-modal-img").attr("src", $(this).attr("src"));
   })
+
+  if(travel.validation_status === false) {
+    $("#book-button").attr("class", "travel-" + travel.id_travel);
+    $("#book-button").removeAttr("disabled");
+  } else {
+    $("#book-button").attr("class", "");
+    $("#book-button").attr("disabled", "true");
+  }
 
   $("#travel-modal").modal("show");
 }

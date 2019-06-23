@@ -9,6 +9,7 @@ class Travel {
   private $img_directory;
   private $img_list;
   private $country;
+  private $validation_status;
 
   function __contruct($id_travel="", $title="", $description="", $duration="", $cost="", $img_directory="", $country="") {
     $this->id_travel = $id_travel;
@@ -43,6 +44,9 @@ class Travel {
 
   public function getImgPathList() {return $this->img_list;}
   public function setImgPathList($img_list) {$this->img_list = $img_list;}
+
+  public function getValidationStatus() {return $this->validation_status;}
+  public function setValidationStatus($status) {$this->validation_status = $status;}
 
   public function toArray() {
     return get_object_vars($this);

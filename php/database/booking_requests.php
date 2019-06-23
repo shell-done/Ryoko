@@ -1,23 +1,48 @@
 <?php
-require_once("php/classes/Booking.php");
+$serverRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
+require_once("$serverRoot/php/classes/Booking.php");
 
 function dbAddUserBooking($db, $booking) {
-    $request = 'INSERT INTO booking( id_travel, user_email, departure_date, return_date, total_cost)
-                VALUES (:id_travel, :email, :departure_date, :departure_date, :return_date, :total_cost)';
+    try {
+        $request = 'INSERT INTO Booking(id_travel, user_email, departure_date, return_date, total_cost)
+                    SELECT :id_travel AS id_travel, email AS user_email, :departure_date AS departure_date, DATE_ADD(:departure_date, INTERVAL duration DAY) AS return_date, cost AS total_cost
+                    FROM User, Travel
+                    WHERE token=:token AND id_travel=:id_travel;';
 
         $statement = $db->prepare($request);
         $statement->bindParam(':id_travel', $booking->getId(), PDO::PARAM_STR, 64);
-        $statement->bindParam(':email', $booking->getEmail(), PDO::PARAM_STR);
+        $statement->bindParam(':token', $booking->getToken(), PDO::PARAM_STR);
         $statement->bindParam(':departure_date', $booking->getDeparture(), PDO::PARAM_STR);
-        $statement->bindParam(':return_date', $booking->getReturn(), PDO::PARAM_STR);
-        $statement->bindParam(':total_cost', $booking->getTotalCost(), PDO::PARAM_INT);
-        $statement->execute();
+
+        return $statement->execute();
     } catch (PDOException $exception) {
         error_log('Request error: '.$exception->getMessage());
         return false;
-      }
+    }
 
-      return true;
+    return false;
+}
+
+function dbGetValidationStatus($db, $userToken, $travelID) {
+  try {
+    $request = 'SELECT validation_status FROM Booking, User WHERE user_email=email AND token=:token AND id_travel=:id_travel';
+
+    $statement = $db->prepare($request);
+    $statement->bindParam(":token", $userToken);
+    $statement->bindParam(":id_travel", $travelID);
+
+    $statement->execute();
+
+    if($statement->rowCount() == 1)
+      return $statement->fetch(PDO::FETCH_ASSOC)["validation_status"];
+    else
+      return false;
+  } catch (PDOException $exception) {
+      error_log('Request error: '.$exception->getMessage());
+      return false;
+  }
+
+  return false;
 }
 
 function dbGetUserBooking($db, $booking) {
