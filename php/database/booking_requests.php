@@ -45,19 +45,49 @@ function dbGetValidationStatus($db, $userToken, $travelID) {
   return false;
 }
 
-function dbGetUserBooking($db, $booking) {
-    try{
-        $request = 'SELECT * FROM booking WHERE user_email = :user_email';
-        $statement = $db->prepare($request);
-        $statement->bindParam(':user_email', $booking->getEmail(), PDO::PARAM_STR, 128);
-        $statement->execute();
-        $result = $statement->fetchAll();
-    }
-    catch (PDOException $exception){
-        error_log('Request error: '.$exception->getMessage());
-        return false;
-    }
-    return $result;
+function dbGetUserBookedTravels($db, $userToken) {
+  $results = false;
+
+  try{
+      $request = 'SELECT t.id_travel AS id_travel, title, description, duration, total_cost AS cost, img_directory, DATE_FORMAT(departure_date, "%e/%m/%Y") AS departure_date, DATE_FORMAT(return_date, "%e/%m/%Y") as return_date, validation_status, c.name AS country
+                  FROM Travel t, Country c, Booking b, User u
+                  WHERE u.email = b.user_email AND token=:token AND t.id_travel = b.id_travel AND c.iso_code = t.country_code';
+
+      $statement = $db->prepare($request);
+      $statement->bindParam(':token', $userToken, PDO::PARAM_STR, 32);
+
+      $statement->execute();
+      $results = $statement->fetchAll(PDO::FETCH_CLASS, "Travel");
+  }
+  catch (PDOException $exception){
+      error_log('Request error: '.$exception->getMessage());
+      return false;
+  }
+
+  return $results;
+}
+
+function dbGetUserBookedTravel($db, $userToken, $idTravel) {
+  $result = false;
+
+  try{
+      $request = 'SELECT t.id_travel AS id_travel, title, description, duration, total_cost AS cost, img_directory, DATE_FORMAT(departure_date, "%e/%m/%Y") AS departure_date, DATE_FORMAT(return_date, "%e/%m/%Y") as return_date, validation_status, c.name AS country
+                  FROM Travel t, Country c, Booking b, User u
+                  WHERE u.email = b.user_email AND token=:token AND t.id_travel = :idTravel AND t.id_travel = b.id_travel AND c.iso_code = t.country_code';
+
+      $statement = $db->prepare($request);
+      $statement->bindParam(':token', $userToken, PDO::PARAM_STR, 32);
+      $statement->bindParam(':idTravel', $idTravel);
+
+      $statement->execute();
+      $result = $statement->fetchObject("Travel");
+  }
+  catch (PDOException $exception){
+      error_log('Request error: '.$exception->getMessage());
+      return false;
+  }
+
+  return $result;
 }
 
 function dbDeleteBooking($db, $booking){

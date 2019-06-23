@@ -106,7 +106,7 @@ else if($requestRessource == "user") {
   }
 }
 
-else if($requestRessource == "booking") {
+else if($requestRessource == "bookings") {
   if($requestType == "POST") {
     $booking = new Booking();
     $booking->setToken($_POST["userToken"]);
@@ -118,8 +118,32 @@ else if($requestRessource == "booking") {
       response("201 Created");
   }
   else if($requestType == "GET") {
-    if($requestID) {
-      
+    if(!$requestID) {
+      $data = dbGetUserBookedTravels($db, $_GET["userToken"]);
+
+      for($i=0; $i<count($data); $i++) {
+        $path = "/var/www/html/" . $data[$i]->getImgDirectory();
+        $fileList = array();
+        foreach(glob($path . '*.{jpg,JPG,jpeg,JPEG,png,PNG}', GLOB_BRACE) as $file){
+            array_push($fileList, $data[$i]->getImgDirectory() . basename($file));
+        }
+
+        $data[$i]->setImgPathList($fileList);
+      }
+
+      response("200 OK", objectsArrayToJSON($data));
+    } else {
+      $data = dbGetUserBookedTravel($db, $_GET["userToken"], $requestID);
+
+      $path = "/var/www/html/" . $data->getImgDirectory();
+      $fileList = array();
+      foreach(glob($path . '*.{jpg,JPG,jpeg,JPEG,png,PNG}', GLOB_BRACE) as $file){
+        array_push($fileList, $data->getImgDirectory() . basename($file));
+      }
+
+      $data->setImgPathList($fileList);
+
+      response("200 OK", objectToJSON($data));
     }
   }
 }

@@ -50,7 +50,7 @@
       <div class="results-box">
         <h2>Mes voyages Ryokō</h2>
 
-        <div class="container">
+        <div id="bookings-container" class="container">
           <div id="id-travel-1" class="travel row">
             <div class="col-md-4"><img src="img/default_thumb.png" /></div>
             <div class="col-md-8">
@@ -80,38 +80,9 @@
           </div>
         </div>
 
-        <div class="container">
-          <div id="id-travel-1" class="travel row">
-            <div class="col-md-4"><img src="img/default_thumb.png" /></div>
-            <div class="col-md-8">
-              <span class="travel-header">
-                <h3>Cancún (Mexique)</h3>
-                <span class="travel-duration">Durée: 5 jours</span>
-              </span>
-              <p class="travel-description">
-                Tempore quo primis auspiciis in mundanum fulgorem surgeret
-                victura dum erunt homines Roma, ut augeretur sublimibus incrementis,
-                foedere pacis aeternae .
-              </p>
-              <div class="travel-date">
-                <span class="travel-departure">Départ:<br />18/06/19</span>
-                <span class="travel-arrival">Arrivée:<br />20/06/19</span>
-                <span class="travel-price">Prix:<br />500 €</span>
-              </div>
-
-              <span class="travel-status-box">
-                <span></span>
-                <span class="travel-status travel-status-accepted">
-                  <img src="img/travel_status/accepted.png" />
-                  <span>Accepté</span>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-
       </div>
 
+      <?php require("parts/travel-popup.html"); ?>
       <?php require("parts/info-popup.html"); ?>
       <?php require("parts/footer.html"); ?>
     </div>
@@ -119,4 +90,5 @@
 
   <?php require("../php/parts/user_session_token.php"); ?>
   <script src="scripts/utilities.js" defer></script>
+  <script src="scripts/profile.js" defer></script>
 </html>

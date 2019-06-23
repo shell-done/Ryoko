@@ -12,7 +12,7 @@ $(document).ready(function() {
                "&travelId=" + travelID +
                "&departureDate=" + $(".tmi-departure").val();
 
-    ajaxRequest("POST", "ajax/request.php/booking/", function(e) {showBookingMessage(travelTitle)}, data);
+    ajaxRequest("POST", "ajax/request.php/bookings/", function(e) {showBookingMessage(travelTitle)}, data);
   });
 
   initResearchBanner();

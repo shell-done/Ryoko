@@ -118,6 +118,14 @@
   color: #F9BF39;
 }
 
+.modal-travel-status {
+  margin-top: 30px;
+}
+
+.modal-travel-status img {
+  width: 30px;
+}
+
 #travel-modal .modal-title {
   width: 100%;
   text-align: center;
