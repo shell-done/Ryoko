@@ -1,0 +1,61 @@
+.navbar.navbar-inverse.navbar-expand-lg{
+  background-color: white;
+}
+
+.add-country-bar {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+
+  width: auto;
+  height: auto;
+
+  bottom: 0;
+  margin: 0;
+  padding: 25 50px;
+
+  color: #4E4E4E;
+  font-size: 30px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.add-country-bar #box1{
+  padding-left: 10%;
+  height: 150px;
+  width: 33%;
+}
+
+.add-country-bar #box2{
+  height: 150px;
+  width: 33%;
+}
+
+.add-country-bar h2{
+  width: 100%;
+  color:red;
+  padding-left: 10%;
+}
+
+.add-country-bar .form-elements {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+
+.add-country-bar .form-elements input{
+  font-size: 20px;
+  border: 2px solid red;
+  width: 400px;
+}
+
+.form-elements button{
+  font-size: 20px;
+  background-color: red;
+  color : white;
+  border: none;
+  width: 10vw;
+  bottom: 0;
+  margin :20px 0 20 100px;
+}

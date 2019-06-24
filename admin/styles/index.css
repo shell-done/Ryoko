@@ -5,6 +5,163 @@ body {
 h1, h2, h3, h4, h5, h6 {
   color: red;
 }
+
+.research-bar{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+
+  width: auto;
+  height: auto;
+
+  bottom: 0;
+  margin: 0;
+  padding: 25 50px;
+
+  color: #4E4E4E;
+  font-size: 30px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+.research-bar #box1{
+  padding: 10px 0 10px 10%;
+  height: 100%;
+  width: 35%;
+}
+.research-bar #box2{
+  padding: 10px 0 10px 15%;
+  height: 100%;
+  width: 40%;
+}
+.research-bar #box3{
+  padding-left: 20px;
+  height: 100%;
+  width: 25%;
+}
+.research-bar h2{
+  width: 100%;
+  color:red;
+  padding-left: 10%;
+}
+#box3 .form-elements button{
+  font-size: 20px;
+  background-color: red;
+  color : white;
+  border: none;
+  width: 10vw;
+}
+.research-bar .form-inline select {
+  font-size: 20px;
+  border: 2px solid red;
+  width: 50%;
+  margin-left:15px;
+}
+
+.navbar.navbar-inverse.navbar-expand-lg{
+  background-color: white;
+}
+
+.add-travel-bar {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+
+  width: auto;
+  height: auto;
+
+  bottom: 0;
+  margin: 0;
+  padding: 25 50px;
+
+  color: #4E4E4E;
+  font-size: 30px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.add-travel-bar #box1{
+  padding-left: 10%;
+  height: 350px;
+  width: 50%;
+  align-content: center;
+}
+
+.add-travel-bar #box2{
+  padding-left: 5%;
+  padding-right: 10%;
+  height: 350px;
+  width: 50%;
+  align-content: center;
+}
+
+.add-travel-bar h2{
+  width: 100%;
+  color:red;
+  padding-left: 10%;
+}
+
+.add-travel-bar .form-elements {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.add-travel-bar .form-elements input{
+  font-size: 20px;
+  border: 2px solid red;
+  width: 100%;
+}
+
+.add-travel-bar .form-elements textarea{
+  font-size: 20px;
+  border: 2px solid red;
+  width: 100%;
+  height: 150px;
+  resize: none;
+}
+
+.add-travel-bar .form-inline{
+  display: flex;
+  margin-top:68px;
+}
+
+.add-travel-bar .form-inline input[type="number"]{
+  font-size: 20px;
+  border: 2px solid red;
+  width: 330px;
+  margin-left:15px;
+}
+
+.add-travel-bar .form-inline select {
+  font-size: 20px;
+  border: 2px solid red;
+  width: 75%;
+  margin-left:15px;
+}
+
+.add-travel-bar #box2 .form-elements{
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-left: 375px;
+  bottom:0;
+  position: absolute;
+  margin-bottom: 50px;
+}
+
+.add-travel-bar #box2 .form-elements button{
+  float: right;
+  font-size: 20px;
+  background-color: red;
+  color : white;
+  border: none;
+  width: 10vw;
+}
+
 .position-relative{
     margin-top: 40px;
   }
@@ -33,15 +190,15 @@ h1, h2, h3, h4, h5, h6 {
     width: 85%;
     margin-left: auto;
     margin-right: auto;
-  
+
     margin-top: 50px;
     margin-bottom: 50px;
   }
-  
+
   .travel img {
     width: 100%;
   }
-  
+
   .travel-header {
     display: inline-block;
     max-width: 100%;
@@ -49,29 +206,29 @@ h1, h2, h3, h4, h5, h6 {
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  
+
   .travel-header h3 {
     display: inline-block;
     margin-right: 10px;
   }
-  
+
   .travel-duration {
     font-size: 15px;
     color: gray;
   }
-  
+
   .travel-description {
     height: 75px;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  
+
   .travel-price {
     width: 100%;
     color: gray;
     font-size: 15px;
   }
-  
+
   .travel-about {
     width: 100%;
     color: #red;
@@ -80,66 +237,66 @@ h1, h2, h3, h4, h5, h6 {
     display: inline-block;
     cursor: pointer;
   }
-  
+
   .travel-about:hover {
     text-decoration: underline;
   }
-  
+
   .travel-date {
     display: flex;
     color: gray;
   }
-  
+
   .travel-date span {
     width: 100px;
     margin-right: 30px;
   }
-  
+
   .travel-status-box {
     height: 25px;
     font-size: 20px;
-  
+
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
     float: right;
     width: auto;
   }
-  
+
   .travel-status {
     height: 100%;
     display: flex;
     align-items: center;
   }
-  
+
   .travel-status img {
     height: 100%;
     width: auto;
     margin-right: 10px;
   }
-  
+
   .travel-status span {
     display: inline-block;
   }
-  
+
   .travel-status-denied {
     color: #FF0000;
     margin-left: 10px;
   }
-  
+
   .travel-status-accepted {
     color: #63CE1C;
   }
-  
+
   .travel-status-waiting {
     color: #F9BF39;
   }
-  
+
   #travel-modal .modal-title {
     width: 100%;
     text-align: center;
   }
-  
+
   #travel-modal .close {
     margin-top: auto;
     margin-bottom: auto;
@@ -147,17 +304,17 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0;
     margin-right: 15px;
   }
-  
+
   #travel-modal .close[disabled] {
     color: transparent;
   }
-  
+
   #travel-modal-img {
     display: block;
     margin: 10px auto 30px auto;
     width: 70%;
   }
-  
+
   .travel-modal-thumbs {
     display: flex;
     flex-wrap: nowrap;
@@ -166,7 +323,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 30px;
     overflow-x: auto;
   }
-  
+
   .travel-modal-thumbs img {
     width: 70px;
     height: 70px;
@@ -174,14 +331,14 @@ h1, h2, h3, h4, h5, h6 {
     margin: 5px 15px;
     border: 1px solid #BBBBBB;
   }
-  
+
   .travel-modal-description {
     width: 100%;
     height: 150px;
     overflow-y: auto;
     padding-right: 40px;
   }
-  
+
   .travel-modal-info {
     width: 100%;
     display: flex;
@@ -190,35 +347,35 @@ h1, h2, h3, h4, h5, h6 {
     padding-right: 40px;
     font-size:20px;
   }
-  
+
   .travel-modal-info h4 {
     margin: 0;
   }
-  
+
   .travel-modal-info div {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
   }
-  
+
   .travel-modal-info input {
     border: 0px solid red;
   }
-  
+
   .tmi {
     margin-top: 10px;
   }
-  
+
   .travel-modal-info button {
     background-color: red;
     border: 3px solid black;
     color: white;
     border-radius: 2px;
     cursor: pointer;
-  
+
     margin: 30px 0 auto 0;
   }
-  
+
   .travel-modal-info button:hover {
     border: 3px solid black;
     background-color: white;
@@ -229,17 +386,17 @@ h1, h2, h3, h4, h5, h6 {
     border-collapse: collapse;
     width: 100%;
   }
-  
+
   #pays td, #pays th {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
   }
-  
+
   #pays tr:nth-child(even){background-color: #f2f2f2;}
-  
+
   #pays tr:hover {background-color: #ddd;}
-  
+
   #pays th {
     padding-top: 12px;
     padding-bottom: 12px;

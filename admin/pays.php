@@ -3,12 +3,33 @@
 ?>
 
 <html>
-  <?php generateHead(["index-admin", "admin-navbar", "add-country", "navbar"]);?>
+  <?php generateHead(["index", "navbar", "header", "pays", "footer"]);?>
 
   <body>
-    <?php require("parts/navbar_admin.html"); ?>
     <?php require("parts/navbar.html"); ?>
-    <?php require("parts/add-country-banner.html"); ?>
+    <?php require("parts/header.html"); ?>
+
+    <div class="position-relative">
+        <form class="add-country-bar">
+            <h2>Ajouter</h2>
+            <div id="box1">
+                <div class="form-elements">
+                    <label for = "add-title">ISO Code</label>
+                    <input type="text" id="add-title" maxlength="64">
+                </div>
+            </div>
+            <div id="box2">
+                <div class="form-elements">
+                    <label for = "add-title">Pays</label>
+                    <input type="text" id="add-title" maxlength="64">
+                </div>
+                <div class="form-elements" style="float: right;">
+                    <button type="submit" id="search-button">Ajouter</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <div class="container">
         <div class="results-box">
             <h2>Les pays disponibles</h2>
@@ -79,5 +100,7 @@
             </div>
         </div>
     </div>
+
+    <?php require("parts/footer.html"); ?>
   </body>
 </html>

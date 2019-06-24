@@ -3,11 +3,12 @@
 ?>
 
 <html>
-  <?php generateHead(["index", "admin-navbar", "admin-travel-add", "navbar", "footer"]);?>
+  <?php generateHead(["index", "navbar", "header", "footer"]);?>
 
   <body>
-    <?php require("parts/navbar_admin.html"); ?>
     <?php require("parts/navbar.html"); ?>
+    <?php require("parts/header.html"); ?>
+
     <div class="container">
       <div class="results-box">
         <h2>Valider les voyages</h2>
