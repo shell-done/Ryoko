@@ -3,11 +3,12 @@
 ?>
 
 <html>
-  <?php generateHead(["index-admin", "admin-navbar", "admin-travel-add", "navbar"]);?>
+  <?php generateHead(["index-admin", "admin-navbar", "add-country", "navbar"]);?>
 
   <body>
     <?php require("parts/navbar_admin.html"); ?>
     <?php require("parts/navbar.html"); ?>
+    <?php require("parts/add-country-banner.html"); ?>
     <div class="container">
         <div class="results-box">
             <h2>Les pays disponibles</h2>
@@ -79,7 +80,4 @@
         </div>
     </div>
   </body>
-  <footer>
-    Projet Web CIR 2 - ISEN Yncréa Ouest | Tous droits réservés
-  </footer>
 </html>
