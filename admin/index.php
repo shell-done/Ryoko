@@ -2,13 +2,13 @@
 
 
 <html>
-  <?php generateHead(["index-admin", "admin-navbar", "admin-travel-add", "navbar"]);?>
+  <?php generateHead(["index", "admin-navbar", "admin-travel-add", "navbar", "footer"]);?>
 
   <body>
     <?php require("parts/navbar_admin.html"); ?>
     <?php require("parts/navbar.html"); ?>
     <?php require("parts/add-travel-banner.html"); ?>
-    
+
     <?php require("parts/research-banner-admin.html"); ?>
 
     <div id="contenu">
@@ -77,11 +77,8 @@
       </div>
     </div>
     <?php require("parts/travel-popup.html") ?>
-
+    <?php require("parts/footer.html"); ?>
   </body>
-  <footer>
-    Projet Web CIR 2 - ISEN Yncréa Ouest | Tous droits réservés
-  </footer>
   <!-- Load scripts -->
   <script src="scripts/research.js" defer></script>
 </html>

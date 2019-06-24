@@ -59,6 +59,7 @@
 
   <!-- Load scripts -->
   <?php require("../php/parts/user_session_token.php"); ?>
+  <script src="scripts/ajax.js" defer></script>
   <script src="scripts/utilities.js" defer></script>
   <script src="scripts/index.js" defer></script>
 </html>

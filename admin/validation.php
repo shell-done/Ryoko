@@ -3,7 +3,7 @@
 ?>
 
 <html>
-  <?php generateHead(["index-admin", "admin-navbar", "admin-travel-add", "navbar"]);?>
+  <?php generateHead(["index", "admin-navbar", "admin-travel-add", "navbar", "footer"]);?>
 
   <body>
     <?php require("parts/navbar_admin.html"); ?>
@@ -75,8 +75,7 @@
         </div>
       </div>
     </div>
+
+    <?php require("parts/footer.html"); ?>
   </body>
-  <footer>
-    Projet Web CIR 2 - ISEN Yncréa Ouest | Tous droits réservés
-  </footer>
 </html>
