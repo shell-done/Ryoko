@@ -60,36 +60,20 @@ else if($requestRessource == "travels") {
 
       $durationMin = false;
       $durationMax = false;
-      if($duration) {
+      if(sizeof($duration) == 2) {
         $durationMin = $duration[0];
-        $durationMax = $duration[1];
+
+        if($duration[1] != "Inf")
+          $durationMax = $duration[1];
       }
 
       $data = dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $price);
-
-      for($i=0; $i<count($data); $i++) {
-        $path = "/var/www/html/" . $data[$i]->getImgDirectory();
-        $fileList = array();
-        foreach(glob($path . '*.{jpg,JPG,jpeg,JPEG,png,PNG}', GLOB_BRACE) as $file){
-            array_push($fileList, $data[$i]->getImgDirectory() . basename($file));
-        }
-
-        $data[$i]->setImgPathList($fileList);
-      }
 
       response("200 OK", objectsArrayToJSON($data));
     }
   } else {
     if($requestType == "GET") {
       $data = dbGetTravel($db, $requestID);
-
-      $path = "/var/www/html/" . $data->getImgDirectory();
-      $fileList = array();
-      foreach(glob($path . '*.{jpg,JPG,jpeg,JPEG,png,PNG}', GLOB_BRACE) as $file){
-        array_push($fileList, $data->getImgDirectory() . basename($file));
-      }
-
-      $data->setImgPathList($fileList);
 
       $status = dbGetValidationStatus($db, $_GET["userToken"], $requestID);
       $data->setValidationStatus($status);
@@ -120,29 +104,9 @@ else if($requestRessource == "bookings") {
   else if($requestType == "GET") {
     if(!$requestID) {
       $data = dbGetUserBookedTravels($db, $_GET["userToken"]);
-
-      for($i=0; $i<count($data); $i++) {
-        $path = "/var/www/html/" . $data[$i]->getImgDirectory();
-        $fileList = array();
-        foreach(glob($path . '*.{jpg,JPG,jpeg,JPEG,png,PNG}', GLOB_BRACE) as $file){
-            array_push($fileList, $data[$i]->getImgDirectory() . basename($file));
-        }
-
-        $data[$i]->setImgPathList($fileList);
-      }
-
       response("200 OK", objectsArrayToJSON($data));
     } else {
       $data = dbGetUserBookedTravel($db, $_GET["userToken"], $requestID);
-
-      $path = "/var/www/html/" . $data->getImgDirectory();
-      $fileList = array();
-      foreach(glob($path . '*.{jpg,JPG,jpeg,JPEG,png,PNG}', GLOB_BRACE) as $file){
-        array_push($fileList, $data->getImgDirectory() . basename($file));
-      }
-
-      $data->setImgPathList($fileList);
-
       response("200 OK", objectToJSON($data));
     }
   }

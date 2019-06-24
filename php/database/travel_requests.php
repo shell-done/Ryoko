@@ -6,15 +6,15 @@ require_once("$serverRoot/php/classes/Travel.php");
 function dbAddTravel($db, $travel){
     try{
         $request = 'INSERT INTO Travel(title, description, duration, cost, img_directory, country_code)
-        VALUES (:title, :description, :duration, :cost, :img_directory, (SELECT c.iso_code FROM Country c WHERE c.name = :country) ) ';
+                    VALUES (:title, :description, :duration, :cost, :img_directory, :country_code)';
         $statement = $db->prepare($request);
-        $statement->bindParam(':title', $travel->getTitle(), PDO::PARAM_STR, 64);
-        $statement->bindParam(':description', $travel->getDescription(), PDO::PARAM_STR);
-        $statement->bindParam(':duration', $travel->getDuration(), PDO::PARAM_INT);
-        $statement->bindParam(':cost', $travel->getCost(), PDO::PARAM_INT);
-        $statement->bindParam(':img_directory', $travel->getImgDirectory(), PDO::PARAM_STR,128);
-        $statement->bindParam(':country', $travel->getCountry(), PDO::PARAM_STR);
-        $statement->execute();
+        $statement->bindValue(':title', $travel->getTitle(), PDO::PARAM_STR);
+        $statement->bindValue(':description', $travel->getDescription(), PDO::PARAM_STR);
+        $statement->bindValue(':duration', $travel->getDuration(), PDO::PARAM_INT);
+        $statement->bindValue(':cost', $travel->getCost(), PDO::PARAM_INT);
+        $statement->bindValue(':img_directory', $travel->getImgDirectory(), PDO::PARAM_STR);
+        $statement->bindValue(':country_code', $travel->getCountry(), PDO::PARAM_STR);
+        return $statement->execute();
     } catch (PDOException $exception) {
       error_log('Request error: '.$exception->getMessage());
       return false;
@@ -63,13 +63,16 @@ function dbDeleteTravel($db, $travel){
 
 //Fonction pour afficher la recherche de voyages dans le barillo
 function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCost) {
+    $results = false;
+
     try{
         $request = "SELECT id_travel, title, description, duration, cost, img_directory, c.name AS country FROM Travel t, Country c";
 
         $criteria = array("c.iso_code = t.country_code");
 
         if($country != false) array_push($criteria, "c.iso_code = :country");
-        if($durationMin !== false) array_push($criteria, "duration BETWEEN :durationMin AND :durationMax");
+        if($durationMin != false && $durationMax != false) array_push($criteria, "duration BETWEEN :durationMin AND :durationMax");
+        else if($durationMin != false) array_push($criteria, "duration >= :durationMin");
         if($maxCost != false) array_push($criteria, "cost <= :cost");
 
         $request .= " WHERE " . implode(" AND ", $criteria);
@@ -83,14 +86,24 @@ function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCos
         if($maxCost != false) $statement->bindParam(':cost', $maxCost, PDO::PARAM_INT);
 
         $statement->execute();
-        $result = $statement->fetchAll(PDO::FETCH_CLASS, "Travel");
+        $results = $statement->fetchAll(PDO::FETCH_CLASS, "Travel");
+
+        for($i=0; $i<count($results); $i++) {
+          $path = "/var/www/html/" . $results[$i]->getImgDirectory();
+          $fileList = array();
+          foreach(glob($path . '*.{jpg,JPG,jpeg,JPEG,png,PNG}', GLOB_BRACE) as $file){
+              array_push($fileList, $results[$i]->getImgDirectory() . basename($file));
+          }
+
+          $results[$i]->setImgPathList($fileList);
+        }
     }
     catch (PDOException $exception){
         error_log('Request error: '.$exception->getMessage());
         return false;
     }
 
-    return $result;
+    return $results;
 }
 
 //Afiicher le voyage sélectionner
@@ -104,6 +117,14 @@ function dbGetTravel($db, $id_travel){
         $statement->execute();
 
         $result = $statement->fetchObject("Travel");
+
+        $path = "/var/www/html/" . $result->getImgDirectory();
+        $fileList = array();
+        foreach(glob($path . '*.{jpg,JPG,jpeg,JPEG,png,PNG}', GLOB_BRACE) as $file){
+          array_push($fileList, $result->getImgDirectory() . basename($file));
+        }
+
+        $result->setImgPathList($fileList);
     }
     catch (PDOException $exception){
         error_log('Request error: ' . $exception->getMessage());

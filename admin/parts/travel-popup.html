@@ -2,11 +2,11 @@
   <div class="modal-dialog mw-100 w-75">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close transparent" data-dismiss="modal" disabled>
+        <button type="button" class="close transparent" data-dismiss="modal" style="width: auto;" disabled>
           <span>&times;</span>
         </button>
         <h2 class="modal-title">Séjour à Mykonos</h2>
-        <button type="button" class="close" data-dismiss="modal">
+        <button type="button" class="close" data-dismiss="modal" style="width: auto;">
           <span>&times;</span>
         </button>
       </div>
@@ -40,15 +40,19 @@
               <div><h4>Prix</h4><span class="tmi tmi-cost">XX €</span></div>
             </div>
 
-            <div class="travel-modal-info">
+            <div class="travel-modal-info travel-modal-user-info">
               <div><h4>Date de départ</h4><input type="date" class="tmi tmi-departure"></input></div>
               <div><h4>Daté d'arrivée</h4><input type="date" class="tmi tmi-return" readonly></input></div>
             </div>
 
             <div class="travel-modal-info">
               <div></div>
-              <button type="submit" id="search-button">Modifier</button>
-              <button type="submit" id="search-button">Supprimer</button>
+              <div>
+                <div id="travel-modal-buttons">
+                  <button type="button">Modifier</button>
+                  <button type="button">Supprimer</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

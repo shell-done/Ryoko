@@ -47,20 +47,15 @@ function dbDeleteCountry($db, $iso_code){
     return true;
 }
 
-function dbGetAllCountries($db){
+function dbGetAllCountries($db) {
     $results = array();
+
     try{
-        $request = 'SELECT * FROM Country';
+        $request = 'SELECT name, iso_code FROM Country';
         $statement = $db->prepare($request);
         $statement->execute();
 
-        $obj = $statement->fetchObject("Country");
-        while($obj) {
-          array_push($results, $obj);
-          $obj = $statement->fetchObject("Country");
-        }
-
-        $result = $statement->fetchAll(PDO::FETCH_CLASS, "Country");
+        $results = $statement->fetchAll(PDO::FETCH_CLASS, "Country");
     }
     catch (PDOException $exception){
         error_log('Request error: ' . $exception->getMessage());
