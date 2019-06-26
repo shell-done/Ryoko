@@ -89,10 +89,19 @@ function editTravelModal(ajaxResponse) {
   var travel = JSON.parse(ajaxResponse);
 
   $("#travel-modal .modal-title").text(travel.title);
+  $(".print-content h3").text(travel.title);
+
   $(".travel-modal-description").text(travel.description);
+  $(".print-desc").text(travel.description);
+
   $(".tmi-country").text(travel.country);
+  $(".print-country").text(travel.country);
+
   $(".tmi-duration").text(travel.duration + " jours");
+  $(".print-duration").text(travel.duration + " jours");
+
   $(".tmi-cost").text(travel.cost + " €");
+  $(".print-cost").text(travel.cost + " €");
 
   $(".tmi-departure").attr("min", getInputDate(new Date()));
 
@@ -101,18 +110,23 @@ function editTravelModal(ajaxResponse) {
 
   $(".tmi-departure").change(function() {
     let departure = $(".tmi-departure").val();
+    $(".print-departure").text(getFrenchDate(departure));
 
     let returnDate = new Date(departure);
     returnDate.setDate(returnDate.getDate() + parseInt(travel.duration));
 
     $(".tmi-return").val(getInputDate(returnDate));
+    $(".print-return").text(getFrenchDate(getInputDate(returnDate)));
   });
   $(".tmi-departure").trigger("change");
 
-  if(travel.img_list.length == 0)
+  if(travel.img_list.length == 0) {
     $("#travel-modal-img").attr("src", "img/default_thumb.png");
-  else
+    $(".print-thumb img").attr("src", "img/default_thumb.png");
+  } else {
     $("#travel-modal-img").attr("src", travel.img_list[0]);
+    $(".print-thumb img").attr("src", travel.img_list[0]);
+  }
 
   var thumbsText = "";
   for(let i=0; i < travel.img_list.length; i++)

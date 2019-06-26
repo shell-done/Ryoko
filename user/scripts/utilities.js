@@ -8,6 +8,15 @@ function getInputDate(date) {
   return year + "-" + month + "-" + day;
 }
 
+function getFrenchDate(inputDate) {
+  let arr = inputDate.split("-");
+
+  if(arr.length != 3)
+    return "";
+
+  return arr[2] + "/" + arr[1] + "/" + arr[0];
+}
+
 function showInfo(title, content, isError = false) {
   $(".modal:not(#info-modal)").modal("hide");
 

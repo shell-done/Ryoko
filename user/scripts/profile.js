@@ -78,10 +78,15 @@ function editTravelModal(ajaxResponse) {
   };
 
   $("#travel-modal .modal-title").text(travel.title);
+  $(".print-content h3").text(travel.title);
   $(".travel-modal-description").text(travel.description);
+  $(".print-desc").text(travel.description);
   $(".tmi-country").text(travel.country);
+  $(".print-country").text(travel.country);
   $(".tmi-duration").text(travel.duration + " jours");
+  $(".print-duration").text(travel.duration + " jours");
   $(".tmi-cost").text(travel.cost + " €");
+  $(".print-cost").text(travel.cost + " €");
 
   let dep = travel.departure_date.split("/").reverse();
   let ret = travel.return_date.split("/").reverse();
@@ -90,10 +95,16 @@ function editTravelModal(ajaxResponse) {
   $(".tmi-departure").attr("readonly", "true");
   $(".tmi-return").val(ret[0] + "-" + ret[1] + "-" + ret[2]);
 
-  if(travel.img_list.length == 0)
+  $(".print-departure").text(getFrenchDate($(".tmi-departure").val()));
+  $(".print-return").text(getFrenchDate($(".tmi-return").val()));
+
+  if(travel.img_list.length == 0) {
     $("#travel-modal-img").attr("src", "img/default_thumb.png");
-  else
+    $(".print-thumb img").attr("src", "img/default_thumb.png");
+  } else {
     $("#travel-modal-img").attr("src", travel.img_list[0]);
+    $(".print-thumb img").attr("src", travel.img_list[0]);
+  }
 
   var thumbsText = "";
   for(let i=0; i < travel.img_list.length; i++)
@@ -118,6 +129,8 @@ function editTravelModal(ajaxResponse) {
       <span>` + translations[status] + `</span>
     </span>`
   );
+
+  $(".print-msg p").text("Statut de votre demande : " + translations[status]);
 
   $("#travel-modal").modal("show");
 }

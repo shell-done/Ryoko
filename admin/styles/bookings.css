@@ -1,0 +1,64 @@
+.results-box h2 {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.bookings-header {
+  width: 100%;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.sort-bookings {
+  margin: 20px auto;
+}
+
+.sort-bookings button {
+  border: 1px solid #E60000;
+  background-color: white;
+  color: red;
+  width: 100px;
+
+  transition: 0.2s;
+}
+
+.sort-bookings button:hover, .sort-bookings .active {
+  background-color: #E60000;
+  color: white;
+  outline: none;
+}
+
+.sort-bookins .:active {
+  font-weight: bold;
+  outline: none;
+}
+
+tr {
+  font-size: 20px;
+}
+
+.table-title {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.validation-cell button {
+  min-width: 100px;
+  max-width: 150px;
+  margin: 5px auto;
+  font-size: 20px;
+}
+
+.status-accepted span {
+  color: #63CE1C;
+  padding: 5px;
+}
+
+.status-denied span {
+  color: red;
+  padding: 5px;
+}

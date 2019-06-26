@@ -4,6 +4,22 @@
     exit;
   }
 
+  /* Source : https://paulund.co.uk/php-delete-directory-and-files-in-directory */
+  function delete_files($target) {
+    if(is_dir($target)) {
+      $files = glob($target . '*', GLOB_MARK);
+
+        foreach($files as $file) {
+          delete_files($file);
+        }
+
+        rmdir( $target );
+    } else if(is_file($target)) {
+        unlink( $target );
+    }
+  }
+  /*--------------------------------------------*/
+
   if(!isset($_POST["idTravel"]))
     error("L'id du voyage n'existe pas");
 
@@ -20,19 +36,7 @@
     error("Une erreur est survenue lors de la suppression du voyage");
   else {
     $target = $serverRoot . "/" . $travel->getImgDirectory();
-
-    /* Source : https://paulund.co.uk/php-delete-directory-and-files-in-directory */
-    if(is_dir($target)){
-      $files = glob( $target . '*', GLOB_MARK );
-
-      foreach($files as $file)
-        delete_files($file);
-
-      rmdir($target);
-    } else if(is_file($target)) {
-      unlink($target);
-    }
-    /* ------------------------------------------ */
+    delete_files($target);
 
     header("Location: ../index.php?info=" . base64_encode("Le voyage n'est maintenant plus disponible"));
   }

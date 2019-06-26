@@ -1,42 +1,36 @@
 <?php
+$serverRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
+require("$serverRoot/php/classes/Booking.php");
+require("$serverRoot/php/database/database.php");
+require("$serverRoot/php/database/booking_requests.php");
 
-require("../php/classes/Booking.php");
-require("../php/database/database.php");
-require("../php/database/booking_requests.php");
-session_start();
-
-function AvailableBookings() {
+function DisplayBookings() {
     $db = dbConnect();
     $bookings = dbGetAllBooking($db);
-    
+
     foreach($bookings as $booking) {
-        echo "<tr>
-                <td class = 'User'> 
-                    ".$booking->user_email." 
-                </td>
-                <td class = 'name'> 
-                    Id :".$booking->getId()." Titre :".$booking->title."
-                </td>
-                <td class = 'departure'>
-                    ".$booking->getDeparture()."
-                </td>
-                <td class = 'return'> 
-                    ".$booking->getReturn()."
-                </td>
-                <td class = 'total-cost'> 
-                    ".$booking->getCost()."
-                </td>
-                <td class = 'validation'> 
-                    <div>
-                        <input type='radio' id='accepter' name='drone' value='accepter'>
-                        <label for='accepter'>accepter</label>
-                    </div><div>
-                        <input type='radio' id='refuser' name='drone' value='refuser'>
-                        <label for='refuser'>refuser</label>
-                    </div>
-                </td>
-            <tr>"
-        ;
+      $validColumn = null;
+
+      if($booking->getValidation() == "WAITING") {
+        $validColumn = "<td class='validation-cell'>
+          <button type='button' onclick='accept(`" . $booking->getId() ."`, `" . $booking->getEmail() . "`)'>Accepter</button>
+          <button type='button' onclick='deny(`" . $booking->getId() ."`, `" . $booking->getEmail() . "`)'>Refuser</button>
+        </td>";
+      } else if($booking->getValidation() == "DENIED") {
+        $validColumn = "<td><span class='booking-status'> Refusé </span></td>";
+      } else if($booking->getValidation() == "ACCEPTED") {
+        $validColumn = "<td><span class='booking-status'> Accepté </span></td>";
+      }
+
+      echo "<tr class='booking-row status-" . strtolower($booking->getValidation()) . "'>
+              <td>" . $booking->getEmail(). "</td>
+              <td>" . $booking->getCountry() . "</td>
+              <td><div class='table-title'>" . $booking->getTitle() . "</div></td>
+              <td>" . $booking->getDeparture() . "</td>
+              <td>" . $booking->getReturn() . "</td>
+              <td>" . $booking->getCost() . "€ </td>
+              $validColumn
+            </tr>";
     }
   }
 

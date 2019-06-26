@@ -44,15 +44,14 @@
             </div>
 
             <div class="container">
-                <div id="id-travel-1" class="travel row">
-                <table id="pays">
-                  <tr>
-                    <th>Code ISO</th>
-                    <th>Nom</th>
-                    <th>Options</th>
-                  </tr>
-                  <?php AvailableCountries(); ?>
-                </table>
+              <table class="list">
+                <tr>
+                  <th>Code ISO</th>
+                  <th>Nom</th>
+                  <th>Options</th>
+                </tr>
+                <?php AvailableCountries(); ?>
+              </table>
             </div>
         </div>
     </div>

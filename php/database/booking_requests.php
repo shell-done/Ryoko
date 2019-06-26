@@ -10,9 +10,9 @@ function dbAddUserBooking($db, $booking) {
                     WHERE token=:token AND id_travel=:id_travel;';
 
         $statement = $db->prepare($request);
-        $statement->bindParam(':id_travel', $booking->getId(), PDO::PARAM_STR, 64);
-        $statement->bindParam(':token', $booking->getToken(), PDO::PARAM_STR);
-        $statement->bindParam(':departure_date', $booking->getDeparture(), PDO::PARAM_STR);
+        $statement->bindValue(':id_travel', $booking->getId(), PDO::PARAM_STR);
+        $statement->bindValue(':token', $booking->getToken(), PDO::PARAM_STR);
+        $statement->bindValue(':departure_date', $booking->getDeparture(), PDO::PARAM_STR);
 
         return $statement->execute();
     } catch (PDOException $exception) {
@@ -124,35 +124,42 @@ function dbDeleteBooking($db, $booking){
 }
 
 function dbGetAllBooking($db) {
+    $results = false;
+
     try{
-        $request = 'SELECT * FROM booking';
+        $request = 'SELECT b.id_travel AS id_travel, user_email AS email, title, country_code AS country, DATE_FORMAT(departure_date, "%d/%m/%Y") AS departure_date,
+                      DATE_FORMAT(return_date, "%d/%m/%Y") AS return_date, total_cost, validation_status AS validation
+                    FROM Booking b, Travel t
+                    WHERE b.id_travel = t.id_travel';
+
         $statement = $db->prepare($request);
         $statement->execute();
-        $result = $statement->fetchAll();
+
+        $results = $statement->fetchAll(PDO::FETCH_CLASS, "Booking");
     }
     catch (PDOException $exception){
         error_log('Request error: '.$exception->getMessage());
         return false;
     }
-    return $result;
+
+    return $results;
 }
 
-
-
-
-function dbValidationBooking($db, $booking, $travel, $validation_status) {
+function dbValidationBooking($db, $booking) {
     try{
-        $request = 'UPDATE booking SET validation_status = :validation_status  WHERE user_email = :user_email AND id_travel = :id_travel ';
+        $request = 'UPDATE Booking SET validation_status = :validation_status WHERE user_email = :user_email AND id_travel = :id_travel';
         $statement = $db->prepare($request);
-        $statement->bindParam(':user_email', $booking->getEmail(), PDO::PARAM_STR, 128);
-        $statement->bindParam(':validation_status', $validation_status, PDO::PARAM_STR, 128);
-        $statement->bindParam(':id_travel', $travel->getId(), PDO::PARAM_INT);
-        $statement->execute();
-        $result = $statement->fetchAll();
+
+        $statement->bindValue(':user_email', $booking->getEmail(), PDO::PARAM_STR);
+        $statement->bindValue(':id_travel', $booking->getId(), PDO::PARAM_INT);
+        $statement->bindValue(':validation_status', $booking->getValidation(), PDO::PARAM_STR);
+
+        return $statement->execute();
     }
     catch (PDOException $exception){
         error_log('Request error: '.$exception->getMessage());
         return false;
     }
-    return $result;
+
+    return false;
 }
