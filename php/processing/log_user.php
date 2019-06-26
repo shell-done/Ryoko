@@ -7,13 +7,18 @@
   require("../php/database/user_requests.php");
   session_start();
 
-  if(!isset($_SESSION["user"]) || 1) {
-    $db = dbConnect();
-    $user = dbStartUserSession($db, DEFAULT_USER_EMAIL, DEFAULT_USER_PWD);
+  if(!isset($_SESSION["user"])) {
+    header("Location: connection.php");
+    exit;
+  }
 
-    if($user == false)
-      $_SESSION["user"] = false;
-    else
-      $_SESSION["user"] = serialize($user);
+  $db = dbConnect();
+  $token = unserialize($_SESSION["user"])->getToken();
+  $tokenIsValid = dbCheckToken($db, $token);
+
+  if(!$tokenIsValid) {
+    unset($_SESSION["user"]);
+    header("Location: connection.php");
+    exit;
   }
 ?>

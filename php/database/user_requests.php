@@ -11,9 +11,9 @@ function dbStartUserSession($db, $email, $password) {
 
         $request = 'UPDATE User SET token=:token WHERE email=:email AND password=:password';
         $statement = $db->prepare($request);
-        $statement->bindParam(":token", $newToken);
-        $statement->bindParam(":email", $email);
-        $statement->bindParam(":password", hash("sha256", $password));
+        $statement->bindValue(":token", $newToken);
+        $statement->bindValue(":email", $email);
+        $statement->bindValue(":password", hash("sha256", $password));
 
         $statement->execute();
 
@@ -48,4 +48,23 @@ function dbGetUser($db, $userToken) {
   }
 
   return $result;
+}
+
+function dbCheckToken($db, $token) {
+  try {
+    $request = 'SELECT email FROM User WHERE token=:token';
+
+    $statement = $db->prepare($request);
+    $statement->bindParam(":token", $token);
+    $statement->execute();
+
+    if($statement->rowCount() == 1)
+      return true;
+  }
+  catch (PDOException $exception){
+      error_log('Request error: ' . $exception->getMessage());
+      return false;
+  }
+
+  return false;
 }

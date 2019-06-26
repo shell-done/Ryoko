@@ -84,9 +84,11 @@ else if($requestRessource == "travels") {
 }
 
 else if($requestRessource == "user") {
-  if($requestID) {
-    $data = dbGetUser($db, $requestID);
-    response("200 OK", objectToJSON($data));
+  if($requestType == "GET") {
+    if($requestID) {
+      $data = dbGetUser($db, $requestID);
+      response("200 OK", objectToJSON($data));
+    }
   }
 }
 

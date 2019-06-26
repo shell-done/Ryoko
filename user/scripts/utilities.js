@@ -1,4 +1,6 @@
-ajaxRequest("GET", "ajax/request.php/user/" + userToken, showUser);
+$(document).ready(function() {
+  ajaxRequest("GET", "ajax/request.php/user/" + userToken, showUser);
+});
 
 function getInputDate(date) {
   let year = date.getFullYear();
