@@ -8,7 +8,7 @@ h1, h2, h3, h4, h5, h6 {
 
 button {
   width: 50%;
-  max-width: 175px;
+  max-width: 200px;
   margin-left: auto;
   margin-right: 0;
 
@@ -133,6 +133,10 @@ button {
   padding-left: 20px;
   height: 100%;
   width: 25%;
+}
+
+input[type="text"], input[type="number"], select, textarea {
+  border: 2px solid #E40613;
 }
 
 #box3 .form-elements button{

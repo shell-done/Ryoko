@@ -20,45 +20,47 @@ function dbAddTravel($db, $travel){
       return false;
     }
 
-    return true;
+    return false;
 }
 
 //Fonction pour modifier tout les voyages disponibles
-function dbUpdateTravel($db, $travel){
+function dbUpdateTravel($db, $travel) {
     try{
-        $request = 'UPDATE Travel, Country c SET title = :title, description = :description, duration = :duration, cost = :cost, img_directory = :img_directory, country_code = c.iso_code
-        WHERE id_travel = :id_travel AND c.name = :country';
+        $request = 'UPDATE Travel
+                    SET title = :title, description = :description, duration = :duration, cost = :cost, country_code = :country
+                    WHERE id_travel = :id_travel';
 
         $statement = $db->prepare($request);
-        $statement->bindParam(':title', $travel->getTitle(), PDO::PARAM_STR, 64);
-        $statement->bindParam(':description', $travel->getDescription(), PDO::PARAM_STR);
-        $statement->bindParam(':duration', $travel->getDuration(), PDO::PARAM_INT);
-        $statement->bindParam(':cost', $travel->getCost(), PDO::PARAM_INT);
-        $statement->bindParam(':img_directory', $travel->getImgDirectory(), PDO::PARAM_STR,128);
-        $statement->bindParam(':country', $travel->getCountry(), PDO::PARAM_STR);
-        $statement->bindParam(':id_travel', $travel->getId(), PDO::PARAM_INT);
-        $statement->execute();
+
+        $statement->bindValue(':title', $travel->getTitle(), PDO::PARAM_STR);
+        $statement->bindValue(':description', $travel->getDescription(), PDO::PARAM_STR);
+        $statement->bindValue(':duration', $travel->getDuration(), PDO::PARAM_INT);
+        $statement->bindValue(':cost', $travel->getCost(), PDO::PARAM_INT);
+        $statement->bindValue(':country', $travel->getCountry(), PDO::PARAM_STR);
+        $statement->bindValue(':id_travel', $travel->getId(), PDO::PARAM_INT);
+
+        return $statement->execute();
     } catch (PDOException $exception){
       error_log('Request error: '.$exception->getMessage());
       return false;
     }
 
-    return true;
+    return false;
 }
 
 //Fonction pour supprimer tout les voyages disponibles
-function dbDeleteTravel($db, $travel){
+function dbDeleteTravel($db, $travelID) {
     try{
         $request = 'DELETE FROM Travel WHERE id_travel = :id_travel';
         $statement = $db->prepare($request);
-        $statement->bindParam(':id_travel', $travel->getId(), PDO::PARAM_INT);
-        $statement->execute();
+        $statement->bindParam(':id_travel', $travelID, PDO::PARAM_INT);
+        return $statement->execute();
     } catch (PDOException $exception){
         error_log('Request error: '.$exception->getMessage());
         return false;
     }
 
-    return true;
+    return false;
 }
 
 //Fonction pour afficher la recherche de voyages dans le barillo
@@ -107,7 +109,7 @@ function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCos
 }
 
 //Afiicher le voyage sélectionner
-function dbGetTravel($db, $id_travel){
+function dbGetTravel($db, $id_travel) {
     $result = false;
 
     try{
@@ -117,6 +119,9 @@ function dbGetTravel($db, $id_travel){
         $statement->execute();
 
         $result = $statement->fetchObject("Travel");
+
+        if(!$result)
+          return false;
 
         $path = "/var/www/html/" . $result->getImgDirectory();
         $fileList = array();

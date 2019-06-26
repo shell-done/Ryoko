@@ -1,4 +1,5 @@
 <?php require_once("../php/parts/head.php");?>
+<?php require_once("../php/processing/utilities.php"); ?>
 <?php require_once("../php/processing/admin-index.php"); ?>
 
 <html>
@@ -41,7 +42,7 @@
           </div>
           <div class="form-elements">
             <label for = "add-price">Prix</label>
-            <input type="number" id="add-price" name="add-price">
+            <input type="number" id="add-price" name="add-price" min="10" value="100">
           </div>
           <div class="form-elements">
             <button type="submit" id="search-button">Ajouter</button>
@@ -99,11 +100,12 @@
       </div>
     </div>
 
-    <?php require("parts/travel-popup.html") ?>
+    <?php showPopup($_GET["travel"]); ?>
+    <?php showInfErr($_GET["info"], $_GET["error"]); ?>
     <?php require("parts/footer.html"); ?>
   </body>
 
   <!-- Load scripts -->
+  <?php jsListAvailableCountries(); ?>
   <script src="scripts/index.js" defer></script>
-  <?php showPopup($_GET["travel"]); ?>
 </html>

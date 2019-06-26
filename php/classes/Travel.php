@@ -15,7 +15,7 @@ class Travel {
   private $return_date;
 
   public function getId() {return $this->id_travel;}
-  public function setId($id) {$this->id_travel = $id_travel;}
+  public function setId($id) {$this->id_travel = $id;}
 
   public function getTitle() {return $this->title;}
   public function setTitle($title) {$this->title = $title;}

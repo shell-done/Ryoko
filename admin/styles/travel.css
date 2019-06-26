@@ -131,6 +131,12 @@
   text-align: center;
 }
 
+#travel-modal textarea {
+  width: 100%;
+  resize: none;
+  height: 150px;
+}
+
 #travel-modal .close {
   margin-top: auto;
   margin-bottom: auto;
@@ -198,6 +204,11 @@
 
 .travel-modal-info input {
   border: 0px solid #E40613;
+  max-width: 60px;
+}
+
+.travel-modal-info select {
+  max-width: 120px;
 }
 
 .tmi {

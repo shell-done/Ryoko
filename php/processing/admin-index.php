@@ -13,6 +13,19 @@
     }
   }
 
+  function jsListAvailableCountries() {
+    $db = dbConnect();
+    $countries = dbGetAllCountries($db);
+
+    $text = "{";
+    foreach($countries as $country) {
+      $text .= "'" .$country->getIso_code() . "':'" . $country->getName() . "',";
+    }
+    $text .= "}";
+
+    echo "<script>var countryList = $text</script>";
+  }
+
   function displayResearchHeader($country, $duration) {
     $db = dbConnect();
     $countries = dbGetAllCountries($db);
@@ -99,14 +112,87 @@
 
   function showPopup($idTravel) {
     $db = dbConnect();
-    if(!$idTravel)
+    if(!$idTravel) {
+      echo "<script> var travelDisplayedID = null; </script>";
       return;
+    }
+    else {
+      echo "<script> var travelDisplayedID = $idTravel; </script>";
+    }
 
     $travel = dbGetTravel($db, $idTravel);
-
-    if(!$travel)
+    if(!$travel) {
+      echo "<script> var travelDisplayedID = null; </script>";
       return;
+    }
 
-    echo "<script>var travelData = JSON.parse(`" . json_encode($travel->toArray()) . "`)</script>";
+    $img = "img/default_thumb.png";
+    $thumbs = '<img src="img/default_thumb.png" />';
+    if(sizeof($travel->getImgPathList()) > 0) {
+      $img = $travel->getImgPathList()[0];
+      $thumbs = "";
+    }
+
+    foreach($travel->getImgPathList() as $t)
+      $thumbs .= '<img src="' . $t . '" />';
+
+    echo '
+      <div id="travel-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog mw-100 w-75">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close transparent" data-dismiss="modal" style="width: auto;" disabled>
+                <span>&times;</span>
+              </button>
+              <h2 class="modal-title">' . $travel->getTitle() . '</h2>
+              <button type="button" class="close" data-dismiss="modal" style="width: auto;">
+                <span>&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="travel-modal-img-container">
+                    <img id="travel-modal-img" src="' .$img . '" />
+                  </div>
+                  <div class="travel-modal-thumbs">
+                    ' . $thumbs . '
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <h4>Description</h4>
+                  <p class="travel-modal-description">
+                      ' . $travel->getDescription() . '
+                  </p>
+
+                  <div class="travel-modal-info">
+                    <div><h4>Pays</h4><span class="tmi tmi-country">' . $travel->getCountry() . '</span></div>
+                    <div><h4>Durée</h4><span class="tmi tmi-duration">' . $travel->getDuration() . ' jours</span></div>
+                    <div><h4>Prix</h4><span class="tmi tmi-cost">' . $travel->getCost(). ' €</span></div>
+                  </div>
+
+                  <div class="travel-modal-info">
+                    <div></div>
+                    <div>
+                      <div id="travel-modal-buttons">
+                        <form method="post" action="forms/editTravel.php" id="edit-travel-form">
+                          <div id="tm-input-list" style="margin: 0;"></div>
+                          <input id="hidden-delete-button" name="idTravel" type="hidden" value="' . $travel->getId() . '"/>
+                          <button id="edit-travel" type="button" onclick="editTravel();">Modifier</button>
+                        </form>
+                        <form method="post" action="forms/deleteTravel.php">
+                          <input id="hidden-delete-button" name="idTravel" type="hidden" value="' . $travel->getId() . '"/>
+                          <button id="delete-travel" type="submit">Supprimer</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ';
   }
 ?>

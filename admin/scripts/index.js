@@ -1,5 +1,3 @@
-var travelDisplayedID = null;
-
 $(document).ready(function(){
   /* Source : https://stackoverflow.com/questions/12049620/how-to-get-get-variables-value-in-javascript */
   var $_GET = [];
@@ -12,9 +10,11 @@ $(document).ready(function(){
   if($_GET["duration"])
     $("#search-duration").val($_GET["duration"]);
 
-  if(typeof travelData !== "undefined") {
-    showPopup(travelData);
-  }
+  if(travelDisplayedID)
+    $("#travel-modal").modal("show");
+
+  if(!$("#info-modal").length == 0)
+    $("#info-modal").modal("show");
 });
 
 function getPopup(id) {
@@ -24,37 +24,76 @@ function getPopup(id) {
     window.location.href = "?travel=" + id;
 }
 
-function showPopup(travel) {
-  travelDisplayedID = travel.id_travel;
-  $(".travel-modal-user-info").hide();
+let travelBeforeEdit = null;
 
+function editTravel() {
+  let travel = {
+    title: $("#travel-modal .modal-title").text().trim(),
+    description: $(".travel-modal-description").text().trim(),
+    country: $(".tmi-country").text().trim(),
+    duration: parseInt($(".tmi-duration").text().trim().split(" ")[0]),
+    cost: parseInt($(".tmi-cost").text().trim().split(" ")[0]),
+  }
+
+  travelBeforeEdit = travel;
+
+  $(".modal-title").html("<input type='text' value='" + travel.title + "'>");
+  $(".travel-modal-description").html("<textarea>" + travel.description + "</textarea>");
+
+  let countryCodes = Object.keys(countryList);
+  let countryc;
+  let text = "<select>";
+  for(let i=0; i<countryCodes.length; i++) {
+    text += "<option value='" + countryCodes[i] + "'>" + countryList[countryCodes[i]] + "</option>";
+    if(travel.country == countryList[countryCodes[i]])
+      countryc = countryCodes[i];
+  }
+  text += "</select>";
+
+  $(".tmi-country").html(text);
+  $(".tmi-country select").val(countryc);
+
+  $(".tmi-duration").html("<input type='number' value='" + travel.duration + "'> jours");
+  $(".tmi-cost").html("<input type='number' value='" + travel.cost + "'> €");
+
+  $("#edit-travel").replaceWith('<button id="save-travel" type="submit" onclick="saveTravel();">Enregistrer</button>');
+  $("#delete-travel").replaceWith('<button id="cancel-travel" type="button" onclick="cancelTravel();">Annuler</button>');
+}
+
+function setTravelData(travel) {
   $("#travel-modal .modal-title").text(travel.title);
   $(".travel-modal-description").text(travel.description);
   $(".tmi-country").text(travel.country);
-  $(".tmi-duration").text(travel.duration + " jours");
-  $(".tmi-cost").text(travel.cost + " €");
+  $(".tmi-duration").text(travel.duration);
+  $(".tmi-cost").text(travel.cost);
 
-  if(travel.img_list.length == 0)
-    $("#travel-modal-img").attr("src", "img/default_thumb.png");
-  else
-    $("#travel-modal-img").attr("src", travel.img_list[0]);
+  $("#save-travel").replaceWith('<button id="edit-travel" type="button" onclick="editTravel();">Modifier</button>');
+  $("#cancel-travel").replaceWith('<button id="delete-travel" type="submit">Supprimer</button>');
 
-  var thumbsText = "";
-  for(let i=0; i < travel.img_list.length; i++)
-    thumbsText += `<img src="` + travel.img_list[i] + `" />`;
+  travelBeforeEdit = null;
+}
 
-  $(".travel-modal-thumbs").html(thumbsText);
-  $(".travel-modal-thumbs img").unbind("click").click(function() {
-    $("#travel-modal-img").attr("src", $(this).attr("src"));
-  })
-
-  if(travel.validation_status === false) {
-    $("#book-button").attr("class", "travel-" + travel.id_travel);
-    $("#book-button").removeAttr("disabled");
-  } else {
-    $("#book-button").attr("class", "");
-    $("#book-button").attr("disabled", "true");
+function saveTravel() {
+  let travel = {
+    title: $(".modal-title input").val(),
+    description: $(".travel-modal-description textarea").val(),
+    countryCode: $(".tmi-country select").val(),
+    country: $(".tmi-country option:selected").text(),
+    duration: $(".tmi-duration input").val(),
+    cost: $(".tmi-cost input").val()
   }
 
-  $("#travel-modal").modal("show");
+  $("#tm-input-list").html("");
+  $("#tm-input-list").append("<input type='hidden' name='title' value='" + travel.title + "'>");
+  $("#tm-input-list").append("<input type='hidden' name='description' value='" + travel.description + "'>");
+  $("#tm-input-list").append("<input type='hidden' name='country' value='" + travel.countryCode + "'>");
+  $("#tm-input-list").append("<input type='hidden' name='duration' value='" + travel.duration + "'>");
+  $("#tm-input-list").append("<input type='hidden' name='cost' value='" + travel.cost + "'>");
+  $("#edit-travel-form").submit();
+
+  setTravelData(travel);
+}
+
+function cancelTravel() {
+  setTravelData(travelBeforeEdit);
 }
