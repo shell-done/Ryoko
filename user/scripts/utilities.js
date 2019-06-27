@@ -102,9 +102,10 @@ function showUser(ajaxResponse) {
   $(".ui-name").text(user.name);
   $(".ui-first-name").text(user.first_name);
   $(".ui-birthdate").text(user.birth_date);
-  $(".ui-street").text(user.street);
+  $(".ui-country").text(user.country);
   $(".ui-city").text(user.city);
-  $(".ui-zip-code").text(user.zip_code);
+  $(".ui-zipcode").text(user.zip_code);
+  $(".ui-street").text(user.street);
   $(".ui-phone").text(user.phone);
   $(".ui-email").text(user.email);
 }

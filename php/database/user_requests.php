@@ -2,6 +2,31 @@
 $serverRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
 require_once("$serverRoot/php/classes/User.php");
 
+function dbAddUser($db, $user) {
+  try{
+      $request = 'INSERT INTO User(email, password, name, first_name, phone, city, zip_code, street, birth_date, country_code)
+                  VALUES(:email, :password, :name, :first_name, :phone, :city, :zip_code, :street, :birth_date, :country_code)';
+
+      $statement = $db->prepare($request);
+      $statement->bindValue(":email", $user->getEmail());
+      $statement->bindValue(":password", hash("sha256", $user->getPassword()));
+      $statement->bindValue(":name", $user->getName());
+      $statement->bindValue(":first_name", $user->getFirstName());
+      $statement->bindValue(":phone", $user->getPhone());
+      $statement->bindValue(":city", $user->getCity());
+      $statement->bindValue(":zip_code", $user->getZipCode());
+      $statement->bindValue(":street", $user->getStreet());
+      $statement->bindValue(":birth_date", $user->getBirthDate());
+      $statement->bindValue(":country_code", $user->getCountry());
+
+      return $statement->execute();
+  }
+  catch (PDOException $exception){
+      error_log('Request error: ' . $exception->getMessage());
+      return false;
+  }
+}
+
 //Fonction pour récupérer un utilisateur en fonction de son email et de son mdp
 function dbStartUserSession($db, $email, $password) {
     $result = false;
@@ -31,7 +56,7 @@ function dbGetUser($db, $userToken) {
   $result = false;
 
   try {
-    $request = 'SELECT u.email AS email, u.name AS name, u.first_name AS first_name, u.phone AS phone, u.city AS city, u.zip_code AS zip_code, u.birth_date AS birth_date, u.street AS street, u.token AS token, c.name AS country
+    $request = 'SELECT email, u.name AS name, first_name, phone, city, zip_code, DATE_FORMAT(birth_date, "%d/%m/%Y") AS birth_date, street, token, c.name AS country
                 FROM User u, Country c
                 WHERE u.token=:token AND c.iso_code = u.country_code';
 

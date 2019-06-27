@@ -8,7 +8,7 @@
   session_start();
 
   if(!isset($_SESSION["user"])) {
-    header("Location: connection.php");
+    header("Location: sign_in.php");
     exit;
   }
 
@@ -18,7 +18,7 @@
 
   if(!$tokenIsValid) {
     unset($_SESSION["user"]);
-    header("Location: connection.php");
+    header("Location: sign_in.php");
     exit;
   }
 ?>

@@ -1,4 +1,10 @@
 <?php
+  if(isset($_POST["disconnect"])) {
+    session_start();
+    unset($_SESSION["user"]);
+    session_destroy();
+  }
+
   require_once("../php/processing/log_user.php");
   require_once("../php/parts/head.php");
 ?>
@@ -20,28 +26,31 @@
           </div>
           <div class="user-info-list col-md-9 align-self-center">
             <div class="row">
-              <span class="col-md-6"><h4>Nom :</h4> <span class="user-info ui-name">THOMAS</span></span>
-              <span class="col-md-6"><h4>Prénom :</h4> <span class="user-info ui-first-name">Alexandre</span></span>
+              <span class="col-md-6"><h4>Nom :</h4> <span class="user-info ui-name"></span></span>
+              <span class="col-md-6"><h4>Prénom :</h4> <span class="user-info ui-first-name"></span></span>
             </div>
             <div class="row">
-              <span class="col-md-12"><h4>Date de naissance :</h4> <span class="user-info ui-birthdate">20/09/1999</span></span>
+              <span class="col-md-12"><h4>Date de naissance :</h4> <span class="user-info ui-birthdate"></span></span>
             </div>
             <div class="row">
-              <span class="col-md-12"><h4>Adresse :</h4> <span class="user-info ui-street">20 Rue Cuirassé de Bretagne</span></span>
+              <span class="col-md-4"><h4>Pays :</h4> <span class="user-info ui-country"></span></span>
+              <span class="col-md-4"><h4>Ville :</h4> <span class="user-info ui-city"></span></span>
+              <span class="col-md-4"><h4>Code postal :</h4> <span class="user-info ui-zipcode"></span></span>
             </div>
             <div class="row">
-              <span class="col-md-6"><h4>Ville :</h4> <span class="user-info ui-city">Brest</span></span>
-              <span class="col-md-6"><h4>Code postal :</h4> <span class="user-info ui-zipcode">29200</span></span>
+              <span class="col-md-12"><h4>Adresse :</h4> <span class="user-info ui-street"></span></span>
             </div>
             <div class="row">
-              <span class="col-md-12"><h4>Téléphone :</h4> <span class="user-info ui-phone">07.87.83.45.12</span></span>
+              <span class="col-md-12"><h4>Téléphone :</h4> <span class="user-info ui-phone"></span></span>
             </div>
             <div class="row">
-              <span class="col-md-12"><h4>Adresse mail :</h4> <span class="user-info ui-email">user.name@webmail.com</span></span>
+              <span class="col-md-12"><h4>Adresse mail :</h4> <span class="user-info ui-email"></span></span>
             </div>
 
             <div class="row">
-              <button type="button" class="user-disconnect" disabled>Se déconnecter</button>
+              <form method="post" style="margin-left: auto;">
+                <button type="submit" class="user-disconnect" name="disconnect">Se déconnecter</button>
+              </form>
             </div>
           </div>
         </div>

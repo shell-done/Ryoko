@@ -1,32 +1,12 @@
 <?php
     require_once("../php/parts/head.php");
-    //require_once("../php/processing/sign-user.php");
-    // -> METTRE DANS UN FICHIER A PART ET TRANSPORTER L'ERREUR AVEC SESSION VAR
-
-    require("../php/classes/User.php");
-    require("../php/database/database.php");
-    require("../php/database/user_requests.php");
-    session_start();
-
-    $error = "";
-    if(isset($_POST["login"]) && isset($_POST["password"])) {
-      $db = dbConnect();
-      $user = dbStartUserSession($db, $_POST["login"], $_POST["password"]);
-
-      if($user == false)
-        $error = "Adresse email ou mot de passe incorrect";
-      else {
-        $_SESSION["user"] = serialize($user);
-        header("Location: index.php");
-        exit;
-      }
-    }
-
+    require_once("../php/processing/sign_in.php");
+    $error = (isset($_SESSION["error"]) ? $_SESSION["error"] : "");
     $displayError = ($error === "" ? "none" : "block");
 ?>
 
 <html>
-  <?php generateHead(["connection", "footer"]); echo $test;?>
+  <?php generateHead(["sign_in", "footer"]); echo $test;?>
 
   <body>
     <div class="container">
@@ -53,7 +33,7 @@
 
               <hr class="my-4">
 
-              <button onclick="location.href = 'inscription.php';" class="btn btn-lg btn-primary btn-block text-uppercase" >S'inscrire</button>
+              <button onclick="location.href = 'sign_up.php';" class="btn btn-lg btn-primary btn-block text-uppercase" >S'inscrire</button>
             </div>
           </div>
         </div>
