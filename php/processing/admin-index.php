@@ -89,16 +89,6 @@
 
     $travels = dbGetSelectedTravels($db, $country, $durationMin, $durationMax, false, $label);
 
-    for($i=0; $i<count($travels); $i++) {
-      $path = "/var/www/html/" . $travels[$i]->getImgDirectory();
-      $fileList = array();
-      foreach(glob($path . '*.{jpg,JPG,jpeg,JPEG,png,PNG}', GLOB_BRACE) as $file){
-          array_push($fileList, $travels[$i]->getImgDirectory() . basename($file));
-      }
-
-      $travels[$i]->setImgPathList($fileList);
-    }
-
     foreach($travels as $travel) {
       $thumbPath = "img/default_thumb.png";
       if(sizeof($travel->getImgPathList()) > 0)

@@ -15,7 +15,6 @@ DROP database IF EXISTS Ryoko;
 CREATE database Ryoko;
 USE Ryoko;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `Booking`
@@ -32,7 +31,6 @@ CREATE TABLE `Booking` (
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `Country`
@@ -45,7 +43,6 @@ CREATE TABLE `Country` (
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `Travel`
@@ -63,7 +60,6 @@ CREATE TABLE `Travel` (
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `User`
@@ -84,6 +80,7 @@ CREATE TABLE `User` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 --
 -- Index pour les tables exportées
@@ -116,6 +113,8 @@ ALTER TABLE `User`
   ADD PRIMARY KEY (`email`),
   ADD KEY `FK_USER_COUNTRY` (`country_code`);
 
+-- -----------------------------------------------------
+
 --
 -- AUTO_INCREMENT pour les tables exportées
 --
@@ -125,6 +124,10 @@ ALTER TABLE `User`
 --
 ALTER TABLE `Travel`
   MODIFY `id_travel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  
+ 
+-- -----------------------------------------------------
+
 --
 -- Contraintes pour les tables exportées
 --
@@ -149,9 +152,14 @@ ALTER TABLE `User`
   ADD CONSTRAINT `FK_USER_COUNTRY` FOREIGN KEY (`country_code`) REFERENCES `Country` (`iso_code`) ON UPDATE CASCADE;
 
 
+--
+-- Création d'un utilisateur autorisé
+--
+
 DROP USER IF EXISTS 'Ryoko'@'localhost';
 CREATE USER 'Ryoko'@'localhost' IDENTIFIED BY '#grp11@Ryoko!';
 GRANT ALL PRIVILEGES ON Ryoko.* TO 'Ryoko'@'localhost';
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

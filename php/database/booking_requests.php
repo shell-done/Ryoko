@@ -62,8 +62,9 @@ function dbGetUserBookedTravels($db, $userToken) {
       $statement->execute();
       $results = $statement->fetchAll(PDO::FETCH_CLASS, "Travel");
 
+      $root = $_SERVER["DOCUMENT_ROOT"] . "/../";
       for($i=0; $i<count($results); $i++) {
-        $path = "/var/www/html/" . $results[$i]->getImgDirectory();
+        $path = $root . $results[$i]->getImgDirectory();
         $fileList = array();
         foreach(glob($path . '*.{jpg,JPG,jpeg,JPEG,png,PNG}', GLOB_BRACE) as $file){
             array_push($fileList, $results[$i]->getImgDirectory() . basename($file));
@@ -95,7 +96,8 @@ function dbGetUserBookedTravel($db, $userToken, $idTravel) {
       $statement->execute();
       $result = $statement->fetchObject("Travel");
 
-      $path = "/var/www/html/" . $result->getImgDirectory();
+      $root = $_SERVER["DOCUMENT_ROOT"] . "/../";
+      $path = $root . $result->getImgDirectory();
       $fileList = array();
       foreach(glob($path . '*.{jpg,JPG,jpeg,JPEG,png,PNG}', GLOB_BRACE) as $file) {
         array_push($fileList, $result->getImgDirectory() . basename($file));

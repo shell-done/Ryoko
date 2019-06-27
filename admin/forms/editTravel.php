@@ -19,8 +19,8 @@
   if(intval(trim($_POST["duration"])) < 1)
     error("La durée doit être un entier strictement positif");
 
-  if(intval(trim($_POST["cost"])) < 10)
-    error("Le prix doit être un entier strictement positif");
+  if(floatval(trim($_POST["cost"])) < 10)
+    error("Le prix doit être un nombre supérieur ou égal à 10");
 
   if(strlen(trim($_POST["country"])) < 2 || strlen(trim($_POST["country"])) > 3)
     error("Le pays n'existe pas");

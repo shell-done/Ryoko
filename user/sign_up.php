@@ -7,7 +7,7 @@ $displayError = ($error === "" ? "none" : "block");
 
 
 <html>
-  <?php generateHead(["connection", "footer"]);?>
+  <?php generateHead(["sign_in", "footer"]);?>
 
   <body>
     <div class="container">

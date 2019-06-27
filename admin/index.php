@@ -52,7 +52,7 @@
           </div>
           <div class="form-elements">
             <label for = "add-price">Prix</label>
-            <input type="number" id="add-price" name="add-price" min="10" value="100">
+            <input type="number" id="add-price" name="add-price" min="10" value="100" step="any">
           </div>
           <div class="form-elements">
             <button type="submit" id="search-button">Ajouter</button>

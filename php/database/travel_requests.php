@@ -78,7 +78,7 @@ function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCos
 
         if($country != false) array_push($criteria, "c.iso_code = :country");
         if($durationMin != false && $durationMax != false) array_push($criteria, "duration BETWEEN :durationMin AND :durationMax");
-        else if($durationMin != false) array_push($criteria, "duration >= :durationMin");
+        else if($durationMin != false && $durationMax == false) array_push($criteria, "duration >= :durationMin");
         if($maxCost != false) array_push($criteria, "cost <= :cost");
 
         $request .= " AND " . implode(" AND ", $criteria);
@@ -86,18 +86,23 @@ function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCos
 
         $statement = $db->prepare($request);
         if($country != false) $statement->bindParam(':country', $country, PDO::PARAM_STR);
-        if($durationMin !== false) {
+        if($durationMin !== false && $durationMax !== false) {
           $statement->bindParam(':durationMin', $durationMin, PDO::PARAM_INT);
           $statement->bindParam(':durationMax', $durationMax, PDO::PARAM_INT);
+        } else if($durationMin != false && $durationMax == false) {
+          $statement->bindParam(':durationMin', $durationMin, PDO::PARAM_INT);
         }
         if($maxCost != false) $statement->bindParam(':cost', $maxCost, PDO::PARAM_INT);
         $statement->bindValue(":label", '%' . $label . '%');
 
         $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_CLASS, "Travel");
+        if($results == false)
+          return false;
 
+        $root = $_SERVER["DOCUMENT_ROOT"] . "/../";
         for($i=0; $i<count($results); $i++) {
-          $path = "/var/www/html/" . $results[$i]->getImgDirectory();
+          $path = $root . $results[$i]->getImgDirectory();
           $fileList = array();
           foreach(glob($path . '*.{jpg,JPG,jpeg,JPEG,png,PNG}', GLOB_BRACE) as $file){
               array_push($fileList, $results[$i]->getImgDirectory() . basename($file));
@@ -131,7 +136,8 @@ function dbGetTravel($db, $id_travel) {
         if(!$result)
           return false;
 
-        $path = "/var/www/html/" . $result->getImgDirectory();
+        $root = $_SERVER["DOCUMENT_ROOT"] . "/../";
+        $path = $root . $result->getImgDirectory();
         $fileList = array();
         foreach(glob($path . '*.{jpg,JPG,jpeg,JPEG,png,PNG}', GLOB_BRACE) as $file){
           array_push($fileList, $result->getImgDirectory() . basename($file));
