@@ -1,11 +1,13 @@
 <?php
-  function showInfErr($info, $error) {
-    if(!isset($info) && !isset($error))
+  session_start();
+
+  function showInfErr($info) {
+    $arr = explode(":", $info);
+    if(sizeof($arr) < 2)
       return;
 
-    $header = "Information";
-    $content = isset($error) ? $error : $info;
-    $content = base64_decode($content);
+    $header = $arr[0];
+    $content = $arr[1];
 
     echo '
       <div id="info-modal" class="modal fade" tabindex="-1" role="dialog">
@@ -24,5 +26,7 @@
         </div>
       </div>
     ';
+
+    unset($_SESSION["info"]);
   }
 ?>

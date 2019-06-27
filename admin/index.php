@@ -100,8 +100,13 @@
       </div>
     </div>
 
-    <?php showPopup($_GET["travel"]); ?>
-    <?php showInfErr($_GET["info"], $_GET["error"]); ?>
+    <?php
+      if(isset($_GET["travel"]))
+        showPopup($_GET["travel"]);
+
+      if(isset($_SESSION["info"]))
+        showInfErr($_SESSION["info"]);
+    ?>
     <?php require("parts/footer.html"); ?>
   </body>
 

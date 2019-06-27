@@ -48,7 +48,10 @@
       <input type="hidden" name="sort" />
     </form>
 
-    <?php showInfErr($_GET["info"], $_GET["error"]); ?>
+    <?php
+      if(isset($_SESSION["info"]))
+        showInfErr($_SESSION["info"]);
+    ?>
     <?php require("parts/footer.html"); ?>
   </body>
 

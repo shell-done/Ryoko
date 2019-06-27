@@ -1,8 +1,11 @@
 <?php
   function error($msg) {
-    header("Location: ../countries.php?error=" . base64_encode($msg));
+    $_SESSION["info"] = "Erreur:$msg";
+    header("Location: ../countries.php");
     exit;
   }
+
+  session_start();
 
   $serverRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
   require("$serverRoot/php/classes/Country.php");
@@ -12,6 +15,12 @@
   if(!isset($_POST["add-iso"]) || !isset($_POST["add-name"]))
     error("Un des champs n'est pas rempli");
 
+  if(strlen(trim($_POST["add-iso"])) < 2 || strlen(trim($_POST["add-iso"])) > 3)
+    error("Le code iso doit faire 2 ou 3 caracteres");
+
+  if(strlen(trim($_POST["add-name"])) < 3)
+    error("Le nom du pays doit faire au moins 3 caractères");
+
   $db = dbConnect();
 
   $country = new Country();
@@ -19,7 +28,8 @@
   $country->setName($_POST["add-name"]);
 
   if(!dbAddCountry($db, $country))
-    error("Une erreur est survenue durant l'ajour d'un pays. <br /> Ce code iso est probablement deja utilise par un autre pays.");
-  else
-    header("Location: ../countries.php?info=" . base64_encode("Le pays est maintenant disponible"));
+    error("Une erreur est survenue durant l'ajout d'un pays. <br /> Ce code iso est probablement déjà utilisé par un autre pays.");
+
+  $_SESSION["info"] = "Information:Le pays a bien été ajouté";
+  header("Location: ../countries.php");
 ?>

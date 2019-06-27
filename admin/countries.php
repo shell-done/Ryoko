@@ -62,7 +62,10 @@
     <form id="update-form" method="POST" action="forms/editCountry.php" style="display: none;">
     </form>
 
-    <?php showInfErr($_GET["info"], $_GET["error"]); ?>
+    <?php
+      if(isset($_SESSION["info"]))
+        showInfErr($_SESSION["info"]);
+    ?>
     <?php require("parts/footer.html"); ?>
   </body>
 

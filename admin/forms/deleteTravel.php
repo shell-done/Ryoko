@@ -1,6 +1,7 @@
 <?php
   function error($msg) {
-    header("Location: ../index.php?error=" . base64_encode($msg));
+    $_SESSION["info"] = "Erreur:$msg";
+    header("Location: ../index.php");
     exit;
   }
 
@@ -20,6 +21,8 @@
   }
   /*--------------------------------------------*/
 
+  session_start();
+
   if(!isset($_POST["idTravel"]))
     error("L'id du voyage n'existe pas");
 
@@ -38,6 +41,7 @@
     $target = $serverRoot . "/" . $travel->getImgDirectory();
     delete_files($target);
 
-    header("Location: ../index.php?info=" . base64_encode("Le voyage n'est maintenant plus disponible"));
+    $_SESSION["info"] = "Information:Le voyage a bien été supprimé";
+    header("Location: ../index.php");
   }
 ?>

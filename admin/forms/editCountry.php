@@ -1,17 +1,20 @@
 <?php
   function error($msg) {
-    header("Location: ../countries.php?error=" . base64_encode($msg));
+    $_SESSION["info"] = "Erreur:$msg";
+    header("Location: ../countries.php");
     exit;
   }
 
+  session_start();
+
   if(!isset($_POST["prev-iso"]) || !isset($_POST["new-iso"]) || !isset($_POST["new-name"]))
-    error("Un des champs n'est pas defini");
+    error("Un des champs n'est pas renseigné");
 
-  if(trim($_POST["prev-iso"]) == "")
-    error("Le code iso est vide");
+  if(strlen(trim($_POST["new-iso"])) < 2 || strlen(trim($_POST["new-iso"])) > 3)
+    error("Le code iso doit faire 2 ou 3 caracteres");
 
-  if(trim($_POST["new-name"]) == "")
-    error("Aucun nom n'est specifie");
+  if(strlen(trim($_POST["new-name"])) < 3)
+    error("Le nom du pays doit faire au moins 3 caractères");
 
   $serverRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
   require("$serverRoot/php/classes/Country.php");
@@ -27,5 +30,6 @@
   if(!dbUpdateCountry($db, $country, $_POST["prev-iso"]))
     error("Une erreur est survenue lors de la modification du pays");
 
-  header("Location: ../countries.php?info=" . base64_encode("Le pays est maintenant modifie"));
+  $_SESSION["info"] = "Information:Le pays a bien été modifié";
+  header("Location: ../countries.php");
 ?>
