@@ -1,14 +1,14 @@
 footer {
-  color: gray;
+  color: red;
   text-align: center;
   margin: 20px;
   margin-top: 30px;
 }
 
 footer a {
-  color: gray;
+  color: red;
 }
 
 footer a:hover {
-  color: #333;
+  color: red;
 }
