@@ -13,6 +13,15 @@
     }
   }
 
+  function displayAvailableLabels() {
+    $db = dbConnect();
+    $travelLabels = dbGetTravelsTitle($db);
+
+    foreach($travelLabels as $travel) {
+      echo "<option value='" . $travel->getTitle() . "'>" . $travel->getTitle() . "</option>";
+    }
+  }
+
   function jsListAvailableCountries() {
     $db = dbConnect();
     $countries = dbGetAllCountries($db);
@@ -26,9 +35,13 @@
     echo "<script>var countryList = $text</script>";
   }
 
-  function displayResearchHeader($country, $duration) {
+  function displayResearchHeader($country, $duration, $label) {
     $db = dbConnect();
     $countries = dbGetAllCountries($db);
+
+    $infoLabel = "<li>Titre : Tous</li>";
+    if($label != "")
+      $infoLabel = "<li>Titre : $label</li>";
 
     $infoCountry = "<li>Pays : Tous</li>";
     foreach($countries as $c)
@@ -52,16 +65,16 @@
       if($duration == $d)
         $infoDuration = "<li>Durée : " . $fullDuration . "</li>";
 
-    echo $infoCountry . $infoDuration;
+    echo $infoLabel . $infoCountry . $infoDuration;
   }
 
-  function displayTravels($country, $duration) {
+  function displayTravels($country, $duration, $label) {
     $db = dbConnect();
 
     $durationMin = false;
     $durationMax = false;
 
-    if(!isset($country) || $country == "ALL")
+    if($country == "ALL")
       $country = false;
 
     if($duration != "ALL")
@@ -74,7 +87,7 @@
         $durationMax = $duration[1];
     }
 
-    $travels = dbGetSelectedTravels($db, $country, $durationMin, $durationMax, false);
+    $travels = dbGetSelectedTravels($db, $country, $durationMin, $durationMax, false, $label);
 
     for($i=0; $i<count($travels); $i++) {
       $path = "/var/www/html/" . $travels[$i]->getImgDirectory();

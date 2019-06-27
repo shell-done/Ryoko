@@ -64,11 +64,14 @@ function dbDeleteTravel($db, $travelID) {
 }
 
 //Fonction pour afficher la recherche de voyages dans le barillo
-function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCost) {
+function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCost, $label = "") {
     $results = false;
 
     try{
-        $request = "SELECT id_travel, title, description, duration, cost, img_directory, c.name AS country FROM Travel t, Country c";
+        $request = "SELECT id_travel, title, description, duration, cost, img_directory, c.name
+                    AS country
+                    FROM Travel t, Country c
+                    WHERE title LIKE :label";
 
         $criteria = array("c.iso_code = t.country_code");
 
@@ -77,7 +80,7 @@ function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCos
         else if($durationMin != false) array_push($criteria, "duration >= :durationMin");
         if($maxCost != false) array_push($criteria, "cost <= :cost");
 
-        $request .= " WHERE " . implode(" AND ", $criteria);
+        $request .= " AND " . implode(" AND ", $criteria);
 
         $statement = $db->prepare($request);
         if($country != false) $statement->bindParam(':country', $country, PDO::PARAM_STR);
@@ -86,6 +89,8 @@ function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCos
           $statement->bindParam(':durationMax', $durationMax, PDO::PARAM_INT);
         }
         if($maxCost != false) $statement->bindParam(':cost', $maxCost, PDO::PARAM_INT);
+        $statement->bindValue(":label", '%' . $label . '%');
+        //$statement->bindValue(":label", '%%');
 
         $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_CLASS, "Travel");
@@ -137,5 +142,24 @@ function dbGetTravel($db, $id_travel) {
     }
 
     return $result;
+}
+
+function dbGetTravelsTitle($db) {
+  $results = false;
+
+  try {
+    $request = 'SELECT title FROM Travel';
+    $statement = $db->prepare($request);
+    $statement->execute();
+
+    $results = $statement->fetchAll(PDO::FETCH_CLASS, "Travel");
+    return $results;
+
+  } catch (PDOException $exception){
+      error_log('Request error: ' . $exception->getMessage());
+      return false;
+  }
+
+  return false;
 }
 ?>

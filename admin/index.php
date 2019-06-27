@@ -1,6 +1,16 @@
 <?php require_once("../php/parts/head.php");?>
 <?php require_once("../php/processing/utilities.php"); ?>
 <?php require_once("../php/processing/admin-index.php"); ?>
+<?php
+  if(!isset($_GET["label"]))
+    $_GET["label"] = "";
+
+  if(!isset($_GET["country"]))
+    $_GET["country"] = "ALL";
+
+  if(!isset($_GET["duration"]))
+    $_GET["duration"] = "ALL";
+?>
 
 <html>
   <?php generateHead(["index", "navbar", "header", "travel", "footer"]);?>
@@ -56,6 +66,13 @@
       <form method="GET">
         <div class="research-row">
           <div class="form-inline">
+            <label for="search-label">Titre :</label>
+            <input list="label-datalist" name="label" placeholder="Tous" value="<?=$_GET['label']?>"/>
+            <datalist id="label-datalist">
+              <?php displayAvailableLabels(); ?>
+            </datalist>
+          </div>
+          <div class="form-inline">
             <label for="search-country">Pays :</label>
             <select name="country" id="search-country">
               <option value='ALL'>Tous</option>
@@ -76,7 +93,7 @@
               <option value="181-Inf"> &gt; 6 mois </option>
             </select>
           </div>
-          <div class="form-inline">
+          <div class="form-inline form-inline-right">
             <button type="submit">Rechercher</button>
           </div>
         </div>
@@ -89,12 +106,12 @@
           <div class="results-header">
             <h2>Votre recherche</h2>
             <ul>
-              <?php displayResearchHeader($_GET["country"], $_GET["duration"]) ?>
+              <?php displayResearchHeader($_GET["country"], $_GET["duration"], $_GET["label"]) ?>
             </ul>
           </div>
 
           <div class="container">
-            <?php displayTravels($_GET["country"], $_GET["duration"]); ?>
+            <?php displayTravels($_GET["country"], $_GET["duration"], $_GET["label"]); ?>
           </div>
         </div>
       </div>
@@ -103,6 +120,8 @@
     <?php
       if(isset($_GET["travel"]))
         showPopup($_GET["travel"]);
+      else
+        echo "<script> var travelDisplayedID = null; </script>";
 
       if(isset($_SESSION["info"]))
         showInfErr($_SESSION["info"]);
