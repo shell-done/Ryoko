@@ -7,7 +7,7 @@
 
   session_start();
 
-  if(!isset($_POST["idTravel"]) || !isset($_POST["title"]) || !isset($_POST["description"]) || !isset($_POST["duration"]) || !isset($_POST["cost"]) || isset($_POST["country"]))
+  if(!isset($_POST["idTravel"]) || !isset($_POST["title"]) || !isset($_POST["description"]) || !isset($_POST["duration"]) || !isset($_POST["cost"]) || !isset($_POST["country"]))
     error("Un des champs n'est pas spécifié");
 
   if(strlen(trim($_POST["title"])) < 3)

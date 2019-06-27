@@ -25,7 +25,9 @@ function dbAddUserBooking($db, $booking) {
 
 function dbGetValidationStatus($db, $userToken, $travelID) {
   try {
-    $request = 'SELECT validation_status FROM Booking, User WHERE user_email=email AND token=:token AND id_travel=:id_travel';
+    $request = 'SELECT validation_status
+                FROM Booking, User
+                WHERE user_email=email AND token=:token AND id_travel=:id_travel';
 
     $statement = $db->prepare($request);
     $statement->bindParam(":token", $userToken);
@@ -51,7 +53,8 @@ function dbGetUserBookedTravels($db, $userToken) {
   try{
       $request = 'SELECT t.id_travel AS id_travel, title, description, duration, total_cost AS cost, img_directory, DATE_FORMAT(departure_date, "%e/%m/%Y") AS departure_date, DATE_FORMAT(return_date, "%e/%m/%Y") as return_date, validation_status, c.name AS country
                   FROM Travel t, Country c, Booking b, User u
-                  WHERE u.email = b.user_email AND token=:token AND t.id_travel = b.id_travel AND c.iso_code = t.country_code';
+                  WHERE u.email = b.user_email AND token=:token AND t.id_travel = b.id_travel AND c.iso_code = t.country_code
+                  ORDER BY b.updated DESC';
 
       $statement = $db->prepare($request);
       $statement->bindParam(':token', $userToken, PDO::PARAM_STR, 32);
@@ -110,7 +113,9 @@ function dbGetUserBookedTravel($db, $userToken, $idTravel) {
 
 function dbDeleteBooking($db, $booking){
     try{
-        $request = 'DELETE FROM Booking WHERE user_email = :user_email AND id_travel = :id_travel';
+        $request = 'DELETE FROM Booking
+                    WHERE user_email = :user_email AND id_travel = :id_travel';
+
         $statement = $db->prepare($request);
         $statement->bindParam(':id_travel', $booking->getId(), PDO::PARAM_INT);
         $statement->bindParam(':user_email', $booking->getEmail(), PDO::PARAM_STR, 128);
@@ -130,7 +135,8 @@ function dbGetAllBooking($db) {
         $request = 'SELECT b.id_travel AS id_travel, user_email AS email, title, country_code AS country, DATE_FORMAT(departure_date, "%d/%m/%Y") AS departure_date,
                       DATE_FORMAT(return_date, "%d/%m/%Y") AS return_date, total_cost, validation_status AS validation
                     FROM Booking b, Travel t
-                    WHERE b.id_travel = t.id_travel';
+                    WHERE b.id_travel = t.id_travel
+                    ORDER BY b.updated DESC';
 
         $statement = $db->prepare($request);
         $statement->execute();
@@ -147,7 +153,10 @@ function dbGetAllBooking($db) {
 
 function dbValidationBooking($db, $booking) {
     try{
-        $request = 'UPDATE Booking SET validation_status = :validation_status WHERE user_email = :user_email AND id_travel = :id_travel';
+        $request = 'UPDATE Booking
+                    SET validation_status = :validation_status
+                    WHERE user_email = :user_email AND id_travel = :id_travel';
+
         $statement = $db->prepare($request);
 
         $statement->bindValue(':user_email', $booking->getEmail(), PDO::PARAM_STR);

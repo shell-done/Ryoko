@@ -51,7 +51,8 @@ function dbUpdateTravel($db, $travel) {
 //Fonction pour supprimer tout les voyages disponibles
 function dbDeleteTravel($db, $travelID) {
     try{
-        $request = 'DELETE FROM Travel WHERE id_travel = :id_travel';
+        $request = 'DELETE FROM Travel
+                    WHERE id_travel = :id_travel';
         $statement = $db->prepare($request);
         $statement->bindParam(':id_travel', $travelID, PDO::PARAM_INT);
         return $statement->execute();
@@ -81,6 +82,7 @@ function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCos
         if($maxCost != false) array_push($criteria, "cost <= :cost");
 
         $request .= " AND " . implode(" AND ", $criteria);
+        $request .= " ORDER BY t.updated DESC";
 
         $statement = $db->prepare($request);
         if($country != false) $statement->bindParam(':country', $country, PDO::PARAM_STR);
@@ -90,7 +92,6 @@ function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCos
         }
         if($maxCost != false) $statement->bindParam(':cost', $maxCost, PDO::PARAM_INT);
         $statement->bindValue(":label", '%' . $label . '%');
-        //$statement->bindValue(":label", '%%');
 
         $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_CLASS, "Travel");
@@ -118,7 +119,9 @@ function dbGetTravel($db, $id_travel) {
     $result = false;
 
     try{
-        $request = 'SELECT id_travel, title, description, duration, cost, img_directory, c.name AS country FROM Travel t, Country c WHERE id_travel = :id_travel AND c.iso_code = t.country_code';
+        $request = 'SELECT id_travel, title, description, duration, cost, img_directory, c.name AS country
+                    FROM Travel t, Country c
+                    WHERE id_travel = :id_travel AND c.iso_code = t.country_code';
         $statement = $db->prepare($request);
         $statement->bindParam(':id_travel', $id_travel, PDO::PARAM_INT);
         $statement->execute();
@@ -148,7 +151,9 @@ function dbGetTravelsTitle($db) {
   $results = false;
 
   try {
-    $request = 'SELECT title FROM Travel';
+    $request = 'SELECT title
+                FROM Travel
+                ORDER BY updated';
     $statement = $db->prepare($request);
     $statement->execute();
 

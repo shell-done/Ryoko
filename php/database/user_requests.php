@@ -34,7 +34,8 @@ function dbStartUserSession($db, $email, $password) {
     try{
         $newToken = uniqid("", true);
 
-        $request = 'UPDATE User SET token=:token WHERE email=:email AND password=:password';
+        $request = 'UPDATE User SET token=:token
+                    WHERE email=:email AND password=:password';
         $statement = $db->prepare($request);
         $statement->bindValue(":token", $newToken);
         $statement->bindValue(":email", $email);
@@ -77,7 +78,9 @@ function dbGetUser($db, $userToken) {
 
 function dbCheckToken($db, $token) {
   try {
-    $request = 'SELECT email FROM User WHERE token=:token';
+    $request = 'SELECT email
+                FROM User
+                WHERE token=:token';
 
     $statement = $db->prepare($request);
     $statement->bindParam(":token", $token);

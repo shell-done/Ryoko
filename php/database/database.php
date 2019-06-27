@@ -6,11 +6,12 @@ function dbConnect(){
         $db = new PDO('mysql:host='.DB_SERVER.';dbname='.DB_NAME.';charset=utf8', DB_USER, DB_PASSWORD);
     }
     catch (PDOException $exception){
+        error_log('Connection error: '.$exception->getMessage());
         header("HTTP/1.1 503 Service unavailable");
-        //error_log('Connection error: '.$exception->getMessage());
+        exit;
         return false;
     }
-    
+
     return $db;
 }
 ?>
