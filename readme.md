@@ -1,6 +1,5 @@
-
 # Ryoko - Projet WEB de fin de CIR 2
-Réalier Fatih KOYUNCU, Alexandre THOMAS
+Réalisé par : Fatih KOYUNCU, Alexandre THOMAS
 
 ### Contexte
 L’objectif du projet est de réaliser un site pour un organisme de voyage
