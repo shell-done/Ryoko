@@ -1,9 +1,14 @@
+// \file booking.js
+// Script de la page de réservation
 var mode = null;
 
+// Appelé lorsque la page est complètement chargée
 $(document).ready(function(){
+  // Affiche le popup d'info si nécessaire
   if(!$("#info-modal").length == 0)
     $("#info-modal").modal("show");
 
+  //Affiche et permet le traitement des boutons de tri
   $(".sort-bookings button").unbind("click").click(function(){
     $(".sort-bookings button").removeClass("active");
     $(this).addClass("active");
@@ -31,6 +36,7 @@ $(document).ready(function(){
     }
   });
 
+  // Lis les paramètres dans l'url
   var $_GET = [];
   window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(a, name, value){$_GET[name] = value;});
   if(['all', 'accepted', 'waiting', 'denied'].includes($_GET["mode"]))
@@ -41,6 +47,9 @@ $(document).ready(function(){
   $("button[value='" + mode + "']").click();
 });
 
+//Accepte une réservation
+// \param id ID du voyage
+// \param email Email de l'utilisateur
 function accept(id, email) {
   $("input[name='userEmail']").val(email);
   $("input[name='travelId']").val(id);
@@ -49,6 +58,9 @@ function accept(id, email) {
   $("#set-status").submit();
 }
 
+//Refuse une réservation
+// \param id ID du voyage
+// \param email Email de l'utilisateur
 function deny(id, email) {
   $("input[name='userEmail']").val(email);
   $("input[name='travelId']").val(id);

@@ -1,13 +1,14 @@
-<?php 
+<?php
+  // \file index.php
+  // Page admin affichée par le navigateur contenant les voyages
 
-  //Ajout des fichiers nécessaires 
-  require_once("../php/processing/log_admin.php"); 
+  //Ajout des fichiers nécessaires
+  require_once("../php/processing/log_admin.php");
   require_once("../php/parts/head.php");
-  require_once("../php/processing/utilities.php"); 
-  require_once("../php/processing/admin-index.php"); 
+  require_once("../php/processing/utilities.php");
+  require_once("../php/processing/admin-index.php");
 
   //Définis les variables si celles-ci ne sont pas définis dans l'URL
-
   if(!isset($_GET["label"]))
     $_GET["label"] = "";
 
@@ -16,7 +17,7 @@
 
   if(!isset($_GET["duration"]))
     $_GET["duration"] = "ALL";
-  
+
 ?>
 
 <html>
@@ -114,27 +115,25 @@
           <div class="results-header">
             <h2>Votre recherche</h2>
             <ul>
-              <?php displayResearchHeader($_GET["country"], $_GET["duration"], $_GET["label"]) //Affiche les voyages en fonctions du pays et/ou la durée et/ou le titre  ?>
+              <?php displayResearchHeader($_GET["country"], $_GET["duration"], $_GET["label"]) //Affiche les paramètres de la recherche ?>
             </ul>
           </div>
 
           <div class="container">
-            <?php displayTravels($_GET["country"], $_GET["duration"], $_GET["label"]); //Affiche le pop-up du voyage sélectionné?>
+            <?php displayTravels($_GET["country"], $_GET["duration"], $_GET["label"]); //Affiche les voyages en fonctions du pays et/ou la durée et/ou le titre ?>
           </div>
         </div>
       </div>
     </div>
 
     <?php
-
-      //Affiche le pop ou le désaffiche 
-
+      //Affiche le popup d'un voyage si la variable travel est définie
       if(isset($_GET["travel"]))
         showPopup($_GET["travel"]);
       else
         echo "<script> var travelDisplayedID = null; </script>";
 
-      if(isset($_SESSION["info"]))
+      if(isset($_SESSION["info"])) // Affiche une erreur, si définie
         showInfErr($_SESSION["info"]);
     ?>
     <?php /*Affiche le footer */ require("parts/footer.html"); ?>

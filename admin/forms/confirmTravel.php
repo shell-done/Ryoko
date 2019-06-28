@@ -1,4 +1,7 @@
 <?php
+  // \file confirmTravel.php
+  // Page appelée pour la définition du statut d'un voyage
+
   //Fonction stockant une erreur et renvoyant sur la page d'origine
   function error($msg) {
     $_SESSION["info"] = "Erreur:$msg";
@@ -8,7 +11,7 @@
 
   session_start();
 
-  //Ajout des fichiers nécessaires 
+  //Ajout des fichiers nécessaires
   $serverRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
   require("$serverRoot/php/classes/Booking.php");
   require("$serverRoot/php/database/database.php");
@@ -36,7 +39,7 @@
   if(!dbValidationBooking($db, $booking))
     error("Une erreur est survenue lors du changement de statut de la réservation");
 
-  //par rapport à ce qu'envoie le post, la page affiche seulement les réservations acceptés, refusés ou en attente
+  //Permet l'affichage des réservations selon qu'elles soient acceptées, refusées ou en attente
   if(isset($_POST["sort"]))
     header("Location: ../bookings.php?mode=" . $_POST["sort"]);
   else

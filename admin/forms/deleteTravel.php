@@ -1,4 +1,7 @@
 <?php
+  // \file deleteTravel.php
+  // Page appelée pour la suppression d'un voyage
+
   //Fonction stockant une erreur et renvoyant sur la page d'origine
   function error($msg) {
     $_SESSION["info"] = "Erreur:$msg";
@@ -6,6 +9,7 @@
     exit;
   }
   //fonction de suppression des fichiers liés au voyage
+
   /* Source : https://paulund.co.uk/php-delete-directory-and-files-in-directory */
   function delete_files($target) {
     if(is_dir($target)) {
@@ -27,7 +31,7 @@
   if(!isset($_POST["idTravel"]))
     error("L'id du voyage n'existe pas");
 
-  //Ajout des fichiers nécessaires 
+  //Ajout des fichiers nécessaires
   $serverRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
   require("$serverRoot/php/classes/Travel.php");
   require("$serverRoot/php/database/database.php");
@@ -43,7 +47,7 @@
     error("Une erreur est survenue lors de la suppression du voyage");
   else {
     $target = $serverRoot . "/" . $travel->getImgDirectory();
-    delete_files($target);
+    delete_files($target); // Suppression des photos associées au voyage
 
     $_SESSION["info"] = "Information:Le voyage a bien été supprimé";
     header("Location: ../index.php");

@@ -1,15 +1,18 @@
 <?php
+    // \file sign_in.php
+    // Page de connexion pour l'administrateur
+
     const ADMIN_LOGIN = "admin";
     const ADMIN_PASSWORD = "ryokoAdmin";
 
-    //Ajout des fichiers nécessaires 
+    //Ajout des fichiers nécessaires
     require_once("../php/parts/head.php");
 
     session_start();
 
     $error = "";
 
-    //Vérifie le mot de passe et le login de l'admin 
+    //Vérifie le mot de passe et le login de l'admin
     //Affiche la page index.php ou une erreur
     if(isset($_POST["submit"])) {
       if($_POST["login"] == ADMIN_LOGIN && $_POST["password"] == ADMIN_PASSWORD) {

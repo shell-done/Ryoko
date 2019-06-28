@@ -1,8 +1,14 @@
+// \file countries.js
+// Script de la page de pays
+
+//Lancé au démarrage de la page
 $(document).ready(function(){
+  //Affiche le popup d'information si besoin
   if(!$("#info-modal").length == 0)
     $("#info-modal").modal("show");
 });
 
+// Demande une supression de pays
 function deleteCountry(id) {
   $("#del-form-input").val(id);
   $("#del-form").submit();
@@ -10,6 +16,8 @@ function deleteCountry(id) {
 
 let prevCountry = null;
 
+// Affiche les champs pour éditer un pays
+// \param iso Le code iso de la ligne à modifier
 function editCountry(iso) {
   if(prevCountry !== null)
     cancelCountry()
@@ -31,6 +39,8 @@ function editCountry(iso) {
   $(formQuery + " button[name='delete-country']").replaceWith("<button type='button' name='cancel-country' onclick=cancelCountry('" + iso + "')> Annuler </button>");
 }
 
+// Modifie les données d'un pays
+// \param country Le code iso de la ligne à modifier
 function setCountryData(country) {
   let formQuery = "#country-" + country.prev_iso;
 
@@ -44,6 +54,8 @@ function setCountryData(country) {
   prevCountry = null;
 }
 
+// Sauvegarde les modification d'un pays
+// \param Le code ISO du pays
 function saveCountry(iso) {
   let formQuery = "#country-" + iso;
 
@@ -66,6 +78,7 @@ function saveCountry(iso) {
   $("#update-form").html("");
 }
 
+// Annule les modification d'un pays
 function cancelCountry() {
   setCountryData(prevCountry);
 }

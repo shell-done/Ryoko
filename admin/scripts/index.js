@@ -1,9 +1,14 @@
+// \file index.js
+// Script de la page de pays
+
+// Lancé au démarrage de la page
 $(document).ready(function(){
   /* Source : https://stackoverflow.com/questions/12049620/how-to-get-get-variables-value-in-javascript */
   var $_GET = [];
   window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(a, name, value){$_GET[name] = value;});
   /* ------------------------ */
 
+  //Définie les variables
   if($_GET["country"])
     $("#search-country").val($_GET["country"]);
 
@@ -17,6 +22,7 @@ $(document).ready(function(){
     $("#info-modal").modal("show");
 });
 
+// Affiche le modal d'un voyage
 function getPopup(id) {
   if(id == travelDisplayedID)
     $("#travel-modal").modal("show");
@@ -26,6 +32,7 @@ function getPopup(id) {
 
 let travelBeforeEdit = null;
 
+// Place des champs pour permettre d'entrer les informations utilisateurs
 function editTravel() {
   let travel = {
     title: $("#travel-modal .modal-title").text().trim(),
@@ -37,6 +44,7 @@ function editTravel() {
 
   travelBeforeEdit = travel;
 
+  // Affichage des informations dans le popup
   $(".modal-title").html("<input type='text'>");
   $(".modal-title input").val(travel.title);
   $(".travel-modal-description").html("<textarea></textarea>");
@@ -62,6 +70,8 @@ function editTravel() {
   $("#delete-travel").replaceWith('<button id="cancel-travel" type="button" onclick="cancelTravel();">Annuler</button>');
 }
 
+// Modifie les données d'un voyage
+// \param travel L'id du travel
 function setTravelData(travel) {
   $("#travel-modal .modal-title").text(travel.title);
   $(".travel-modal-description").text(travel.description);
@@ -75,6 +85,7 @@ function setTravelData(travel) {
   travelBeforeEdit = null;
 }
 
+// Sauvegarde les modification d'un voyage
 function saveTravel() {
   let travel = {
     title: $(".modal-title input").val(),
@@ -105,6 +116,7 @@ function saveTravel() {
   setTravelData(travel);
 }
 
+// Annule les modifications d'un voyage
 function cancelTravel() {
   setTravelData(travelBeforeEdit);
 }

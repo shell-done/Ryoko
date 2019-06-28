@@ -1,4 +1,7 @@
 <?php
+  // \file newTravel.php
+  // Page appelée pour l'ajout d'un voyage
+
   //Fonction stockant une erreur et renvoyant sur la page d'origine
   function error($msg) {
     $_SESSION["info"] = "Erreur:$msg";
@@ -8,7 +11,7 @@
 
   session_start();
 
-  //Ajout des fichiers nécessaires 
+  //Ajout des fichiers nécessaires
   $serverRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
   require("$serverRoot/php/classes/Travel.php");
   require("$serverRoot/php/database/database.php");

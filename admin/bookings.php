@@ -1,5 +1,8 @@
 <?php
-  //Ajout des fichiers nécessaires 
+  // \file bookings.php
+  // Page admin affichée par le navigateur contenant les réservations
+
+  //Ajout des fichiers nécessaires
   require_once("../php/processing/log_admin.php");
   require_once("../php/parts/head.php");
   require_once("../php/processing/utilities.php");
@@ -53,10 +56,11 @@
 
     <?php
       if(isset($_SESSION["info"]))
-        showInfErr($_SESSION["info"]);
+        showInfErr($_SESSION["info"]); // Affiche une erreur, si définie
     ?>
     <?php /*Affiche le footer */ require("parts/footer.html"); ?>
   </body>
+
   <!-- Load scripts -->
   <script src="scripts/bookings.js" defer></script>
 </html>

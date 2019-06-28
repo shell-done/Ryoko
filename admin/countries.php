@@ -1,5 +1,8 @@
 <?php
-  //Ajout des fichiers nécessaires 
+  // \file countries.php
+  // Page affichée par le navigateur contenant les réservations du site
+
+  //Ajout des fichiers nécessaires
   require_once("../php/processing/log_admin.php");
   require_once("../php/parts/head.php");
   require_once("../php/processing/utilities.php");
@@ -68,7 +71,7 @@
 
     <?php
       if(isset($_SESSION["info"]))
-        showInfErr($_SESSION["info"]);
+        showInfErr($_SESSION["info"]); // Affiche une erreur, si définie
     ?>
     <?php /*Affiche le footer */ require("parts/footer.html"); ?>
   </body>
