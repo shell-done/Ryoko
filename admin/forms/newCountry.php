@@ -1,4 +1,5 @@
 <?php
+  //Fonction stockant une erreur et renvoyant sur la page d'origine
   function error($msg) {
     $_SESSION["info"] = "Erreur:$msg";
     header("Location: ../countries.php");
@@ -6,12 +7,14 @@
   }
 
   session_start();
-
+  
+  //Ajout des fichiers nécessaires 
   $serverRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
   require("$serverRoot/php/classes/Country.php");
   require("$serverRoot/php/database/database.php");
   require("$serverRoot/php/database/country_requests.php");
 
+  //Vérification des champs
   if(!isset($_POST["add-iso"]) || !isset($_POST["add-name"]))
     error("Un des champs n'est pas rempli");
 
@@ -23,10 +26,12 @@
 
   $db = dbConnect();
 
+  //Nouveau pays
   $country = new Country();
   $country->setIso_code($_POST["add-iso"]);
   $country->setName($_POST["add-name"]);
 
+  //Vérifie que l'ajout c'est bien effectué
   if(!dbAddCountry($db, $country))
     error("Une erreur est survenue durant l'ajout d'un pays. <br /> Ce code iso est probablement déjà utilisé par un autre pays.");
 

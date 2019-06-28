@@ -1,4 +1,5 @@
 <?php
+  //Fonction stockant une erreur et renvoyant sur la page d'origine
   function error($msg) {
     $_SESSION["info"] = "Erreur:$msg";
     header("Location: ../index.php");
@@ -7,11 +8,13 @@
 
   session_start();
 
+  //Ajout des fichiers nécessaires 
   $serverRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
   require("$serverRoot/php/classes/Travel.php");
   require("$serverRoot/php/database/database.php");
   require("$serverRoot/php/database/travel_requests.php");
 
+  //Vérification des champs
   if(!isset($_POST["add-title"]) || !isset($_POST["add-description"]) || !isset($_POST["add-country"]) || !isset($_POST["add-duration"]) || !isset($_POST["add-price"]))
     error("Un des champs n'est pas rempli");
 
@@ -30,7 +33,7 @@
   if(strlen(trim($_POST["add-country"])) < 2 || strlen(trim($_POST["country"])) > 3)
     error("Le pays n'existe pas");
 
-
+  //Alexande
   $imgDir = "travels/" . substr(hash("sha256", uniqid("", true)), 0, 16) . "/";
   mkdir($serverRoot . "/" . $imgDir);
 
@@ -46,6 +49,7 @@
     }
   }
 
+  //Nouveau voyage
   $travel = new Travel();
   $travel->setTitle($_POST["add-title"]);
   $travel->setDescription($_POST["add-description"]);
@@ -56,6 +60,7 @@
 
   $db = dbConnect();
 
+  //Vérifie que l'ajout c'est bien effectué
   if(!dbAddTravel($db, $travel))
     error("Une erreur est survenue durant l'ajout d'un voyage");
 
