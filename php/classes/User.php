@@ -1,16 +1,21 @@
 <?php
 
+//La classe User représente un utilisateur
+
 class User {
-  private $email;
-  private $name;
-  private $first_name;
-  private $phone;
-  private $city;
-  private $zip_code;
-  private $street;
-  private $birth_date;
-  private $country;
-  private $token;
+  private $email;//l'email de l'utilisateur
+  private $name;//le nom de l'utilisateur
+  private $first_name;//le prénom de l'utilisateur
+  private $phone;//le numéro de téléphone de l'utilisateur
+  private $city;//la ville de l'utilisateur
+  private $zip_code;//le code postal de l'utilisateur
+  private $street;//l'adresse de l'utilisateur
+  private $birth_date;//la date de naissance de l'utilisateur
+  private $country;//le pays de l'utilisateur
+  private $token;//le token de l'utilisateur
+
+  /************************************************************************/
+  //Getters et Setters des attributs
 
   public function getEmail() {return $this->email;}
   public function setEmail($email) {$this->email = $email;}
@@ -45,6 +50,10 @@ class User {
   public function getToken() {return $this->token;}
   public function setToken($token) {$this->token = $token;}
 
+  /************************************************************************/
+  //Transforme l'objet en un tableau associatif
+  //\return un tableau associatif attributs/valeurs
+  
   public function toArray() {
     return get_object_vars($this);
   }

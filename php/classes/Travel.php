@@ -1,18 +1,22 @@
 <?php
 
-class Travel {
-  private $id_travel;
-  private $title;
-  private $description;
-  private $duration;
-  private $cost;
-  private $img_directory;
-  private $img_list;
-  private $country;
+//La classe Travel représente un voyage
 
-  private $validation_status;
-  private $departure_date;
-  private $return_date;
+class Travel {
+  private $id_travel;//l'id du voyage
+  private $title;//le libellé du voyage
+  private $description;//la description du voyage
+  private $duration;//la durée du voyage
+  private $cost;//le coût du voyage
+  private $img_directory;//le dossier des images du voyage
+  private $img_list;//la chemin des images du voyages
+  private $country;//la pays du voyage
+  private $validation_status;//le statut de validation du voyage
+  private $departure_date;//la date de départ du voyage
+  private $return_date;//la date de retour du voyage
+
+  /************************************************************************/
+  //Getters et Setters des attributs
 
   public function getId() {return $this->id_travel;}
   public function setId($id) {$this->id_travel = $id;}
@@ -47,6 +51,10 @@ class Travel {
   public function getReturn() {return $this->return;}
   public function setReturn($return_date) {$this->return = $return_date;}
 
+  /************************************************************************/
+  //Transforme l'objet en un tableau associatif
+  //\return un tableau associatif attributs/valeurs
+  
   public function toArray() {
     return get_object_vars($this);
   }

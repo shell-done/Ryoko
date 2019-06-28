@@ -1,15 +1,20 @@
 <?php
 
+//La classe Booking représente une réservation de voyage
+
 class Booking {
-    private $id_travel;
-    private $title;
-    private $email;
-    private $token;
-    private $departure_date;
-    private $return_date;
-    private $total_cost;
-    private $validation;
-    private $country;
+    private $id_travel;//l'id du pays du voyage réservé
+    private $title;//le libellé du voyage réservé
+    private $email;//l'email de l'utilisateur qui a effectué la réservation
+    private $token;//le token de l'utilisateur qui a effectué la réservation
+    private $departure_date;//la date de départ pour le voyage réservé
+    private $return_date;//la date de retour pour le voyage réservé
+    private $total_cost;//le coût total de la réservation
+    private $validation;//le statut de la réservation(si validée ou non par l'admin)
+    private $country;//le pays du voyage réservé
+    
+    /************************************************************************/
+    //Getters et Setters des attributs
 
     public function getId() {return $this->id_travel;}
     public function setId($id) {$this->id_travel = $id;}
@@ -37,6 +42,10 @@ class Booking {
 
     public function getCountry() {return $this->country;}
     public function setCountry($country) {$this->country = $country;}
+
+    /************************************************************************/
+    //Transforme l'objet en un tableau associatif
+    //\return un tableau associatif attributs/valeurs
 
     public function toArray() {
       return get_object_vars($this);
