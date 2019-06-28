@@ -1,4 +1,5 @@
 <?php
+  //Fonction stockant une erreur et renvoyant sur la page d'origine
   function error($msg) {
     $_SESSION["info"] = "Erreur:$msg";
     header("Location: ../index.php");
@@ -7,6 +8,7 @@
 
   session_start();
 
+  //Vérification des champs
   if(!isset($_POST["idTravel"]) || !isset($_POST["title"]) || !isset($_POST["description"]) || !isset($_POST["duration"]) || !isset($_POST["cost"]) || !isset($_POST["country"]))
     error("Un des champs n'est pas spécifié");
 
@@ -25,6 +27,7 @@
   if(strlen(trim($_POST["country"])) < 2 || strlen(trim($_POST["country"])) > 3)
     error("Le pays n'existe pas");
 
+  //Ajout des fichiers nécessaires 
   $serverRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
   require("$serverRoot/php/classes/Travel.php");
   require("$serverRoot/php/database/database.php");
@@ -40,6 +43,7 @@
 
   $db = dbConnect();
 
+  //Vérifie que la modification c'est bien effectué
   if(!dbUpdateTravel($db, $travel))
     error("Une erreur est survenue lors de la modification du voyage");
 
