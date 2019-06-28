@@ -1,10 +1,14 @@
 <?php
+// \file travels_requests.php
+// Définit les méthodes de requêtes en BDD liées aux voyages
+
+//Inclus les fichiers nécessaires
 $serverRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
 require_once("$serverRoot/php/classes/Travel.php");
 
 /************************************************************************************************************/
 
-// Ajoute un voyage dans la base de donnée
+// Ajoute un voyage dans la base de données
 // \param db Un objet PDO connecté à la base
 // \param travel L'objet 'travel' à insérer en base
 // \return false si une erreur s'est produite, true sinon.
@@ -31,7 +35,7 @@ function dbAddTravel($db, $travel){
 
 /************************************************************************************************************/
 
-// Modifie un voyage dans la base de donnée
+// Modifie un voyage dans la base de données
 // \param db Un objet PDO connecté à la base
 // \param travel L'objet 'travel' à modifier en base
 // \return false si une erreur s'est produite, true sinon.
@@ -61,7 +65,7 @@ function dbUpdateTravel($db, $travel) {
 }
 /************************************************************************************************************/
 
-// Supprime un voyage dans la base de donnée
+// Supprime un voyage dans la base de données
 // \param db Un objet PDO connecté à la base
 // \param travelID l'id du voyage à supprimer
 // \return false si une erreur s'est produite, true sinon.
@@ -83,8 +87,14 @@ function dbDeleteTravel($db, $travelID) {
 
 /************************************************************************************************************/
 
-//Fonction pour afficher la recherche de voyages dans le barillo
-
+// Récupère les voyages associés à certains critères
+// \param db Un objet PDO connecté à la base
+// \param country Le code ISO du pays à récupérer, false pour tous
+// \param durationMin La durée minimum du voyage, false pour aucune
+// \param durationMax La durée maximum du voyage, false pour aucune
+// \param maxCost Le cout max du voyage, false pour aucun
+// \param label Le titre du voyage à recherché
+// \return un tableau d'objet 'Travel'
 function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCost, $label = "") {
     $results = false;
 
@@ -96,14 +106,17 @@ function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCos
 
         $criteria = array("c.iso_code = t.country_code");
 
+        // En fonction des critères, on ajoute ou non des morceaux à la requête
         if($country != false) array_push($criteria, "c.iso_code = :country");
         if($durationMin != false && $durationMax != false) array_push($criteria, "duration BETWEEN :durationMin AND :durationMax");
         else if($durationMin != false && $durationMax == false) array_push($criteria, "duration >= :durationMin");
         if($maxCost != false) array_push($criteria, "cost <= :cost");
 
+        // On ajoute les demandes à la requête
         $request .= " AND " . implode(" AND ", $criteria);
         $request .= " ORDER BY t.updated DESC";
 
+        // Prépare la requête et lie les paramètres
         $statement = $db->prepare($request);
         if($country != false) $statement->bindParam(':country', $country, PDO::PARAM_STR);
         if($durationMin !== false && $durationMax !== false) {
@@ -115,11 +128,13 @@ function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCos
         if($maxCost != false) $statement->bindParam(':cost', $maxCost, PDO::PARAM_INT);
         $statement->bindValue(":label", '%' . $label . '%');
 
+        // Lance la requêtes
         $statement->execute();
         $results = $statement->fetchAll(PDO::FETCH_CLASS, "Travel");
         if($results == false)
           return false;
 
+        // Récupération des noms des images associées aux voyages
         $root = $_SERVER["DOCUMENT_ROOT"] . "/../";
         for($i=0; $i<count($results); $i++) {
           $path = $root . $results[$i]->getImgDirectory();
@@ -141,12 +156,10 @@ function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCos
 
 /************************************************************************************************************/
 
-// Récupère le voyage sélectionné dans la base de donnée 
+// Récupère le voyage sélectionné dans la base de donnée
 // \param db Un objet PDO connecté à la base
-// \param id_travel l'id du voyage 
-// \return false si une erreur s'est produite, sinon les données du  voyage  .
-
-
+// \param id_travel l'id du voyage
+// \return les données du voyage ou false en cas d'erreur.
 function dbGetTravel($db, $id_travel) {
     $result = false;
 
@@ -182,11 +195,9 @@ function dbGetTravel($db, $id_travel) {
 
 /************************************************************************************************************/
 
-// Récupère le libellé des voyages dans la base de donnée 
+// Récupère le libellé des voyages dans la base de donnée
 // \param db Un objet PDO connecté à la base
-
-// \return false si une erreur s'est produite, sinon les libellés des voyages .
-
+// \return les libellés des voyages ou false sinon.
 function dbGetTravelsTitle($db) {
   $results = false;
 
@@ -199,7 +210,6 @@ function dbGetTravelsTitle($db) {
 
     $results = $statement->fetchAll(PDO::FETCH_CLASS, "Travel");
     return $results;
-
   } catch (PDOException $exception){
       error_log('Request error: ' . $exception->getMessage());
       return false;

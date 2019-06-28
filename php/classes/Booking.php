@@ -1,4 +1,6 @@
 <?php
+// \file booking.php
+// Définit la classe Booking
 
 //La classe Booking représente une réservation de voyage
 
@@ -12,7 +14,7 @@ class Booking {
     private $total_cost;//le coût total de la réservation
     private $validation;//le statut de la réservation(si validée ou non par l'admin)
     private $country;//le pays du voyage réservé
-    
+
     /************************************************************************/
     //Getters et Setters des attributs
 
@@ -46,7 +48,6 @@ class Booking {
     /************************************************************************/
     //Transforme l'objet en un tableau associatif
     //\return un tableau associatif attributs/valeurs
-
     public function toArray() {
       return get_object_vars($this);
     }

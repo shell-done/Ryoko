@@ -1,4 +1,6 @@
 <?php
+// \file user.php
+// Définit la classe User
 
 //La classe User représente un utilisateur
 
@@ -16,7 +18,6 @@ class User {
 
   /************************************************************************/
   //Getters et Setters des attributs
-
   public function getEmail() {return $this->email;}
   public function setEmail($email) {$this->email = $email;}
 
@@ -50,10 +51,10 @@ class User {
   public function getToken() {return $this->token;}
   public function setToken($token) {$this->token = $token;}
 
+
   /************************************************************************/
   //Transforme l'objet en un tableau associatif
   //\return un tableau associatif attributs/valeurs
-  
   public function toArray() {
     return get_object_vars($this);
   }

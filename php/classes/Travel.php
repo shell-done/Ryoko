@@ -1,7 +1,8 @@
 <?php
+// \file Travel.php
+// Définit la classe Travel
 
 //La classe Travel représente un voyage
-
 class Travel {
   private $id_travel;//l'id du voyage
   private $title;//le libellé du voyage
@@ -17,7 +18,6 @@ class Travel {
 
   /************************************************************************/
   //Getters et Setters des attributs
-
   public function getId() {return $this->id_travel;}
   public function setId($id) {$this->id_travel = $id;}
 
@@ -51,10 +51,10 @@ class Travel {
   public function getReturn() {return $this->return;}
   public function setReturn($return_date) {$this->return = $return_date;}
 
+
   /************************************************************************/
   //Transforme l'objet en un tableau associatif
   //\return un tableau associatif attributs/valeurs
-  
   public function toArray() {
     return get_object_vars($this);
   }

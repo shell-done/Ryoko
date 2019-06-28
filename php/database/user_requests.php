@@ -1,4 +1,8 @@
 <?php
+// \file user_requests.php
+// Définit les méthodes de requêtes en BDD liées aux utilisateurs
+
+//Inclus les fichiers nécessaires
 $serverRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
 require_once("$serverRoot/php/classes/User.php");
 
@@ -8,7 +12,6 @@ require_once("$serverRoot/php/classes/User.php");
 // \param db Un objet PDO connecté à la base
 // \param user L'objet 'user' à insérer en base
 // \return false si une erreur s'est produite, true sinon.
-
 function dbAddUser($db, $user) {
   try{
       $request = 'INSERT INTO User(email, password, name, first_name, phone, city, zip_code, street, birth_date, country_code)
@@ -36,12 +39,11 @@ function dbAddUser($db, $user) {
 
 /************************************************************************************************************/
 
-// Récupère un utilisateur (en fonction de son email et de son mdp un utilisateur) dans la base de donnée
+// Récupère un utilisateur et génère un token (en fonction de son email et de son mdp un utilisateur) dans la base de donnée
 // \param db Un objet PDO connecté à la base
 // \param email l'e-mail de l'utilisateur
 // \param password  le mot de passe de l'utilisateur
-// \return false si une erreur s'est produite, sinon la fonction pour récupérer les données de l'utilisateur.
-
+// \return un objet 'User' ou false en cas d'erreur
 function dbStartUserSession($db, $email, $password) {
     $result = false;
 
@@ -72,8 +74,7 @@ function dbStartUserSession($db, $email, $password) {
 // Récupère un utilisateur (en fonction de son token) dans la base de donnée
 // \param db Un objet PDO connecté à la base
 // \param userToken le token de l'utilisateur
-// \return false si une erreur s'est produite, sinon les données de l'utilsateur.
-
+// \return un objet 'User' ou false en cas d'erreur
 function dbGetUser($db, $userToken) {
   $result = false;
 
@@ -102,8 +103,7 @@ function dbGetUser($db, $userToken) {
 // Vérifie si le token existe dans la base de donnée
 // \param db Un objet PDO connecté à la base
 // \param token le token de l'utilisateur
-// \return false si une erreur s'est produite, true.
-
+// \return true si le token existe ou false sinon
 function dbCheckToken($db, $token) {
   try {
     $request = 'SELECT email

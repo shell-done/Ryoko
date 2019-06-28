@@ -1,5 +1,5 @@
 <?php
-  //Les paramètres de la base à modifier (si besoin)
+  //Les paramètres de connexion à la base
   define('DB_USER', 'Ryoko');
   define('DB_PASSWORD','#grp11@Ryoko!');
   define('DB_NAME','Ryoko');

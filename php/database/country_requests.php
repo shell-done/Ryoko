@@ -1,14 +1,17 @@
 <?php
+// \file country_requests.php
+// Définit les méthodes de requêtes en BDD liées aux pays
+
+//Inclus les fichiers nécessaires
 $serverRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
 require_once("$serverRoot/php/classes/Country.php");
 
 /************************************************************************************************************/
 
-// Ajoute un pays dans la base de donnée
+// Ajoute un pays dans la base de données
 // \param db Un objet PDO connecté à la base
 // \param country L'objet 'country' à insérer en base
 // \return false si une erreur s'est produite, true sinon.
-
 
 function dbAddCountry($db, $country) {
     try{
@@ -30,7 +33,7 @@ function dbAddCountry($db, $country) {
 
 /************************************************************************************************************/
 
-// Modifie un pays dans la base de donnée
+// Modifie un pays dans la base de données
 // \param db Un objet PDO connecté à la base
 // \param country L'objet 'country' à modifier en base
 // \param prevCountryCode correspond à l'ancien code ISO pour que la base sait quel pays modifier
@@ -59,7 +62,7 @@ function dbUpdateCountry($db, $country, $prevCountryCode) {
 
 /************************************************************************************************************/
 
-// Supprime un pays dans la base de donnée 
+// Supprime un pays dans la base de données
 // \param db Un objet PDO connecté à la base
 // \param iso_code correspond au code ISO du pays à supprimer
 // \return false si une erreur s'est produite, true sinon.
@@ -82,9 +85,9 @@ function dbDeleteCountry($db, $iso_code) {
 
 /************************************************************************************************************/
 
-// Récupère tous les pays dans la base de donnée 
+// Récupère tous les pays dans la base de données
 // \param db Un objet PDO connecté à la base
-// \return false si une erreur s'est produite, sinon tous les pays .
+// \return la liste de tous les pays ou false en cas d'erreur
 
 function dbGetAllCountries($db) {
     $results = array();
