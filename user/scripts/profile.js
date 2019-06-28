@@ -1,17 +1,27 @@
+// \file profile.js
+// Script de la page de profil de l'utilisateur
+
+// Appelé lorsque la page est complètement chargée
 $(document).ready(function() {
+  // Remplace le bouton de réservation pour le status
   $("#book-button").replaceWith(`
       <span id="modal-travel-status"></span>
     `);
 
+  // Récupère les réservations de l'utilisateur courant
   ajaxRequest("GET", "ajax/request.php/bookings/", showBookings, "userToken=" + userToken);
 });
 
+// Affiche les réservations renvoyées par la requête Ajax
+// \param ajaxResponse La réponse à la requête Ajax
 function showBookings(ajaxResponse) {
-  var bookings = JSON.parse(ajaxResponse);
+  var bookings = JSON.parse(ajaxResponse); // Transformation en objet JSON
 
   var text = "";
 
+  // On affiche toutes les réservations
   for(let i=0; i<bookings.length; i++) {
+    // S'il n'y a aucune image, on affiche l'image par défaut. Sinon on affiche la première image
     let thumb = "img/default_thumb.png";
     if(bookings[i].img_list.length != 0)
       thumb = bookings[i].img_list[0];
@@ -22,12 +32,14 @@ function showBookings(ajaxResponse) {
     else if(bookings[i].validation_status == "DENIED")
       status = "denied";
 
+    // Traduction du status
     let translations = {
       waiting: "En attente de validation",
       accepted: "Voyage accepté",
       denied: "Voyage refusé"
     };
 
+    // Affichage d'une div correspondant au voyage réservé
     text += `<div id="id-travel-` + bookings[i].travel_id + `" class="travel row" onclick="showTravelModal(` + bookings[i].id_travel + `)">
               <div class="col-md-4"><img src="` + thumb + `" /></div>
               <div class="col-md-8">
@@ -55,13 +67,18 @@ function showBookings(ajaxResponse) {
             </div>`;
   }
 
+  // Place les réservations sur la page
   $("#bookings-container").html(text);
 }
 
+// Demande les informations pour afficher les détails d'un voyage réservé
+// \param id Lid du voyage
 function showTravelModal(id) {
   ajaxRequest("GET", "ajax/request.php/bookings/" + id, editTravelModal, "userToken=" + userToken);
 }
 
+// Rempli le popup du détail d'un voyage et l'affiche
+// \param ajaxResponse La réponse de la requête Ajax
 function editTravelModal(ajaxResponse) {
   var travel = JSON.parse(ajaxResponse);
 
@@ -71,12 +88,14 @@ function editTravelModal(ajaxResponse) {
   else if(travel.validation_status == "DENIED")
     status = "denied";
 
+  // Traduction des status
   let translations = {
     waiting: "En attente de validation",
     accepted: "Voyage accepté",
     denied: "Voyage refusé"
   };
 
+  // Remplissage des informations du popup affiché et de celui affiché lors de l'impression
   $("#travel-modal .modal-title").text(travel.title);
   $(".print-content h3").text(travel.title);
   $(".travel-modal-description").text(travel.description);
@@ -88,16 +107,20 @@ function editTravelModal(ajaxResponse) {
   $(".tmi-cost").text(travel.cost + " €");
   $(".print-cost").text(travel.cost + " €");
 
+  // Récupération des la date
   let dep = travel.departure_date.split("/").reverse();
   let ret = travel.return_date.split("/").reverse();
 
+  // Mise au bon format des dates pour les input
   $(".tmi-departure").val(dep[0].padStart(2, '0') + "-" + dep[1].padStart(2, '0') + "-" + dep[2].padStart(2, '0'));
   $(".tmi-departure").attr("readonly", "true");
   $(".tmi-return").val(ret[0].padStart(2, '0') + "-" + ret[1].padStart(2, '0') + "-" + ret[2].padStart(2, '0'));
 
+  // Affiche les dates dans le popup d'impression
   $(".print-departure").text(getFrenchDate($(".tmi-departure").val()));
   $(".print-return").text(getFrenchDate($(".tmi-return").val()));
 
+  // Si aucune image n'est disponible, on affiche une image par défaut
   if(travel.img_list.length == 0) {
     $("#travel-modal-img").attr("src", "img/default_thumb.png");
     $(".print-thumb img").attr("src", "img/default_thumb.png");
@@ -115,6 +138,7 @@ function editTravelModal(ajaxResponse) {
     $("#travel-modal-img").attr("src", $(this).attr("src"));
   })
 
+  // Si le statut de validation n'est pas défini, on affiche le bouton de réservation
   if(travel.validation_status === false) {
     $("#book-button").attr("class", "travel-" + travel.id_travel);
     $("#book-button").removeAttr("disabled");
@@ -123,6 +147,7 @@ function editTravelModal(ajaxResponse) {
     $("#book-button").attr("disabled", "true");
   }
 
+  // On place les informations du status dans la div
   $("#modal-travel-status").html(
     `<span class="modal-travel-status travel-status travel-status-` + status + `">
       <img src="img/travel_status/` + status+ `.png" />
@@ -132,5 +157,6 @@ function editTravelModal(ajaxResponse) {
 
   $(".print-msg p").text("Statut de votre demande : " + translations[status]);
 
+  // Finalement, on affiche le modal
   $("#travel-modal").modal("show");
 }
