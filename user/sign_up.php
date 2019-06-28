@@ -1,13 +1,19 @@
 <?php
-require_once("../php/parts/head.php");
-require_once("../php/processing/sign_up.php");
-$error = (isset($_SESSION["error"]) ? $_SESSION["error"] : "");
-$displayError = ($error === "" ? "none" : "block");
+// \file sign_up.php
+// Page d'inscription de l'utilisateur
+
+  // Inclus les fichiers nécessaires
+  require_once("../php/parts/head.php");
+  require_once("../php/processing/sign_up.php");
+
+  // En cas d'erreur, on la récupère
+  $error = (isset($_SESSION["error"]) ? $_SESSION["error"] : "");
+  $displayError = ($error === "" ? "none" : "block");
 ?>
 
 
 <html>
-  <?php generateHead(["sign_in", "footer"]);?>
+  <?php generateHead(["sign_in", "footer"]); //Génère le head et inclus les styles associés à la page?>
 
   <body>
     <div class="container">
@@ -79,8 +85,8 @@ $displayError = ($error === "" ? "none" : "block");
       </div>
     </div>
 
-    <?php require("parts/info-popup.html"); ?>
-    <?php require("parts/footer.html"); ?>
+    <?php require("parts/info-popup.html"); // Récupère un popup d'information?>
+    <?php require("parts/footer.html"); // Affiche le footer?>
   </body>
 
   <script src="scripts/ajax.js" defer></script>

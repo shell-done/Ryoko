@@ -1,15 +1,19 @@
 <?php
+// \file index.php
+// Page principale du site affichée à l'utilisateur lors de la connexion
+
+  // Inclus les fichiers nécessaires
   require_once("../php/processing/log_user.php");
   require_once("../php/parts/head.php");
 ?>
 
 <html>
-  <?php generateHead(["index", "user-navbar", "user-research", "footer"]);?>
+  <?php generateHead(["index", "user-navbar", "user-research", "footer"]); //Génère le head et inclus les styles associés à la page?>
 
   <body>
-    <?php require("parts/navbar.html"); ?>
+    <?php require("parts/navbar.html"); //Affiche la barre de navigation ?>
 
-    <?php require("parts/research-banner.html"); ?>
+    <?php require("parts/research-banner.html"); // Affiche le fond de la barre de navigation et le champ de recherche?>
 
     <div class="container">
       <table class="trending-travel">
@@ -53,12 +57,12 @@
       </div>
     </div>
 
-    <?php require("parts/info-popup.html"); ?>
-    <?php require_once("parts/footer.html"); ?>
+    <?php require("parts/info-popup.html"); // Récupère le popup d'information ?>
+    <?php require_once("parts/footer.html"); // Affiche le footer?>
   </body>
 
   <!-- Load scripts -->
-  <?php require("../php/parts/user_session_token.php"); ?>
+  <?php require("../php/parts/user_session_token.php"); // Ajoute le token de session sur la page?>
   <script src="scripts/ajax.js" defer></script>
   <script src="scripts/utilities.js" defer></script>
   <script src="scripts/index.js" defer></script>

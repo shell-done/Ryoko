@@ -1,4 +1,10 @@
 <?php
+// \file head.php
+// Contient la fonction pour générer la balise html <head> pour chaque page
+
+  // Ecrit la balise <head> pour les fichiers du navigateur.
+  // S'occupe d'afficher le titre de la page, d'inclure les fichiers css et js de bootstrap et d'inclure le css de la page
+  // \param stylesArray Un tableau contenant le nom des fichiers css à inclure. Ceux-ci doivent être dans le dossier styles/
   function generateHead($stylesArray = array()) {
     ?>
 
@@ -9,9 +15,9 @@
       <!-- Bootstrap 4.0 css CDN-->
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO' crossorigin='anonymous'>
       <link rel='icon' href='img/favicon.png'>
-      
+
       <?php
-        /* Load all stylesheet needed */
+        /* Charge tous les fichiers de style*/
         foreach($stylesArray as $style)
           echo "<link rel='stylesheet' href='styles/$style.css'>"
       ?>

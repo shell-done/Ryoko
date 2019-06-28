@@ -1,12 +1,18 @@
 <?php
-    require_once("../php/parts/head.php");
-    require_once("../php/processing/sign_in.php");
-    $error = (isset($_SESSION["error"]) ? $_SESSION["error"] : "");
-    $displayError = ($error === "" ? "none" : "block");
+// \file sign_in.php
+// Page de connexion de l'utilisateur
+
+  // Inclus les fichiers nécessaires
+  require_once("../php/parts/head.php");
+  require_once("../php/processing/sign_in.php");
+
+  // En cas d'erreur, on la récupère
+  $error = (isset($_SESSION["error"]) ? $_SESSION["error"] : "");
+  $displayError = ($error === "" ? "none" : "block");
 ?>
 
 <html>
-  <?php generateHead(["sign_in", "footer"]); echo $test;?>
+  <?php generateHead(["sign_in", "footer"]); //Génère le head et inclus les styles associés à la page?>
 
   <body>
     <div class="container">
@@ -28,7 +34,7 @@
                 </div>
 
                 <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Connexion</button>
-                <div class="alert alert-danger mt-2" role="alert" style="display: <?=$displayError?>"><?=$error?></div>
+                <div class="alert alert-danger mt-2" role="alert" style="display: <?=$displayError?>"><?=$error // Affichage de l'erreur?></div>
               </form>
 
               <hr class="my-4">
@@ -40,7 +46,7 @@
       </div>
     </div>
 
-    <?php require("parts/footer.html"); ?>
+    <?php require("parts/footer.html"); // Affiche le footer?>
   </body>
 
 </html>
