@@ -1,4 +1,5 @@
 <?php
+  require_once("../php/processing/log_admin.php");
   require_once("../php/parts/head.php");
   require_once("../php/processing/utilities.php");
   require_once("../php/processing/booking-admin.php");

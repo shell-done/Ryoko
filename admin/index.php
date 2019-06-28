@@ -1,3 +1,4 @@
+<?php require_once("../php/processing/log_admin.php"); ?>
 <?php require_once("../php/parts/head.php");?>
 <?php require_once("../php/processing/utilities.php"); ?>
 <?php require_once("../php/processing/admin-index.php"); ?>

@@ -67,7 +67,7 @@ Le projet nécessite que les logiciels apache 2, php et MySQL soient correctemen
 2. Les droits d'écriture et de lecture doivent être donnés du dossier travels/ doivent être donné à apache
 	 Pour cela, veuillez exécuter la commande (en étant dans le dossier [PROJECT]):
 	 ```
-	 	chmod -R 755 travels/
+	 	sudo chown www-data travels/
 	 ```
 
 3. Pour installer la base de données, veuillez exécuter la commande (en étant dans le dossier [PROJECT]):
@@ -97,3 +97,8 @@ Afin de vérifier le bon fonctionnement du site, il est possible d'y ajouter des
 	```
 
 3. Le site web devrait maintenant contenir plusieurs exemples de données
+
+Les identifiants pour accéder à la partie administrateur sont :
+ - Login : admin
+ - Mot de passe : ryokoAdmin
+ 

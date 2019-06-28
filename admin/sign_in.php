@@ -1,24 +1,17 @@
 <?php
+    const ADMIN_LOGIN = "admin";
+    const ADMIN_PASSWORD = "ryokoAdmin";
     require_once("../php/parts/head.php");
-    //require_once("../php/processing/sign-user.php");
-    // -> METTRE DANS UN FICHIER A PART ET TRANSPORTER L'ERREUR AVEC SESSION VAR
 
-    require("../php/classes/User.php");
-    require("../php/database/database.php");
-    require("../php/database/user_requests.php");
     session_start();
 
     $error = "";
-    if(isset($_POST["login"]) && isset($_POST["password"])) {
-      $db = dbConnect();
-      $user = dbStartUserSession($db, $_POST["login"], $_POST["password"]);
-
-      if($user == false)
-        $error = "Adresse email ou mot de passe incorrect";
-      else {
-        $_SESSION["user"] = serialize($user);
+    if(isset($_POST["submit"])) {
+      if($_POST["login"] == ADMIN_LOGIN && $_POST["password"] == ADMIN_PASSWORD) {
+        $_SESSION["admin"] = "ok";
         header("Location: index.php");
-        exit;
+      } else {
+        $error = "Login ou mot de passe incorrect";
       }
     }
 
@@ -26,7 +19,7 @@
 ?>
 
 <html>
-  <?php generateHead(["connection", "footer"]); ?>
+  <?php generateHead(["sign_in", "footer"]); ?>
 
   <body>
     <div class="container">
@@ -34,7 +27,7 @@
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
           <div class="card card-signin my-5">
             <div class="card-body">
-              <img src="../admin/img/brand-admin.png" >
+              <img src="img/brand-admin.png" >
               <h5 class="card-title text-center">Session Administrateur</h5>
 
               <form class="form-signin" method="post">
@@ -47,7 +40,7 @@
                   <label for="inputPasswordSingIn">Mot de passe</label>
                 </div>
 
-                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Connexion</button>
+                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" name="submit">Connexion</button>
                 <div class="alert alert-danger mt-2" role="alert" style="display: <?=$displayError?>"><?=$error?></div>
               </form>
             </div>

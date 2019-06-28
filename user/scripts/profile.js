@@ -91,9 +91,9 @@ function editTravelModal(ajaxResponse) {
   let dep = travel.departure_date.split("/").reverse();
   let ret = travel.return_date.split("/").reverse();
 
-  $(".tmi-departure").val(dep[0] + "-" + dep[1] + "-" + dep[2]);
+  $(".tmi-departure").val(dep[0].padStart(2, '0') + "-" + dep[1].padStart(2, '0') + "-" + dep[2].padStart(2, '0'));
   $(".tmi-departure").attr("readonly", "true");
-  $(".tmi-return").val(ret[0] + "-" + ret[1] + "-" + ret[2]);
+  $(".tmi-return").val(ret[0].padStart(2, '0') + "-" + ret[1].padStart(2, '0') + "-" + ret[2].padStart(2, '0'));
 
   $(".print-departure").text(getFrenchDate($(".tmi-departure").val()));
   $(".print-return").text(getFrenchDate($(".tmi-return").val()));

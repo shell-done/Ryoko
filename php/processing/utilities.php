@@ -1,6 +1,4 @@
 <?php
-  session_start();
-
   function showInfErr($info) {
     $arr = explode(":", $info);
     if(sizeof($arr) < 2)

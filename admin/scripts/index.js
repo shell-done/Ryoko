@@ -37,8 +37,10 @@ function editTravel() {
 
   travelBeforeEdit = travel;
 
-  $(".modal-title").html("<input type='text' value='" + travel.title + "'>");
-  $(".travel-modal-description").html("<textarea>" + travel.description + "</textarea>");
+  $(".modal-title").html("<input type='text'>");
+  $(".modal-title input").val(travel.title);
+  $(".travel-modal-description").html("<textarea></textarea>");
+  $(".travel-modal-description textarea").val(travel.description);
 
   let countryCodes = Object.keys(countryList);
   let countryc;
@@ -84,11 +86,20 @@ function saveTravel() {
   }
 
   $("#tm-input-list").html("");
-  $("#tm-input-list").append("<input type='hidden' name='title' value='" + travel.title + "'>");
-  $("#tm-input-list").append("<input type='hidden' name='description' value='" + travel.description + "'>");
-  $("#tm-input-list").append("<input type='hidden' name='country' value='" + travel.countryCode + "'>");
-  $("#tm-input-list").append("<input type='hidden' name='duration' value='" + travel.duration + "'>");
-  $("#tm-input-list").append("<input type='hidden' name='cost' value='" + travel.cost + "'>");
+  $("#tm-input-list").append("<input type='hidden' name='title'>");
+  $("#tm-input-list input[name='title']").val(travel.title);
+
+  $("#tm-input-list").append("<input type='hidden' name='description'>");
+  $("#tm-input-list input[name='description']").val(travel.description);
+
+  $("#tm-input-list").append("<input type='hidden' name='country'>");
+  $("#tm-input-list input[name='country']").val(travel.countryCode);
+
+  $("#tm-input-list").append("<input type='hidden' name='duration'>");
+  $("#tm-input-list input[name='duration']").val(travel.duration);
+
+  $("#tm-input-list").append("<input type='hidden' name='cost'>");
+  $("#tm-input-list input[name='cost']").val(travel.cost);
   $("#edit-travel-form").submit();
 
   setTravelData(travel);
