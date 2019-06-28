@@ -2,6 +2,13 @@
 $serverRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
 require_once("$serverRoot/php/classes/Booking.php");
 
+/************************************************************************************************************/
+
+// Ajoute une réservation dans la base de donnée
+// \param db Un objet PDO connecté à la base
+// \param booking L'objet 'booking' à insérer en base
+// \return false si une erreur s'est produite, true sinon.
+
 function dbAddUserBooking($db, $booking) {
     try {
         $request = 'INSERT INTO Booking(id_travel, user_email, departure_date, return_date, total_cost)
@@ -22,6 +29,14 @@ function dbAddUserBooking($db, $booking) {
 
     return false;
 }
+
+/************************************************************************************************************/
+
+// Modifie une réservation dans la base de donnée
+// \param db Un objet PDO connecté à la base
+// \param userToken le token de l'utilisateur 
+// \param travelID correspond à la réservation choisi
+// \return false si une erreur s'est produite, true sinon.
 
 function dbGetValidationStatus($db, $userToken, $travelID) {
   try {
@@ -46,6 +61,13 @@ function dbGetValidationStatus($db, $userToken, $travelID) {
 
   return false;
 }
+
+/************************************************************************************************************/
+
+// Récupère les réservations d'un utilisateur selon son token dans la base de donnée
+// \param db Un objet PDO connecté à la base
+// \param userToken le token de l'utilisateur 
+// \return false si une erreur s'est produite, true sinon.
 
 function dbGetUserBookedTravels($db, $userToken) {
   $results = false;
@@ -81,6 +103,14 @@ function dbGetUserBookedTravels($db, $userToken) {
   return $results;
 }
 
+/************************************************************************************************************/
+
+// Récupère une réservation (à afficher en pop-up) dans la base de donnée
+// \param db Un objet PDO connecté à la base
+// \param userToken le token de l'utilisateur 
+// \param travelID correspond à la réservation choisi
+// \return false si une erreur s'est produite, sinon le voyage choisi.
+
 function dbGetUserBookedTravel($db, $userToken, $idTravel) {
   $result = false;
 
@@ -113,6 +143,13 @@ function dbGetUserBookedTravel($db, $userToken, $idTravel) {
   return $result;
 }
 
+/************************************************************************************************************/
+
+// Supprime une réservation dans la base de donnée
+// \param db Un objet PDO connecté à la base
+// \param booking L'objet 'booking' à supprimer en base
+// \return false si une erreur s'est produite, true sinon.
+
 function dbDeleteBooking($db, $booking){
     try{
         $request = 'DELETE FROM Booking
@@ -129,6 +166,12 @@ function dbDeleteBooking($db, $booking){
 
     return true;
 }
+
+/************************************************************************************************************/
+
+// Récupère toutes les réservations dans la base de donnée
+// \param db Un objet PDO connecté à la base
+// \return false si une erreur s'est produite, sinon tous les voyages.
 
 function dbGetAllBooking($db) {
     $results = false;
@@ -152,6 +195,14 @@ function dbGetAllBooking($db) {
 
     return $results;
 }
+
+
+/************************************************************************************************************/
+
+// Modifie le statut d'une réservation dans la base de donnée
+// \param db Un objet PDO connecté à la base
+// \param booking L'objet 'booking' à modifier en base
+// \return false si une erreur s'est produite, true sinon.
 
 function dbValidationBooking($db, $booking) {
     try{

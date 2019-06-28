@@ -2,6 +2,14 @@
 $serverRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
 require_once("$serverRoot/php/classes/Country.php");
 
+/************************************************************************************************************/
+
+// Ajoute un pays dans la base de donnée
+// \param db Un objet PDO connecté à la base
+// \param country L'objet 'country' à insérer en base
+// \return false si une erreur s'est produite, true sinon.
+
+
 function dbAddCountry($db, $country) {
     try{
         $request = 'INSERT INTO Country(iso_code, name)
@@ -19,6 +27,14 @@ function dbAddCountry($db, $country) {
 
     return false;
 }
+
+/************************************************************************************************************/
+
+// Modifie un pays dans la base de donnée
+// \param db Un objet PDO connecté à la base
+// \param country L'objet 'country' à modifier en base
+// \param prevCountryCode correspond à l'ancien code ISO pour que la base sait quel pays modifier
+// \return false si une erreur s'est produite, true sinon.
 
 function dbUpdateCountry($db, $country, $prevCountryCode) {
     try{
@@ -41,6 +57,13 @@ function dbUpdateCountry($db, $country, $prevCountryCode) {
     return true;
 }
 
+/************************************************************************************************************/
+
+// Supprime un pays dans la base de donnée 
+// \param db Un objet PDO connecté à la base
+// \param iso_code correspond au code ISO du pays à supprimer
+// \return false si une erreur s'est produite, true sinon.
+
 function dbDeleteCountry($db, $iso_code) {
     try{
         $request = 'DELETE FROM Country
@@ -56,6 +79,12 @@ function dbDeleteCountry($db, $iso_code) {
 
     return true;
 }
+
+/************************************************************************************************************/
+
+// Récupère tous les pays dans la base de donnée 
+// \param db Un objet PDO connecté à la base
+// \return false si une erreur s'est produite, sinon tous les pays .
 
 function dbGetAllCountries($db) {
     $results = array();

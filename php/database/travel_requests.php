@@ -2,7 +2,13 @@
 $serverRoot = $_SERVER["DOCUMENT_ROOT"] . "/..";
 require_once("$serverRoot/php/classes/Travel.php");
 
-//Fonction pour ajouter tout les voyages disponibles
+/************************************************************************************************************/
+
+// Ajoute un voyage dans la base de donnée
+// \param db Un objet PDO connecté à la base
+// \param travel L'objet 'travel' à insérer en base
+// \return false si une erreur s'est produite, true sinon.
+
 function dbAddTravel($db, $travel){
     try{
         $request = 'INSERT INTO Travel(title, description, duration, cost, img_directory, country_code)
@@ -23,7 +29,13 @@ function dbAddTravel($db, $travel){
     return false;
 }
 
-//Fonction pour modifier tout les voyages disponibles
+/************************************************************************************************************/
+
+// Modifie un voyage dans la base de donnée
+// \param db Un objet PDO connecté à la base
+// \param travel L'objet 'travel' à modifier en base
+// \return false si une erreur s'est produite, true sinon.
+
 function dbUpdateTravel($db, $travel) {
     try{
         $request = 'UPDATE Travel
@@ -47,8 +59,13 @@ function dbUpdateTravel($db, $travel) {
 
     return false;
 }
+/************************************************************************************************************/
 
-//Fonction pour supprimer tout les voyages disponibles
+// Supprime un voyage dans la base de donnée
+// \param db Un objet PDO connecté à la base
+// \param travelID l'id du voyage à supprimer
+// \return false si une erreur s'est produite, true sinon.
+
 function dbDeleteTravel($db, $travelID) {
     try{
         $request = 'DELETE FROM Travel
@@ -64,7 +81,10 @@ function dbDeleteTravel($db, $travelID) {
     return false;
 }
 
+/************************************************************************************************************/
+
 //Fonction pour afficher la recherche de voyages dans le barillo
+
 function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCost, $label = "") {
     $results = false;
 
@@ -119,7 +139,14 @@ function dbGetSelectedTravels($db, $country, $durationMin, $durationMax, $maxCos
     return $results;
 }
 
-//Afiicher le voyage sélectionner
+/************************************************************************************************************/
+
+// Récupère le voyage sélectionné dans la base de donnée 
+// \param db Un objet PDO connecté à la base
+// \param id_travel l'id du voyage 
+// \return false si une erreur s'est produite, sinon les données du  voyage  .
+
+
 function dbGetTravel($db, $id_travel) {
     $result = false;
 
@@ -152,6 +179,13 @@ function dbGetTravel($db, $id_travel) {
 
     return $result;
 }
+
+/************************************************************************************************************/
+
+// Récupère le libellé des voyages dans la base de donnée 
+// \param db Un objet PDO connecté à la base
+
+// \return false si une erreur s'est produite, sinon les libellés des voyages .
 
 function dbGetTravelsTitle($db) {
   $results = false;
