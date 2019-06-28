@@ -1,4 +1,5 @@
 <?php
+  //Ajout des fichiers nécessaires 
   require_once("../php/processing/log_admin.php");
   require_once("../php/parts/head.php");
   require_once("../php/processing/utilities.php");
@@ -6,11 +7,13 @@
 ?>
 
 <html>
+  <!-- Génere tous les fichiers css nécessaires-->
   <?php generateHead(["index", "navbar", "header", "countries", "footer"]);?>
 
   <body>
-    <?php require("parts/navbar.html"); ?>
-    <?php require("parts/header.html"); ?>
+
+    <?php /*Affiche la navbar admin */ require("parts/navbar.html"); ?>
+    <?php /*Affiche le header */ require("parts/header.html"); ?>
 
     <div class="position-relative">
         <form class="add-country-bar" method="post" action="forms/newCountry.php">
@@ -51,7 +54,7 @@
                   <th>Nom</th>
                   <th>Options</th>
                 </tr>
-                <?php AvailableCountries(); ?>
+                <?php AvailableCountries(); //Affiche tous les pays disponibles?>
               </table>
             </div>
         </div>
@@ -67,8 +70,8 @@
       if(isset($_SESSION["info"]))
         showInfErr($_SESSION["info"]);
     ?>
-    <?php require("parts/footer.html"); ?>
+    <?php /*Affiche le footer */ require("parts/footer.html"); ?>
   </body>
-
+  <!-- Load scripts -->
   <script src="scripts/countries.js" defer></script>
 </html>

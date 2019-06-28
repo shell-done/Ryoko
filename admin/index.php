@@ -1,8 +1,13 @@
-<?php require_once("../php/processing/log_admin.php"); ?>
-<?php require_once("../php/parts/head.php");?>
-<?php require_once("../php/processing/utilities.php"); ?>
-<?php require_once("../php/processing/admin-index.php"); ?>
-<?php
+<?php 
+
+  //Ajout des fichiers nécessaires 
+  require_once("../php/processing/log_admin.php"); 
+  require_once("../php/parts/head.php");
+  require_once("../php/processing/utilities.php"); 
+  require_once("../php/processing/admin-index.php"); 
+
+  //Définis les variables si celles-ci ne sont pas définis dans l'URL
+
   if(!isset($_GET["label"]))
     $_GET["label"] = "";
 
@@ -11,14 +16,16 @@
 
   if(!isset($_GET["duration"]))
     $_GET["duration"] = "ALL";
+  
 ?>
 
 <html>
+  <!-- Génere tous les fichiers css nécessaires-->
   <?php generateHead(["index", "navbar", "header", "travel", "footer"]);?>
 
   <body>
-    <?php require("parts/navbar.html"); ?>
-    <?php require("parts/header.html"); ?>
+    <?php /*Affiche la navbar admin */ require("parts/navbar.html"); ?>
+    <?php /*Affiche le header */ require("parts/header.html"); ?>
 
     <div class="research-bar">
       <h2>Ajouter</h2>
@@ -43,7 +50,7 @@
             <div class="form-elements">
               <label for="add-country">Pays :</label>
               <select id="add-country" name="add-country">
-                <?php displayAvailableCountries(); ?>
+                <?php displayAvailableCountries(); //Affiche les pays disponibles?>
               </select>
             </div>
             <div class="form-elements">
@@ -70,14 +77,14 @@
             <label for="search-label">Titre :</label>
             <input list="label-datalist" name="label" placeholder="Tous" value="<?=$_GET['label']?>"/>
             <datalist id="label-datalist">
-              <?php displayAvailableLabels(); ?>
+              <?php displayAvailableLabels(); //Affiche les voyages disponibles selon le titre?>
             </datalist>
           </div>
           <div class="form-inline">
             <label for="search-country">Pays :</label>
             <select name="country" id="search-country">
               <option value='ALL'>Tous</option>
-              <?php displayAvailableCountries();?>
+              <?php displayAvailableCountries(); //Affiche les pays disponibles ?>
             </select>
           </div>
           <div class="form-inline">
@@ -107,18 +114,21 @@
           <div class="results-header">
             <h2>Votre recherche</h2>
             <ul>
-              <?php displayResearchHeader($_GET["country"], $_GET["duration"], $_GET["label"]) ?>
+              <?php displayResearchHeader($_GET["country"], $_GET["duration"], $_GET["label"]) //Affiche les voyages en fonctions du pays et/ou la durée et/ou le titre  ?>
             </ul>
           </div>
 
           <div class="container">
-            <?php displayTravels($_GET["country"], $_GET["duration"], $_GET["label"]); ?>
+            <?php displayTravels($_GET["country"], $_GET["duration"], $_GET["label"]); //Affiche le pop-up du voyage sélectionné?>
           </div>
         </div>
       </div>
     </div>
 
     <?php
+
+      //Affiche le pop ou le désaffiche 
+
       if(isset($_GET["travel"]))
         showPopup($_GET["travel"]);
       else
@@ -127,7 +137,7 @@
       if(isset($_SESSION["info"]))
         showInfErr($_SESSION["info"]);
     ?>
-    <?php require("parts/footer.html"); ?>
+    <?php /*Affiche le footer */ require("parts/footer.html"); ?>
   </body>
 
   <!-- Load scripts -->

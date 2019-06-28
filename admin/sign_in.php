@@ -1,11 +1,16 @@
 <?php
     const ADMIN_LOGIN = "admin";
     const ADMIN_PASSWORD = "ryokoAdmin";
+
+    //Ajout des fichiers nécessaires 
     require_once("../php/parts/head.php");
 
     session_start();
 
     $error = "";
+
+    //Vérifie le mot de passe et le login de l'admin 
+    //Affiche la page index.php ou une erreur
     if(isset($_POST["submit"])) {
       if($_POST["login"] == ADMIN_LOGIN && $_POST["password"] == ADMIN_PASSWORD) {
         $_SESSION["admin"] = "ok";
@@ -19,6 +24,7 @@
 ?>
 
 <html>
+  <!-- Génere tous les fichiers css nécessaires-->
   <?php generateHead(["sign_in", "footer"]); ?>
 
   <body>
@@ -49,7 +55,7 @@
       </div>
     </div>
 
-    <?php require("parts/footer.html"); ?>
+    <?php /*Affiche le footer */ require("parts/footer.html"); ?>
   </body>
 
 </html>

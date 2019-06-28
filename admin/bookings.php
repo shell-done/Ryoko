@@ -1,4 +1,5 @@
 <?php
+  //Ajout des fichiers nécessaires 
   require_once("../php/processing/log_admin.php");
   require_once("../php/parts/head.php");
   require_once("../php/processing/utilities.php");
@@ -6,11 +7,12 @@
 ?>
 
 <html>
+  <!-- Génere tous les fichiers css nécessaires-->
   <?php generateHead(["index", "navbar", "header", "bookings","footer"]);?>
 
   <body>
-    <?php require("parts/navbar.html"); ?>
-    <?php require("parts/header.html"); ?>
+    <?php /*Affiche la navbar admin */ require("parts/navbar.html"); ?>
+    <?php /*Affiche le header */ require("parts/header.html"); ?>
 
     <div class="container">
         <div class="results-box">
@@ -36,7 +38,7 @@
                   <th>Coût total</th>
                   <th>Validation</th>
                 </tr>
-                <?php DisplayBookings(); ?>
+                <?php DisplayBookings(); //Affiche tous les réservations ?>
               </table>
             </div>
         </div>
@@ -53,8 +55,8 @@
       if(isset($_SESSION["info"]))
         showInfErr($_SESSION["info"]);
     ?>
-    <?php require("parts/footer.html"); ?>
+    <?php /*Affiche le footer */ require("parts/footer.html"); ?>
   </body>
-
+  <!-- Load scripts -->
   <script src="scripts/bookings.js" defer></script>
 </html>
