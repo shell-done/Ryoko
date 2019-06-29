@@ -9,8 +9,7 @@ L’agence de voyages souhaite avoir à la fois un front (partie accessible aux
 clients) et un back (partie réservée à l’administration du site).
 
 ### Installation
-
-Le projet nécessite que les logiciels apache 2, php et MySQL soient correctement installés. On considère être sur un système d'exploitation linux Debian.
+Le projet nécessite que les logiciels apache 2, php 7 et MySQL soient correctement installés. On considère être sur un système d'exploitation linux Debian.
 
 1. Déplacer le contenu de ce dossier (fichiers au même niveau que le readme) dans le répertoire désiré.
 	 Pour la suite de l'installation, on appelera ce répertoire [PROJECT].
@@ -101,4 +100,3 @@ Afin de vérifier le bon fonctionnement du site, il est possible d'y ajouter des
 Les identifiants pour accéder à la partie administrateur sont :
  - Login : admin
  - Mot de passe : ryokoAdmin
- 
