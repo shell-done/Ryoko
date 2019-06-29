@@ -18,49 +18,49 @@ Le projet nécessite que les logiciels apache 2, php 7 et MySQL soient correctem
 1. Deux VirtualHosts doivent être ajoutés afin de permettre l'accès aux parties front et back
 	 Voici le fichier de configuration d'apache à mettre en place.
 
-	  ```
-		Listen 80
+	```
+  Listen 80
 
-		NameVirtualHost *:80
+	NameVirtualHost *:80
 
-		<VirtualHost *:80>
-			ServerName www.monsitedevoyage.groupe11.isen
+	<VirtualHost *:80>
+		ServerName www.monsitedevoyage.groupe11.isen
 
-			ServerAdmin alexandre.thomas@isen-ouest.yncrea.fr
-			DocumentRoot [PROJECT]/user
-			DirectoryIndex index.php
+		ServerAdmin alexandre.thomas@isen-ouest.yncrea.fr
+		DocumentRoot [PROJECT]/user
+		DirectoryIndex index.php
 
-			Alias /travels [PROJECT]/travels
-			<Directory "[PROJECT]/travels">
-				Options Indexes FollowSymLinks MultiViews
-				AllowOverride None
-				Order allow,deny
-				Allow from all
-			</Directory>
+		Alias /travels [PROJECT]/travels
+		<Directory "[PROJECT]/travels">
+			Options Indexes FollowSymLinks MultiViews
+			AllowOverride None
+			Order allow,deny
+			Allow from all
+		</Directory>
 
-			ErrorLog ${APACHE_LOG_DIR}/error.log
-			CustomLog ${APACHE_LOG_DIR}/access.log combined
-		</VirtualHost>
+		ErrorLog ${APACHE_LOG_DIR}/error.log
+		CustomLog ${APACHE_LOG_DIR}/access.log combined
+	</VirtualHost>
 
-		<VirtualHost *:80>
-			ServerName admin.monsitedevoyage.groupe11.isen
+	<VirtualHost *:80>
+		ServerName admin.monsitedevoyage.groupe11.isen
 
-			ServerAdmin alexandre.thomas@isen-ouest.yncrea.fr
-			DocumentRoot [PROJECT]/admin
-			DirectoryIndex index.php
+		ServerAdmin alexandre.thomas@isen-ouest.yncrea.fr
+		DocumentRoot [PROJECT]/admin
+		DirectoryIndex index.php
 
-			Alias /travels [PROJECT]/travels
-			<Directory "[PROJECT]/travels">
-				Options Indexes FollowSymLinks MultiViews
-				AllowOverride None
-				Order allow,deny
-				Allow from all
-			</Directory>
+		Alias /travels [PROJECT]/travels
+		<Directory "[PROJECT]/travels">
+			Options Indexes FollowSymLinks MultiViews
+			AllowOverride None
+			Order allow,deny
+			Allow from all
+		</Directory>
 
-			ErrorLog ${APACHE_LOG_DIR}/error.log
-			CustomLog ${APACHE_LOG_DIR}/access.log combined
-		</VirtualHost>
-	  ```
+		ErrorLog ${APACHE_LOG_DIR}/error.log
+		CustomLog ${APACHE_LOG_DIR}/access.log combined
+	</VirtualHost>
+	 ```
 
 	 Cette configuration redirige les requêtes vers le front et le back aux fichiers php respectifs. De plus, l'alias
 	 permet de rendre accessible le dossier travels/ depuis les deux côtés.
