@@ -60,7 +60,7 @@ Le projet nécessite que les logiciels apache 2, php 7 et MySQL soient correctem
 		ErrorLog ${APACHE_LOG_DIR}/error.log
 		CustomLog ${APACHE_LOG_DIR}/access.log combined
 	</VirtualHost>
-	 ```
+	```
 
 	 Cette configuration redirige les requêtes vers le front et le back aux fichiers php respectifs. De plus, l'alias
 	 permet de rendre accessible le dossier travels/ depuis les deux côtés.
